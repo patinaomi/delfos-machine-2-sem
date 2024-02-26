@@ -9,65 +9,87 @@ public class Menu {
     LocalDateTime dataHoraAtual = LocalDateTime.now();
     DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     String dataHoraFormatada = dataHoraAtual.format(formatador);
-    Scanner input = new Scanner(System.in);
-
-    boolean sair = false;
-    int opcao;
-
     CatalogoProdutos catalogoProdutos = new CatalogoProdutos();
-
     ArrayList<Produto> produtos = new ArrayList<Produto>();
+    Scanner input = new Scanner(System.in);
+    boolean sair = false;
+    private int opcao;
 
+    //getters & setters
+    public int getOpcao() {
+        return opcao;
+    }
 
+    public void setOpcao(int opcao) {
+        this.opcao = opcao;
+    }
+
+    //métodos
+    public void menuProdutos() {
+        while(!sair) {
+            System.out.println("\n======= ESTOQUE PRODUTOS =======");
+            System.out.println("|    [1] Cadastrar Produto     |");
+            System.out.println("|    [2] Buscar Produto        |");
+            System.out.println("|    [3] Listar Produto        |");
+            System.out.println("|    [4] Deletar Produto       |");
+            System.out.println("|    [5] Menu Principal        |");
+            System.out.println("|    [0] Sair do Programa      |");
+            System.out.println("=================================");
+            System.out.print("Digite uma opção: ");
+            opcao = input.nextInt();
+            switch (opcao) {
+                case 1:
+                    //Cadastrar Produto (código, descrição e preço unitário)
+                    catalogoProdutos.cadastrarProduto();
+                    break;
+                case 2:
+                    //Buscar Produto do Estoque
+                    catalogoProdutos.buscarProduto();
+                    break;
+                case 3:
+                    // Impressão de Produtos Cadastrados
+                    catalogoProdutos.listarProdutos();
+                    break;
+                case 4:
+                    //Deletar Produto do Estoque
+                    catalogoProdutos.deletarProduto();
+                case 5:
+                    executarMenu();
+
+                case 0:
+                    sair = true;
+                    break;
+                default:
+                    System.out.println("Opção Inválida, digite novamente");
+            }
+        }
+    }
+
+    public void menuComanda() {
+
+    }
     public void executarMenu() {
 
         while(!sair) {
             System.out.println("===== PANIFICADORA DA PATI =====");
-            System.out.println("|   [1] Cadastrar Produtos      |");
-            System.out.println("|   [2] Editar Produtos         |");
-            System.out.println("|   [3] Listar Produtos         |");
-            System.out.println("|   [4] Deletar Produtos        |");
-
-            System.out.println("|   [5] Registrar Produto na Comanda |");
-            System.out.println("|   [6] Finalizar Compra      |");
-            System.out.println("|   [7] Sair do Programa     |");
+            System.out.println("|      [1] Menu Produtos        |");
+            System.out.println("|      [2] Menu Comanda         |");
+            System.out.println("|      [0] Sair do Programa     |");
             System.out.println("=================================");
             System.out.print("Digite uma opção: ");
             opcao = input.nextInt();
-
             switch (opcao) {
                 case 1:
-                    //Cadastrar Produto (código, descrição e preço unitário)
-
-                    System.out.println("----- Cadastrar Produto -----");
-                    System.out.print("Digite o código do produto: ");
-                    int codProd = input.nextInt();
-                    input.nextLine();
-                    System.out.print("Digite a descrição do produto: ");
-                    String descProd = input.nextLine();
-                    System.out.print("Digite o preço unitário: ");
-                    float precoUn = input.nextFloat();
-
-                    Produto produto = new Produto(codProd, descProd, precoUn);
-                    catalogoProdutos.addProduto(produto);
-
-                    break;
-
-                case 3:
-                    // Listar Produtos Cadastrados
-
-                    System.out.println("----- Visualizar Produtos em Estoque -----");
-                    System.out.println("Quantidade de Produtos: "+ produtos.size());
-                    System.out.println(produtos.get(0));
-                    System.out.println(produtos.get(1));
-
-                    break;
-
-                case 5:
-                    System.out.println("Saindo do Programa...");
+                    menuProdutos();
+                case 2:
+                    menuComanda();
+                case 0:
                     sair = true;
+                    break;
+                default:
+                    System.out.println("Opção Inválida, digite novamente");
             }
-    }
+        }
     }
 
 }

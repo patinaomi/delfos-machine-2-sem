@@ -46,6 +46,6 @@ public class Produto {
     //Impressão de Dados
     @Override
     public String toString() {
-        return "Cod " + getCodigo() + "  -  " + getDescricao() + " R$" + getPrecoUn();
+        return "Cod #" + this.getCodigo() + "  -  " + this.getDescricao() + "  R$" + this.getPrecoUn();
     }
 }
