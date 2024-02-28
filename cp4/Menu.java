@@ -77,8 +77,8 @@ public class Menu {
         while(!sair) {
             System.out.println("\n=======  MENU VENDAS  =======");
             System.out.println("|    [1] Cadastrar Comanda     |");
-            System.out.println("|    [2] Fazer Venda           |");
-            System.out.println("|    [3] Ver Comandas          |");
+            System.out.println("|    [2] Realizar Venda        |");
+            System.out.println("|    [3] Pagar Comanda         |");
             System.out.println("|    [4] Menu Principal        |");
             System.out.println("|    [0] Sair do Programa      |");
             System.out.println("=================================");
@@ -91,7 +91,7 @@ public class Menu {
                     break;
                 case 2:
                     //Fazer Venda
-                   comanda.fazerVenda();
+                   fazerVenda();
 
                     break;
                 case 3:
@@ -133,6 +133,41 @@ public class Menu {
                     System.out.println("Opção Inválida, digite novamente");
             }
         }
+    }
+
+    public void fazerVenda() {
+        System.out.print("Digite o número da comanda: ");
+        int numComanda = input.nextInt();
+        Comanda comandaSelecionada = null;
+
+        // Buscar a comanda pelo número
+        for (Comanda comanda : comanda.getComandas()) {
+            if (comanda.getNumComanda() == numComanda) {
+                comandaSelecionada = comanda;
+                break;
+            }
+        }
+
+        if (comandaSelecionada == null) {
+            System.out.println("Comanda não encontrada.");
+            return;
+        }
+
+        System.out.print("Digite o código do produto: ");
+        int codProd = input.nextInt();
+        Produto produto = catalogoProdutos.buscarProdutoPorCodigo(codProd);
+
+        if (produto == null) {
+            System.out.println("Produto não encontrado.");
+            return;
+        }
+
+        System.out.print("Digite a quantidade: ");
+        int quantidade = input.nextInt();
+
+        // Adiciona o item à comanda
+        comandaSelecionada.adicionarItem(new ItemComanda(produto, quantidade));
+        System.out.println("Produto adicionado à comanda com sucesso.");
     }
 
 

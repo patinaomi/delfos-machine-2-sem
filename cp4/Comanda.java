@@ -42,6 +42,14 @@ public class Comanda {
         this.numComanda = numComanda;
     }
 
+    public ArrayList<Comanda> getComandas() {
+        return comandas;
+    }
+
+    public void setComandas(ArrayList<Comanda> comandas) {
+        this.comandas = comandas;
+    }
+
     //Metodos
     public void cadastrarComanda() {
         System.out.println("----- Cadastrar Comanda -----");
@@ -54,46 +62,61 @@ public class Comanda {
         System.out.println("------------------------------");
     }
 
+    public double calcularValorTotalComanda() {
+        double valorTotal = 0;
+        for (ItemComanda item : itensComanda) {
+            valorTotal += item.calcularValorItem();
+        }
+        return valorTotal;
+    }
+
+
     public void pagarComanda() {
         System.out.println("----- Pagamento Comandas -----");
         if (comandas.isEmpty()) {
-            System.out.println("Não há comandas. ");
+            System.out.println("Não há comandas.");
         } else {
             System.out.print("Digite o código da comanda: ");
             int cod = input.nextInt();
+            boolean comandaEncontrada = false;
+
             for (Comanda comanda : comandas) {
                 if (comanda.getNumComanda() == cod) {
-                    System.out.println("MOSTRAR PAGAMENTO");
-                } else {
-                    System.out.println("Comanda Não Encontrada");
+                    comandaEncontrada = true;
+                    System.out.println("Comanda Nº: " + comanda.getNumComanda());
+                    System.out.println("Data/Hora: " + comanda.dataHoraFormatada);
+                    System.out.println("Itens da Comanda:");
 
+                    // Exibe os itens da comanda
+                    if (comanda.itensComanda.isEmpty()) {
+                        System.out.println("Nenhum item registrado nesta comanda.");
+                    } else {
+                        for (ItemComanda item : comanda.itensComanda) {
+                            System.out.println("- Produto: " + item.getProduto().getDescricao() +
+                                    ", Quantidade: " + item.getQtd() +
+                                    ", Preço Unitário: R$" + item.getProduto().getPrecoUn() +
+                                    ", Subtotal: R$" + item.calcularValorItem());
+                        }
+
+                        // Se quiser exibir o valor total da comanda aqui, você pode adicionar:
+                        double valorTotal = comanda.calcularValorTotalComanda();
+                        System.out.println("Valor Total da Comanda: R$" + valorTotal);
+                    }
+                    break; // Sai do loop após encontrar e processar a comanda
                 }
+            }
+
+            if (!comandaEncontrada) {
+                System.out.println("Comanda Não Encontrada");
             }
         }
         System.out.println("------------------------------");
     }
 
-    public void fazerVenda() {
-        System.out.println("----- Realizar Venda -----");
-        if (comandas.isEmpty()) {
-            System.out.println("Não há comandas. ");
-        } else {
-                System.out.print("Digite o código da comanda: ");
-                int cod = input.nextInt();
-            for (Comanda comanda : comandas) {
-                if (comanda.getNumComanda() == cod) {
-                    System.out.print("Digite o código do produto: ");
-                    int codProd = input.nextInt();
-                    for (Produto produto : produtos) {
-                        if (produto.getCodigo() == codProd) {
-                            System.out.println("Produto " + produto.getDescricao() + " ACHOU.");
-                        }
-                    }
-                }
-            }
 
 
-        }
+    public void adicionarItem(ItemComanda item) {
+        this.itensComanda.add(item);
     }
         public String toString () {
             return "Cod #" + this.numComanda + "  -  " + this.dataHoraFormatada;
