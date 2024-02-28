@@ -145,7 +145,7 @@ public class Menu {
         }
 
         if (comandaEscolhida == null) {
-            System.out.println("Comanda não encontrada.");
+            System.out.println("Comanda não encontrada");
             return;
         }
 
@@ -154,7 +154,7 @@ public class Menu {
         Produto produto = catalogoProdutos.buscarProdutoPorCodigo(codProd);
 
         if (produto == null) {
-            System.out.println("Produto não encontrado.");
+            System.out.println("Produto não encontrado");
             return;
         }
 
@@ -162,12 +162,6 @@ public class Menu {
         int quantidade = input.nextInt();
 
         comandaEscolhida.adicionarItem(new ItemComanda(produto, quantidade));
-        System.out.println("Produto adicionado na comanda.");
+        System.out.println("Produto adicionado na comanda");
     }
-
-
-
-
-
-
 }

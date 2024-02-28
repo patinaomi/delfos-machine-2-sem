@@ -13,7 +13,6 @@ public class CatalogoProdutos {
         this.produtos = new ArrayList<>();
     }
 
-
     public void cadastrarProduto() {
         System.out.println("----- Cadastrar Produto -----");
         System.out.print("Digite o código do produto: ");

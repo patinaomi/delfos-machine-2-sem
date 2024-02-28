@@ -1,10 +1,8 @@
 package cp4;
 
 public class ItemComanda {
-
     private Produto produto = new Produto();
     private int qtd;
-
 
 
     //Construtor
