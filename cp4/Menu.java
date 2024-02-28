@@ -7,9 +7,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Menu {
-        LocalDateTime dataHoraAtual = LocalDateTime.now();
-        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        String dataHoraFormatada = dataHoraAtual.format(formatador);
+    LocalDateTime dataHoraAtual = LocalDateTime.now();
+    DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    String dataHoraFormatada = dataHoraAtual.format(formatador);
 
     Comanda comanda = new Comanda();
     ArrayList<Produto> produtos = new ArrayList<Produto>();
@@ -76,29 +76,26 @@ public class Menu {
 
         while(!sair) {
             System.out.println("\n=======  MENU VENDAS  =======");
-            System.out.println("|    [1] Registrar Vendas       |");
-            System.out.println("|    [2] Pagamento da Comanda  |");
-            System.out.println("|    [3] TESTEmanda  |");
-
-            System.out.println("|    [3] Menu Principal        |");
+            System.out.println("|    [1] Cadastrar Comanda     |");
+            System.out.println("|    [2] Fazer Venda           |");
+            System.out.println("|    [3] Ver Comandas          |");
+            System.out.println("|    [4] Menu Principal        |");
             System.out.println("|    [0] Sair do Programa      |");
             System.out.println("=================================");
             System.out.print("Digite uma opção: ");
             opcao = input.nextInt();
             switch (opcao) {
                 case 1:
-                    //Registrar nova comanda do cliente
-                    comanda.registrarItem(catalogoProdutos);
-
-
+                    //Cadastrar Comanda
+                    comanda.cadastrarComanda();
                     break;
                 case 2:
-                    //Pagamento da Comanda
-                    comanda.imprimirComanda();
+                    //Fazer Venda
+                   // comanda.fazerVenda();
 
                     break;
                 case 3:
-                    comanda.novaComanda();
+                    comanda.pagarComanda();
                 case 4:
                     //Volta ao menu principal
                     executarMenu();

@@ -32,83 +32,46 @@ public class Comanda {
 
     // Getters & Setters
 
-
-
-    public void registrarItem(CatalogoProdutos catalogoProdutos) {
-        System.out.println("Digite o número da comanda:");
-        numComanda = input.nextInt();
-        for (Comanda comanda : comandas) {
-            if (comanda.getNumComanda() == numComanda) {
-                System.out.print("Digite o código do produto: ");
-                int codProd = input.nextInt();
-                System.out.print("Digite a quantidade do produto: ");
-                int qtdProd = input.nextInt();
-            } else {
-                System.out.println("Não foi encontrado comanda");
-            }
-        }
-    }
-
-
-    public void novaComanda() {
-        System.out.println("Escolha uma opção: [1] Criar nova comanda [2] Adicionar item a comanda existente");
-        int opcao = input.nextInt();
-        switch (opcao) {
-            case 1:
-                // Cria nova comanda e adiciona à lista
-                int numComanda = 10 + (int) (Math.random() * 90);
-                Comanda novaComanda = new Comanda(dataHoraFormatada, numComanda); // Ajustado para usar o novo construtor
-                comandas.add(novaComanda);
-                System.out.println("Nova comanda criada. Número da comanda: " + novaComanda.getNumComanda());
-                break;
-            case 2:
-                System.out.println("Digite o número da comanda:");
-                numComanda = input.nextInt();
-                for (Comanda comanda : comandas) {
-                    if (comanda.getNumComanda() == numComanda) {
-                        comanda.registrarItem(catalogoProdutos);
-                        return;
-                    }
-                }
-                System.out.println("Comanda não encontrada.");
-                break;
-            default:
-                System.out.println("Opção inválida.");
-                break;
-        }
-    }
-
-
-    public void imprimirComanda() {
-        System.out.println("Digite o número da comanda:");
-        numComanda = input.nextInt();
-
-        for (Comanda comanda : comandas) {
-            if (comanda.getNumComanda() == numComanda) {
-                comanda.registrarItem(catalogoProdutos);
-                return;
-            }
-
-        System.out.println("Comanda Nº: " + numComanda + " Data/Hora: " + dataHoraFormatada);
-        for (ItemComanda item : itensComanda) {
-            System.out.println("- Produto: " + item.getProduto().getDescricao() + ", Quantidade: " + item.getQtd() + ", Subtotal: " + item.calcularValorItem());
-        }
-        System.out.println("Valor Total: " + calcularValorTotalComanda());
-    }
-
-    public double calcularValorTotalComanda() {
-        double valorTotal = 0;
-        for (ItemComanda item : this.itensComanda) {
-            valorTotal += item.calcularValorItem(); // Usa o método calcularValorItem de cada item
-        }
-        return valorTotal;
-    }
-
     public int getNumComanda() {
         return numComanda;
     }
 
     public void setNumComanda(int numComanda) {
         this.numComanda = numComanda;
+    }
+
+    //Metodos
+    public void cadastrarComanda() {
+        System.out.println("----- Cadastrar Comanda -----");
+        System.out.print("Digite o código da comanda: ");
+        int codComanda = input.nextInt();
+        input.nextLine();
+        Comanda comanda = new Comanda(dataHoraFormatada, codComanda);
+        comandas.add(comanda);
+        System.out.println("Comanda Criada: " + comanda.getNumComanda());
+        System.out.println("------------------------------");
+    }
+
+    public void pagarComanda() {
+        System.out.println("----- Visualizar Comandas -----");
+        if(comandas.isEmpty()) {
+            System.out.println("Não há comandas. ");
+        } else {
+            for(Comanda comanda : comandas) {
+                System.out.print("Digite o código da comanda: ");
+                int cod = input.nextInt();
+                if(comanda.getNumComanda() == cod) {
+                    System.out.println("MOSTRAR PAGAMENTO");
+                } else {
+                    System.out.println("Comanda Não Encontrada");
+
+                    }
+        }
+        }
+        System.out.println("------------------------------");
+    }
+
+    public String toString() {
+        return "Cod #" + this.numComanda + "  -  " + this.dataHoraFormatada;
     }
 }
