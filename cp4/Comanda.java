@@ -5,6 +5,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Representa uma comanda na Panificadora Fiapão, mantendo um registro dos itens
+ * consumidos e o total a ser pago.
+ *
+ * @author Patricia Naomi, Igor Gabriel
+ * @version 1.0
+ */
+
 public class Comanda {
     LocalDateTime dataHoraAtual = LocalDateTime.now();
     DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
@@ -16,19 +24,25 @@ public class Comanda {
     Scanner input = new Scanner(System.in);
 
 
-    // Construtores
-
+    /**
+     * Construtor padrão para criar uma comanda vazia.
+     */
     public Comanda() {
 
     }
 
+    /**
+     * Construtor para criar uma comanda com data, hora e número específicos.
+     *
+     * @param dataHoraFormatada A data e hora da criação da comanda.
+     * @param numComanda O número identificador da comanda.
+     */
     public Comanda(String dataHoraFormatada, int numComanda) {
         this.dataHoraFormatada = formatador.format(dataHoraAtual);
         this.numComanda = numComanda;
     }
 
     // Getters
-
     public int getNumComanda() {
         return numComanda;
     }
@@ -39,7 +53,11 @@ public class Comanda {
     }
 
 
-    //Metodos
+    //MÉTODOS
+
+    /**
+     * Cadastra uma nova comanda no sistema, solicitando ao usuário o código da comanda.
+     */
     public void cadastrarComanda() {
         System.out.println("----- Cadastrar Comanda -----");
         System.out.print("Digite o código da comanda: ");
@@ -51,6 +69,10 @@ public class Comanda {
         System.out.println("------------------------------");
     }
 
+    /**
+     * Calcula o valor total dos itens na comanda.
+     * @return O valor total da comanda.
+     */
     public double calcularValorTotalComanda() {
         double valorTotal = 0;
         for (ItemComanda item : itensComanda) {
@@ -59,7 +81,9 @@ public class Comanda {
         return valorTotal;
     }
 
-
+    /**
+     * Processa o pagamento da comanda, listando os itens consumidos e o total a ser pago.
+     */
     public void pagarComanda() {
         System.out.println("----- Pagamento Comanda -----");
         if (comandas.isEmpty()) {
@@ -98,11 +122,18 @@ public class Comanda {
         System.out.println("------------------------------");
     }
 
-
+    /**
+     * Adiciona um item à comanda.
+     * @param item O item a ser adicionado à comanda.
+     */
     public void adicionarItem(ItemComanda item) {
         this.itensComanda.add(item);
     }
 
+    /**
+     * Retorna uma representação em String da comanda, incluindo seu número e data/hora de criação.
+     * @return Uma string representando a comanda.
+     */
     public String toString () {
         return "Cod #" + this.numComanda + "  -  " + this.dataHoraFormatada;
     }

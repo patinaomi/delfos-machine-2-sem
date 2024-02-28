@@ -2,17 +2,24 @@ package cp4;
 
 import java.util.Scanner;
 
+/**
+ * Gerencia as interações do usuário com o sistema da Panificadora Fiapão,
+ * permitindo acesso aos menus de produtos e vendas.
+ *
+ * @author Patricia Naomi, Igor Gabriel
+ * @version 1.0
+ */
 
 public class Menu {
+
     Comanda comanda = new Comanda();
     private CatalogoProdutos catalogoProdutos = new CatalogoProdutos();
-
     private Scanner input = new Scanner(System.in);
-    boolean sair = false;
+    private boolean sair = false;
     private int opcao;
 
 
-
+    //Getters & Setters
     public int getOpcao() {
         return opcao;
     }
@@ -21,7 +28,12 @@ public class Menu {
         this.opcao = opcao;
     }
 
-    //métodos
+    //Métodos
+
+    /**
+     * Inicia a execução do menu principal, permitindo ao usuário interagir
+     * com as opções do sistema.
+     */
     public void executarMenu() {
 
         while(!sair) {
@@ -48,6 +60,10 @@ public class Menu {
         }
     }
 
+    /**
+     * Exibe e gerencia o menu de produtos, permitindo ao usuário realizar operações
+     * como cadastrar, buscar, listar e deletar produtos.
+     */
     public void menuProdutos() {
         while(!sair) {
             System.out.println("\n=======  MENU PRODUTOS  =======");
@@ -94,6 +110,10 @@ public class Menu {
         }
     }
 
+    /**
+     * Exibe e gerencia o menu de vendas, permitindo ao usuário realizar operações
+     * como cadastrar comandas, adicionar itens a uma comanda e pagar comandas.
+     */
     public void menuVendas() {
         while(!sair) {
             System.out.println("\n=======   MENU VENDAS   =======");
@@ -134,6 +154,10 @@ public class Menu {
         }
     }
 
+    /**
+     * Permite ao usuário adicionar um produto a uma comanda especificada,
+     * digitando o número da comanda e as informações do produto.
+     */
     public void fazerVenda() {
         System.out.print("Digite o número da comanda: ");
         int numComanda = input.nextInt();

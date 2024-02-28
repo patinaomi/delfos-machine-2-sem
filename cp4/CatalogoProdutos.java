@@ -3,16 +3,34 @@ package cp4;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Gerencia o catálogo de produtos da Panificadora Fiapão.
+ * Esta classe fornece funcionalidades para adicionar, listar, deletar e buscar
+ * produtos no estoque.
+ *
+ * @author Patricia Naomi, Igor Gabriel
+ * @version 1.0
+ */
+
 public class CatalogoProdutos {
     Scanner input = new Scanner(System.in);
     private ArrayList<Produto> produtos;
 
-
-    //Construtor
+    /**
+     * Constrói um catálogo de produtos vazio.
+     */
     public CatalogoProdutos() {
         this.produtos = new ArrayList<>();
     }
 
+
+    //MÉTODOS
+
+    /**
+     * Cadastra um novo produto no catálogo.
+     * Solicita ao usuário o código, a descrição e o preço unitário do produto,
+     * criando um novo produto e adicionando-o ao catálogo.
+     */
     public void cadastrarProduto() {
         System.out.println("----- Cadastrar Produto -----");
         System.out.print("Digite o código do produto: ");
@@ -30,6 +48,11 @@ public class CatalogoProdutos {
         input.nextLine();
     }
 
+    /**
+     * Lista todos os produtos no catálogo.
+     * Imprime as informações de cada produto, incluindo código, descrição e preço.
+     * Se o catálogo estiver vazio, informa ao usuário.
+     */
     public void listarProdutos() {
         System.out.println("----- Listar Produtos -----");
         if(produtos.isEmpty()) {
@@ -43,6 +66,11 @@ public class CatalogoProdutos {
     }
 
 
+    /**
+     * Deleta um produto do catálogo.
+     * Solicita ao usuário o código do produto a ser deletado e remove o produto
+     * correspondente do catálogo. Se o produto não for encontrado, informa ao usuário.
+     */
     public void deletarProduto() {
         System.out.println("----- Deletar Produto -----");
 
@@ -55,18 +83,23 @@ public class CatalogoProdutos {
             for(Produto produto : produtos) {
                 if(produto.getCodigo() == codProd) {
                     produtos.remove(produto);
-                    System.out.println("Produto " + produto.getDescricao() + " removido.");
+                    System.out.println("Produto " + produto.getDescricao() + " removido");
                     produtoDel = true;
                     break;
                 }
             }
             if (!produtoDel) {
-                System.out.println("Produto não encontrado.");
+                System.out.println("Produto não encontrado");
             }
         }
         System.out.println("------------------------------");
     }
 
+    /**
+     * Busca um produto no catálogo pelo seu código.
+     * Solicita ao usuário o código do produto a ser buscado e exibe as informações
+     * do produto encontrado. Se o produto não for encontrado, informa ao usuário.
+     */
     public void buscarProduto() {
         System.out.println("----- Buscar Produto -----");
 
@@ -91,6 +124,13 @@ public class CatalogoProdutos {
         System.out.println("------------------------------");
     }
 
+    /**
+     * Busca um produto no catálogo pelo seu código e retorna o objeto {@link Produto}.
+     * Se nenhum produto com o código fornecido for encontrado, retorna {@code null}.
+     *
+     * @param codigo O código do produto a ser buscado.
+     * @return O produto encontrado ou {@code null} se nenhum produto for encontrado.
+     */
     public Produto buscarProdutoPorCodigo(int codigo) {
         for (Produto produto : produtos) {
             if (produto.getCodigo() == codigo) {
