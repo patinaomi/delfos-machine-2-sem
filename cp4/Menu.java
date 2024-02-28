@@ -91,7 +91,7 @@ public class Menu {
                     break;
                 case 2:
                     //Fazer Venda
-                   // comanda.fazerVenda();
+                   comanda.fazerVenda();
 
                     break;
                 case 3:

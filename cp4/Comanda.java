@@ -11,6 +11,7 @@ public class Comanda {
     String dataHoraFormatada = dataHoraAtual.format(formatador);
     private ArrayList<ItemComanda> itensComanda = new ArrayList<ItemComanda>();
 
+    private ArrayList<Produto> produtos;
     private CatalogoProdutos catalogoProdutos = new CatalogoProdutos();
 
     private int numComanda;
@@ -25,6 +26,7 @@ public class Comanda {
     public Comanda() {
 
     }
+
     public Comanda(String dataHoraFormatada, int numComanda) {
         this.dataHoraFormatada = formatador.format(dataHoraAtual);
         this.numComanda = numComanda;
@@ -53,25 +55,48 @@ public class Comanda {
     }
 
     public void pagarComanda() {
-        System.out.println("----- Visualizar Comandas -----");
-        if(comandas.isEmpty()) {
+        System.out.println("----- Pagamento Comandas -----");
+        if (comandas.isEmpty()) {
             System.out.println("Não há comandas. ");
         } else {
-            for(Comanda comanda : comandas) {
-                System.out.print("Digite o código da comanda: ");
-                int cod = input.nextInt();
-                if(comanda.getNumComanda() == cod) {
+            System.out.print("Digite o código da comanda: ");
+            int cod = input.nextInt();
+            for (Comanda comanda : comandas) {
+                if (comanda.getNumComanda() == cod) {
                     System.out.println("MOSTRAR PAGAMENTO");
                 } else {
                     System.out.println("Comanda Não Encontrada");
 
-                    }
-        }
+                }
+            }
         }
         System.out.println("------------------------------");
     }
 
-    public String toString() {
-        return "Cod #" + this.numComanda + "  -  " + this.dataHoraFormatada;
+    public void fazerVenda() {
+        System.out.println("----- Realizar Venda -----");
+        if (comandas.isEmpty()) {
+            System.out.println("Não há comandas. ");
+        } else {
+                System.out.print("Digite o código da comanda: ");
+                int cod = input.nextInt();
+            for (Comanda comanda : comandas) {
+                if (comanda.getNumComanda() == cod) {
+                    System.out.print("Digite o código do produto: ");
+                    int codProd = input.nextInt();
+                    for (Produto produto : produtos) {
+                        if (produto.getCodigo() == codProd) {
+                            System.out.println("Produto " + produto.getDescricao() + " ACHOU.");
+                        }
+                    }
+                }
+            }
+
+
+        }
     }
+        public String toString () {
+            return "Cod #" + this.numComanda + "  -  " + this.dataHoraFormatada;
+        }
 }
+
