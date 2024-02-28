@@ -2,15 +2,17 @@ package cp4;
 
 import java.util.Scanner;
 
+
 public class Menu {
     Comanda comanda = new Comanda();
     private CatalogoProdutos catalogoProdutos = new CatalogoProdutos();
 
-    Scanner input = new Scanner(System.in);
+    private Scanner input = new Scanner(System.in);
     boolean sair = false;
     private int opcao;
 
-    //getters & setters
+
+
     public int getOpcao() {
         return opcao;
     }
@@ -29,8 +31,8 @@ public class Menu {
             System.out.println("|      [0] Sair do Programa     |");
             System.out.println("=================================");
             System.out.print("Digite uma opção: ");
-            opcao = input.nextInt();
-            switch (opcao) {
+            this.setOpcao(input.nextInt());
+            switch (getOpcao()) {
                 case 1:
                     //Abre o menu de produtos (estoque)
                     menuProdutos();
@@ -57,8 +59,8 @@ public class Menu {
             System.out.println("|    [0] Sair do Programa      |");
             System.out.println("=================================");
             System.out.print("Digite uma opção: ");
-            opcao = input.nextInt();
-            switch (opcao) {
+            this.setOpcao(input.nextInt());
+            switch (getOpcao()) {
                 case 1:
                     //Cadastrar Produto no Estoque
                     catalogoProdutos.cadastrarProduto();
@@ -102,8 +104,8 @@ public class Menu {
             System.out.println("|    [0] Sair do Programa      |");
             System.out.println("=================================");
             System.out.print("Digite uma opção: ");
-            opcao = input.nextInt();
-            switch (opcao) {
+            this.setOpcao(input.nextInt());
+            switch (getOpcao()) {
                 case 1:
                     //Cadastrar nova Comanda
                     comanda.cadastrarComanda();
