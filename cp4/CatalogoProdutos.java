@@ -5,13 +5,13 @@ import java.util.Scanner;
 
 public class CatalogoProdutos {
     Scanner input = new Scanner(System.in);
-
     private ArrayList<Produto> produtos;
 
+
+    //Construtor
     public CatalogoProdutos() {
         this.produtos = new ArrayList<>();
     }
-
 
 
     public void cadastrarProduto() {
@@ -32,7 +32,7 @@ public class CatalogoProdutos {
     }
 
     public void listarProdutos() {
-        System.out.println("----- Visualizar Produtos -----");
+        System.out.println("----- Listar Produtos -----");
         if(produtos.isEmpty()) {
             System.out.println("Não há produtos no estoque. ");
         } else {
@@ -95,11 +95,9 @@ public class CatalogoProdutos {
     public Produto buscarProdutoPorCodigo(int codigo) {
         for (Produto produto : produtos) {
             if (produto.getCodigo() == codigo) {
-                return produto; // Retorna o produto se o código corresponder
+                return produto;
             }
         }
-        return null; // Retorna null se nenhum produto com o código fornecido for encontrado
+        return null;
     }
-
-
 }

@@ -17,33 +17,22 @@ public class Produto {
         this.precoUn = precoUn;
     }
 
-    //Getters & Setters
+    //Getters
+
     public int getCodigo() {
         return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
     }
 
     public String getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
     public float getPrecoUn() {
         return precoUn;
     }
 
-    public void setPrecoUn(float precoUn) {
-        this.precoUn = precoUn;
-    }
 
-
-    //Impressão de Dados
+    //toString para formatação dos dados
     @Override
     public String toString() {
         return "Cod #" + this.getCodigo() + "  -  " + this.getDescricao() + "  R$" + this.getPrecoUn();

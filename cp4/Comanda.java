@@ -11,14 +11,9 @@ public class Comanda {
     String dataHoraFormatada = dataHoraAtual.format(formatador);
     private ArrayList<ItemComanda> itensComanda = new ArrayList<ItemComanda>();
 
-    private ArrayList<Produto> produtos;
-    private CatalogoProdutos catalogoProdutos = new CatalogoProdutos();
-
     private int numComanda;
     private ArrayList<Comanda> comandas = new ArrayList<>();
-    private static Scanner input = new Scanner(System.in);
-
-    private ItemComanda ic = new ItemComanda();
+    Scanner input = new Scanner(System.in);
 
 
     // Construtores
@@ -32,23 +27,17 @@ public class Comanda {
         this.numComanda = numComanda;
     }
 
-    // Getters & Setters
+    // Getters
 
     public int getNumComanda() {
         return numComanda;
     }
 
-    public void setNumComanda(int numComanda) {
-        this.numComanda = numComanda;
-    }
 
     public ArrayList<Comanda> getComandas() {
         return comandas;
     }
 
-    public void setComandas(ArrayList<Comanda> comandas) {
-        this.comandas = comandas;
-    }
 
     //Metodos
     public void cadastrarComanda() {
@@ -58,7 +47,7 @@ public class Comanda {
         input.nextLine();
         Comanda comanda = new Comanda(dataHoraFormatada, codComanda);
         comandas.add(comanda);
-        System.out.println("Comanda Criada: " + comanda.getNumComanda());
+        System.out.println("Comanda registrada: Nº" + comanda.getNumComanda());
         System.out.println("------------------------------");
     }
 
@@ -72,7 +61,7 @@ public class Comanda {
 
 
     public void pagarComanda() {
-        System.out.println("----- Pagamento Comandas -----");
+        System.out.println("----- Pagamento Comanda -----");
         if (comandas.isEmpty()) {
             System.out.println("Não há comandas.");
         } else {
@@ -83,26 +72,22 @@ public class Comanda {
             for (Comanda comanda : comandas) {
                 if (comanda.getNumComanda() == cod) {
                     comandaEncontrada = true;
-                    System.out.println("Comanda Nº: " + comanda.getNumComanda());
-                    System.out.println("Data/Hora: " + comanda.dataHoraFormatada);
-                    System.out.println("Itens da Comanda:");
+                    System.out.println("\n------------------------------");
+                    System.out.println(" *****   COMANDA Nº" + comanda.getNumComanda() + "    *****");
+                    System.out.println("Data/Hora  " + comanda.dataHoraFormatada);
+                    System.out.println("\n----    Itens da Comanda    ----");
 
-                    // Exibe os itens da comanda
                     if (comanda.itensComanda.isEmpty()) {
-                        System.out.println("Nenhum item registrado nesta comanda.");
+                        System.out.println("Nenhum item registrado na comanda");
                     } else {
                         for (ItemComanda item : comanda.itensComanda) {
-                            System.out.println("- Produto: " + item.getProduto().getDescricao() +
-                                    ", Quantidade: " + item.getQtd() +
-                                    ", Preço Unitário: R$" + item.getProduto().getPrecoUn() +
-                                    ", Subtotal: R$" + item.calcularValorItem());
+                            System.out.println(item);
                         }
 
-                        // Se quiser exibir o valor total da comanda aqui, você pode adicionar:
                         double valorTotal = comanda.calcularValorTotalComanda();
-                        System.out.println("Valor Total da Comanda: R$" + valorTotal);
+                        System.out.println("\nTotal dos itens:    R$" + String.format("%.2f", valorTotal));
                     }
-                    break; // Sai do loop após encontrar e processar a comanda
+                    break;
                 }
             }
 
@@ -114,12 +99,12 @@ public class Comanda {
     }
 
 
-
     public void adicionarItem(ItemComanda item) {
         this.itensComanda.add(item);
     }
-        public String toString () {
-            return "Cod #" + this.numComanda + "  -  " + this.dataHoraFormatada;
-        }
+
+    public String toString () {
+        return "Cod #" + this.numComanda + "  -  " + this.dataHoraFormatada;
+    }
 }
 
