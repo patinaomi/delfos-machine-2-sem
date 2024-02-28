@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CatalogoProdutos {
-    private ArrayList<Produto> produtos = new ArrayList<Produto>();
     Scanner input = new Scanner(System.in);
+
+    private ArrayList<Produto> produtos;
+
     public CatalogoProdutos() {
-
+        this.produtos = new ArrayList<>();
     }
 
-    public CatalogoProdutos(ArrayList<Produto> produtos) {
-        this.produtos = produtos;
-    }
 
 
     public void cadastrarProduto() {
@@ -34,7 +33,6 @@ public class CatalogoProdutos {
 
     public void listarProdutos() {
         System.out.println("----- Visualizar Produtos -----");
-
         if(produtos.isEmpty()) {
             System.out.println("Não há produtos no estoque. ");
         } else {
@@ -52,15 +50,20 @@ public class CatalogoProdutos {
         if(produtos.isEmpty()) {
             System.out.println("Não há produtos no estoque. ");
         } else {
+            boolean produtoDel = false;
             System.out.print("Digite o código do produto a ser deletado: ");
             int codProd = input.nextInt();
-                for(Produto produto : produtos) {
-                    if(produto.getCodigo() == codProd) {
-                        produtos.remove(produto);
-                        System.out.println("Produto " + produto.getDescricao() + " removido.");
-                        break;
-                    }
+            for(Produto produto : produtos) {
+                if(produto.getCodigo() == codProd) {
+                    produtos.remove(produto);
+                    System.out.println("Produto " + produto.getDescricao() + " removido.");
+                    produtoDel = true;
+                    break;
                 }
+            }
+            if (!produtoDel) {
+                System.out.println("Produto não encontrado.");
+            }
         }
         System.out.println("------------------------------");
     }
@@ -71,16 +74,32 @@ public class CatalogoProdutos {
         if(produtos.isEmpty()) {
             System.out.println("Não há produtos no estoque. ");
         } else {
+            boolean produtoBusca = false;
             System.out.print("Digite o código do produto: ");
             int codProd = input.nextInt();
             for(Produto produto : produtos) {
                 if(produto.getCodigo() == codProd) {
                     System.out.println("Produto Encontrado");
                     System.out.println(produto);
+                    produtoBusca = true;
                     break;
                 }
+            }
+            if (!produtoBusca) {
+                System.out.println("Produto não encontrado.");
             }
         }
         System.out.println("------------------------------");
     }
+
+    public Produto buscarProdutoPorCodigo(int codigo) {
+        for (Produto produto : produtos) {
+            if (produto.getCodigo() == codigo) {
+                return produto; // Retorna o produto se o código corresponder
+            }
+        }
+        return null; // Retorna null se nenhum produto com o código fornecido for encontrado
+    }
+
+
 }

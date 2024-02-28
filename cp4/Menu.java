@@ -1,16 +1,22 @@
 package cp4;
 
+import java.util.ArrayList;
+import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Menu {
-    LocalDateTime dataHoraAtual = LocalDateTime.now();
-    DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-    String dataHoraFormatada = dataHoraAtual.format(formatador);
-    CatalogoProdutos catalogoProdutos = new CatalogoProdutos();
+        LocalDateTime dataHoraAtual = LocalDateTime.now();
+        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String dataHoraFormatada = dataHoraAtual.format(formatador);
+
+    Comanda comanda = new Comanda();
     ArrayList<Produto> produtos = new ArrayList<Produto>();
+
+
+    private CatalogoProdutos catalogoProdutos = new CatalogoProdutos();
+
     Scanner input = new Scanner(System.in);
     boolean sair = false;
     private int opcao;
@@ -27,7 +33,7 @@ public class Menu {
     //métodos
     public void menuProdutos() {
         while(!sair) {
-            System.out.println("\n======= ESTOQUE PRODUTOS =======");
+            System.out.println("\n=======  MENU PRODUTOS  =======");
             System.out.println("|    [1] Cadastrar Produto     |");
             System.out.println("|    [2] Buscar Produto        |");
             System.out.println("|    [3] Listar Produto        |");
@@ -54,6 +60,7 @@ public class Menu {
                     //Deletar Produto do Estoque
                     catalogoProdutos.deletarProduto();
                 case 5:
+                    //Volta ao Menu Principal
                     executarMenu();
 
                 case 0:
@@ -67,21 +74,60 @@ public class Menu {
 
     public void menuComanda() {
 
+        while(!sair) {
+            System.out.println("\n=======  MENU VENDAS  =======");
+            System.out.println("|    [1] Registrar Vendas       |");
+            System.out.println("|    [2] Pagamento da Comanda  |");
+            System.out.println("|    [3] TESTEmanda  |");
+
+            System.out.println("|    [3] Menu Principal        |");
+            System.out.println("|    [0] Sair do Programa      |");
+            System.out.println("=================================");
+            System.out.print("Digite uma opção: ");
+            opcao = input.nextInt();
+            switch (opcao) {
+                case 1:
+                    //Registrar nova comanda do cliente
+                    comanda.registrarItem(catalogoProdutos);
+
+
+                    break;
+                case 2:
+                    //Pagamento da Comanda
+                    comanda.imprimirComanda();
+
+                    break;
+                case 3:
+                    comanda.novaComanda();
+                case 4:
+                    //Volta ao menu principal
+                    executarMenu();
+
+                case 0:
+                    sair = true;
+                    break;
+                default:
+                    System.out.println("Opção Inválida, digite novamente");
+            }
+        }
+
     }
     public void executarMenu() {
 
         while(!sair) {
             System.out.println("===== PANIFICADORA DA PATI =====");
             System.out.println("|      [1] Menu Produtos        |");
-            System.out.println("|      [2] Menu Comanda         |");
+            System.out.println("|      [2] Menu Vendas          |");
             System.out.println("|      [0] Sair do Programa     |");
             System.out.println("=================================");
             System.out.print("Digite uma opção: ");
             opcao = input.nextInt();
             switch (opcao) {
                 case 1:
+                    //Abre o menu de produtos (estoque)
                     menuProdutos();
                 case 2:
+                    //Abre o menu das comandas (vendas)
                     menuComanda();
                 case 0:
                     sair = true;
@@ -91,5 +137,10 @@ public class Menu {
             }
         }
     }
+
+
+
+
+
 
 }
