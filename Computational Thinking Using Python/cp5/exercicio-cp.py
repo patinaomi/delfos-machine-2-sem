@@ -1,3 +1,6 @@
+import random
+
+
 class Animal:
     ult_id = 0
 
@@ -188,28 +191,76 @@ class Baiacu(Peixe):
             return self.nome + ' INFLOUUUUUUU!'
 
 
-# 
-class Peixe(Animal):
-    def __init__(self, nome, idade, cor, sexo, status, tipo_agua):
+# --- REPTÉIS
+class Reptil(Animal):
+    def __init__(self, nome, idade, cor, sexo, status):
         super().__init__(nome, idade, cor, sexo, status)
-        self.tipo_agua = tipo_agua
 
     def movimentar(self):
         if self.status:
-            return self.nome + ' está nadando!'
+            return self.nome + ' está rastejando!'
         else:
             return self.nome + ' já morreu :('
 
     def emitir_som(self):
         if self.status:
-            return 'SPLAAASH SPLAAAAAH'
+            return 'GRRRRAAAAAAAWW'
         else:
             return self.nome + 'já morreu.'
 
     def __str__(self):
-        return super().__str__() + f'Tipo...: {self.__class__.__name__}\nLocal:...: {self.tipo_agua}\n'
+        return super().__str__() + f'Tipo...: {self.__class__.__name__}\n'
 
 
+class Cobra(Reptil):
+    def __init__(self, nome, idade, cor, sexo, status, veneno):
+        super().__init__(nome, idade, cor, sexo, status)
+        self.veneno = veneno
+
+    def emitir_som(self):
+        if self.status:
+            return 'PSSSSS PSSSSSS'
+        else:
+            return self.nome + 'já morreu.'
+
+    def __str__(self):
+        return super().__str__() + f'Veneno ...: {"Venenosa" if self.veneno else "Sem Veneno"}\n'
+
+
+class Jacare(Reptil):
+    def __init__(self, nome, idade, cor, sexo, status):
+        super().__init__(nome, idade, cor, sexo, status)
+
+    def atacar(self):
+        if self.status:
+            return self.nome + ' arrancou a perna de alguém!!'
+        else:
+            return self.nome + 'já morreu.'
+
+
+class Camaleao(Reptil):
+    def __init__(self, nome, idade, cor, sexo, status):
+        super().__init__(nome, idade, cor, sexo, status)
+
+    def movimentar(self):
+        if self.status:
+            return self.nome + ' está andando!'
+        else:
+            return self.nome + ' já morreu :('
+
+    def mudar_cor(self):
+        num = random.randrange(1, 5)
+        if num == 1:
+            nova_cor = 'Azul'
+        elif num == 2:
+            nova_cor = 'Laranja'
+        elif num == 3:
+            nova_cor = 'Roxo'
+        else:
+            nova_cor = 'Multi-Cor'
+
+        self.cor = nova_cor
+        return self.nome + ' mudou de cor para ' + self.cor
 
 
 # Instanciando animais
@@ -218,8 +269,11 @@ gato = Gato('Bernadete', 1, 'Rajadinho', 'F', True, 'Curto', 'SRD')
 macaco = Macaco('Donkey', 6, 'Marrom', 'M', False, 'Curto')
 golfinho = Golfinho('Delphi', 4, 'Cinzinha', 'M', True, 'Não têm')
 tubarao = Tubarao('Cleitinho', 10, 'Cinza', 'M', True, 'Água Salgada')
-piranha = Piranha('LeidyEllin', 4, 'Verde Brilhante', 'F', True, 'Água Doce')
+piranha = Piranha('Tati', 4, 'Verde Brilhante', 'F', True, 'Água Doce')
 baiacu = Baiacu('Pipoka', 8, 'Marrom com Bege', 'M', True, 'Água Doce', False)
+cobra = Cobra('Julinha', 2, 'Laranjinha', 'F', True, True)
+jacare = Jacare('Waguininho', 37, 'Marrom', 'M', True)
+camaleao = Camaleao('Tharso', 3, 'Verde', 'M', True)
 
 # Animal 1
 print(leao)
@@ -260,3 +314,20 @@ print(baiacu)
 print(baiacu.movimentar())
 print(baiacu.emitir_som())
 print(baiacu.inflar())
+
+# Animal 8
+print(cobra)
+print(cobra.movimentar())
+print(cobra.emitir_som())
+
+# Animal 9
+print(jacare)
+print(jacare.movimentar())
+print(jacare.emitir_som())
+print(jacare.atacar())
+
+# Animal 10
+print(camaleao)
+print(camaleao.movimentar())
+print(camaleao.emitir_som())
+print(camaleao.mudar_cor())
