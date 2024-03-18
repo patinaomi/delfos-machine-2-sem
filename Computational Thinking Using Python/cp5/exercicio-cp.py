@@ -1,5 +1,18 @@
 import random
 
+#Crie ao menos 10 classes para representar animais de um zoológico, utilizando os 4 pilares da orientação a objetos:
+#abstração;
+#encapsulação
+# herança;
+# polimorfismo
+# As classes devem conter atributos e métodos coerentes com as características e comportamentos das espécies representadas; 
+
+# Observações:
+# Este exercício vale 2 pontos, para compor a nota do CP2;
+# O CP2 valerá até 8 pontos;
+# O exercício é individual e trabalhos com alto grau de similaridade serão ambos desconsiderados (nota 0);
+# Scripts com auto grau de similaridade com resultados gerados por IA generativa também serão desconsiderados (nota 0);
+# A entrega deve ser realizada em um único arquivo de script Python, com extensão ".py", capaz de executar sem erros pelo terminal (CMD).
 
 class Animal:
     ult_id = 0
