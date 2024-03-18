@@ -131,7 +131,7 @@ class Peixe(Animal):
             return self.nome + ' já morreu.'
 
     def __str__(self):
-        return super().__str__() + f'Tipo...: {self.__class__.__name__}\nLocal: {self.tipo_agua}\n'
+        return super().__str__() + f'Tipo...: {self.__class__.__name__}\nLocal..: {self.tipo_agua}\n'
 
 
 class Tubarao(Peixe):
@@ -207,7 +207,7 @@ class Cobra(Reptil):
             return self.nome + ' já morreu.'
 
     def __str__(self):
-        return super().__str__() + f'Veneno ...: {"Venenosa" if self.veneno else "Sem Veneno"}\n'
+        return super().__str__() + f'Veneno.: {"Letal" if self.veneno else "Não Letal"}\n'
 
 
 class Jacare(Reptil):
