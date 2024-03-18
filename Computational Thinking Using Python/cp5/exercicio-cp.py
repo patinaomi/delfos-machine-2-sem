@@ -4,14 +4,14 @@ import random
 class Animal:
     ult_id = 0
 
-    def __init__(self, nome, idade, cor, sexo, status):
+    def __init__(self, _nome, _idade, _cor, _sexo, _status):
         Animal.ult_id += 1
         self.id = Animal.ult_id
-        self.nome = nome
-        self.idade = idade
-        self.cor = cor
-        self.sexo = sexo
-        self.status = status
+        self.nome = _nome
+        self.idade = _idade
+        self.cor = _cor
+        self.sexo = _sexo
+        self.status = _status
 
     def emitir_som(self):
         pass
@@ -26,14 +26,14 @@ class Animal:
 
 # ----- MAMIFEROS -----
 class Mamifero(Animal):
-    def __init__(self, nome, idade, cor, sexo, status, tipo_do_pelo):
+    def __init__(self, nome, idade, cor, sexo, status, _tipo_do_pelo):
         super().__init__(nome, idade, cor, sexo, status)
-        self.tipo_do_pelo = tipo_do_pelo
+        self.tipo_do_pelo = _tipo_do_pelo
 
     def amamentar(self):
         if self.sexo == 'F':
             if self.status:
-                return 'Amamentando bebêzinho!'
+                return 'Amamentando bebezinho!'
             else:
                 return 'Ela já morreu :('
         else:
@@ -51,13 +51,13 @@ class Leao(Mamifero):
         if self.status:
             return 'RWAAAAAAAAAAR!'
         else:
-            return self.nome + 'está morto'
+            return self.nome + ' está morto.'
 
     def movimentar(self):
         if self.status:
             return self.nome + ' está caçando!'
         else:
-            return self.nome + 'está morto'
+            return self.nome + ' está morto.'
 
 
 class Macaco(Mamifero):
@@ -78,38 +78,21 @@ class Macaco(Mamifero):
 
 
 class Gato(Mamifero):
-    def __init__(self, nome, idade, cor, sexo, status, tipo_do_pelo, raca):
+    def __init__(self, nome, idade, cor, sexo, status, tipo_do_pelo, _raca):
         super().__init__(nome, idade, cor, sexo, status, tipo_do_pelo)
-        self.raca = raca
+        self.raca = _raca
 
     def emitir_som(self):
         if self.status:
             return 'NYAAAN NYAAAN =ˆ.ˆ='
         else:
-            return self.nome + 'já morreu.'
+            return self.nome + ' já morreu.'
 
     def movimentar(self):
         if self.status:
-            return self.nome + ' está brincando!'
+            return self.nome + ' está brincando com seu ratinho!'
         else:
-            return self.nome + 'já morreu.'
-
-
-class Leao(Mamifero):
-    def __init__(self, nome, idade, cor, sexo, status, tipo_do_pelo):
-        super().__init__(nome, idade, cor, sexo, status, tipo_do_pelo)
-
-    def emitir_som(self):
-        if self.status:
-            return 'RWAAAAAAAAAAR!'
-        else:
-            return self.nome + 'está morto'
-
-    def movimentar(self):
-        if self.status:
-            return self.nome + ' está caçando!'
-        else:
-            return self.nome + 'está morto'
+            return self.nome + ' já morreu.'
 
 
 class Golfinho(Mamifero):
@@ -120,20 +103,20 @@ class Golfinho(Mamifero):
         if self.status:
             return 'AAAAAN AAAAN AAAAAAAN'
         else:
-            return self.nome + 'está morto'
+            return self.nome + ' está morto.'
 
     def movimentar(self):
         if self.status:
             return self.nome + ' está pulando no Sea Park!'
         else:
-            return self.nome + 'está morto'
+            return self.nome + ' está morto.'
 
 
 # ----- PEIXES -----
 class Peixe(Animal):
-    def __init__(self, nome, idade, cor, sexo, status, tipo_agua):
+    def __init__(self, nome, idade, cor, sexo, status, _tipo_agua):
         super().__init__(nome, idade, cor, sexo, status)
-        self.tipo_agua = tipo_agua
+        self.tipo_agua = _tipo_agua
 
     def movimentar(self):
         if self.status:
@@ -145,10 +128,10 @@ class Peixe(Animal):
         if self.status:
             return 'SPLAAASH SPLAAAAAH'
         else:
-            return self.nome + 'já morreu.'
+            return self.nome + ' já morreu.'
 
     def __str__(self):
-        return super().__str__() + f'Tipo...: {self.__class__.__name__}\nLocal:...: {self.tipo_agua}\n'
+        return super().__str__() + f'Tipo...: {self.__class__.__name__}\nLocal: {self.tipo_agua}\n'
 
 
 class Tubarao(Peixe):
@@ -176,17 +159,17 @@ class Piranha(Peixe):
         if self.status:
             return 'OII VIDAA, ME PAGA UM COMBO???? ;)'
         else:
-            return self.nome + 'já morreu.'
+            return self.nome + ' já morreu.'
 
 
 class Baiacu(Peixe):
-    def __init__(self, nome, idade, cor, sexo, status, tipo_agua, inflado):
+    def __init__(self, nome, idade, cor, sexo, status, tipo_agua, _inflado):
         super().__init__(nome, idade, cor, sexo, status, tipo_agua)
-        self.inflado = inflado
+        self.inflado = _inflado
 
     def inflar(self):
         if self.inflado:
-            return self.nome + ' já está inflado'
+            return self.nome + ' já está inflado.'
         else:
             return self.nome + ' INFLOUUUUUUU!'
 
@@ -206,22 +189,22 @@ class Reptil(Animal):
         if self.status:
             return 'GRRRRAAAAAAAWW'
         else:
-            return self.nome + 'já morreu.'
+            return self.nome + ' já morreu.'
 
     def __str__(self):
         return super().__str__() + f'Tipo...: {self.__class__.__name__}\n'
 
 
 class Cobra(Reptil):
-    def __init__(self, nome, idade, cor, sexo, status, veneno):
+    def __init__(self, nome, idade, cor, sexo, status, _veneno):
         super().__init__(nome, idade, cor, sexo, status)
-        self.veneno = veneno
+        self.veneno = _veneno
 
     def emitir_som(self):
         if self.status:
             return 'PSSSSS PSSSSSS'
         else:
-            return self.nome + 'já morreu.'
+            return self.nome + ' já morreu.'
 
     def __str__(self):
         return super().__str__() + f'Veneno ...: {"Venenosa" if self.veneno else "Sem Veneno"}\n'
@@ -233,9 +216,9 @@ class Jacare(Reptil):
 
     def atacar(self):
         if self.status:
-            return self.nome + ' arrancou a perna de alguém!!'
+            return self.nome + ' arrancou a perna de algum aluno!!'
         else:
-            return self.nome + 'já morreu.'
+            return self.nome + ' já morreu.'
 
 
 class Camaleao(Reptil):
@@ -267,12 +250,12 @@ class Camaleao(Reptil):
 leao = Leao('Simba', 3, 'Begezinho', 'M', True, 'Longo')
 gato = Gato('Bernadete', 1, 'Rajadinho', 'F', True, 'Curto', 'SRD')
 macaco = Macaco('Donkey', 6, 'Marrom', 'M', False, 'Curto')
-golfinho = Golfinho('Delphi', 4, 'Cinzinha', 'M', True, 'Não têm')
+golfinho = Golfinho('Delphi', 4, 'Cinzinha', 'M', True, 'Não tem')
 tubarao = Tubarao('Cleitinho', 10, 'Cinza', 'M', True, 'Água Salgada')
 piranha = Piranha('Tati', 4, 'Verde Brilhante', 'F', True, 'Água Doce')
 baiacu = Baiacu('Pipoka', 8, 'Marrom com Bege', 'M', True, 'Água Doce', False)
 cobra = Cobra('Julinha', 2, 'Laranjinha', 'F', True, True)
-jacare = Jacare('Waguininho', 37, 'Marrom', 'M', True)
+jacare = Jacare('Waguininho', 35, 'Marrom', 'M', True)
 camaleao = Camaleao('Tharso', 3, 'Verde', 'M', True)
 
 # Animal 1
