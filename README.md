@@ -4,7 +4,7 @@
 # Challenge Odontoprev 
 <p align="center">  <img loading="lazy" src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge"/>  </p>
 
-Repositório criado para a organização e hospedagem dos projetos de Challenge da FIAP, correspondente as sprint 1 e 2 do 3º semestre do curso de Análise e Desenvolvimento de Sistemas.
+Repositório criado para a organização e hospedagem dos projetos de Challenge da FIAP, correspondente as sprint 3 e 4 do 4º semestre do curso de Análise e Desenvolvimento de Sistemas.
 
 ## Índice
  * [Challenge Odontoprev](#challenge-odontoprev)
@@ -30,24 +30,24 @@ O desafio proposto é voltado para a Redução de Sinistros por meio da Análise
 
 ## 🚩 Solução Apresentada
 
-Nosso objetivo é reduzir os altos custos de sinistros, sem evitar consultas, mas sim prevenindo consultas de valores elevados e fora do comum. Ao incentivar consultas preventivas, economizaremos recursos e diminuiremos a necessidade de atendimentos emergenciais.
+Nosso objetivo é reduzir os altos custos de sinistros, não evitando consultas, mas incentivando atendimentos preventivos para minimizar procedimentos de alto valor e fora do padrão. Ao estimular a realização de consultas regulares, otimizamos recursos e diminuímos a necessidade de intervenções emergenciais.
 
-Nosso modelo vai sugerir consultas ao cliente com base em suas preferências de atendimento, como local, data, horário, com especialistas que possuem qualidade acima de nota 4 e com custos baixos. Iremos treinar a IA para procurar o cliente primeiro, ao invés de esperar que ele nos procure com problemas maiores.
+Nosso modelo de IA irá sugerir consultas personalizadas para cada cliente, considerando suas preferências, como localização, data, horário e especialistas com avaliações superiores a 4 estrelas e custos acessíveis. Em vez de aguardar que o cliente busque atendimento diante de um problema mais grave, a IA atuará proativamente, oferecendo opções preventivas.
 
-Por exemplo, se uma pessoa realiza limpezas e radiografias ósseas a cada 5 ou 6 meses, pode evitar extrações devido a cuidados bucais inadequados, que podem custar cerca de dois mil reais. Em nosso cenário, esse valor é extremamente alto. É mais vantajoso cobrir uma consulta de 200 reais, que representa apenas 10% do custo de um procedimento emergencial.
+Por exemplo, um paciente que realiza limpezas e radiografias ósseas a cada 5 ou 6 meses pode evitar extrações, que podem custar cerca de R$ 2.000. Em nosso cenário, esse custo é elevado, enquanto uma consulta preventiva de R$ 200 representa apenas 10% desse valor, tornando-se uma solução mais viável e econômica.
 
-Além disso, vamos atender as clínicas e parceiros, levando mais clientes e aumentando sua carteira.
+Além disso, nossa solução beneficiará clínicas e parceiros, gerando maior fluxo de pacientes e expandindo suas carteiras de clientes.
 
 [:arrow_up: voltar para o índice :arrow_up:](#índice)
 
 ## 🗂️ Disciplinas
-* [DevOps Tools & Cloud Computing](https://github.com/patinaomi/delfos-machine/tree/main/DevOps%20Tools%20%26%20Cloud%20Computing)
-* [Compliance, Quality Assurance & Tests](https://github.com/patinaomi/delfos-machine/tree/main/Compliance%2C%20Quality%20Assurance%20%26%20Tests)
-* [Mastering Relational and Non-Relational Database](https://github.com/patinaomi/delfos-machine/tree/main/Mastering%20Relational%20And%20Non%20Relational%20Database)
-* [Advanced Business Development with .Net](https://github.com/patinaomi/delfos-machine/tree/main/Advanced%20Business%20With%20.NET)
-* [Disruptive Architectures: IOT, IOB & Generative IA](https://github.com/patinaomi/delfos-machine/tree/main/Disruptive%20Architectures%3A%20IOT%20%26%20IOB)
-* [Java Advanced](https://github.com/patinaomi/delfos-machine/tree/main/JAVA%20ADVANCED)
-* [Mobile Application Development](https://github.com/patinaomi/delfos-machine/tree/main/Mobile%20Application%20Development)
+* [DevOps Tools & Cloud Computing](https://github.com/patinaomi/delfos-machine-2-sem/tree/main/DevOps_Tools_%26_Cloud_Computing)
+* [Compliance, Quality Assurance & Tests](http://github.com/patinaomi/delfos-machine-2-sem/tree/main/Compliance_Quality_Assurance_%26_Tests)
+* [Mastering Relational and Non-Relational Database](https://github.com/patinaomi/delfos-machine-2-sem/tree/main/Mastering_Relational_And_Non_Relational%20_Database)
+* [Advanced Business Development with .Net](https://github.com/patinaomi/delfos-machine-2-sem/tree/main/Advanced_Business%20_With_.NET)
+* [Disruptive Architectures: IOT, IOB & Generative IA](https://github.com/patinaomi/delfos-machine-2-sem/tree/main/Disruptive_Architectures_IOT_%26_IOB)
+* [Java Advanced](https://github.com/patinaomi/delfos-machine-2-sem/tree/main/Java_Advanced)
+* [Mobile Application Development](https://github.com/patinaomi/delfos-machine-2-sem/tree/main/Mobile_Application_Development)
 
 [:arrow_up: voltar para o índice :arrow_up:](#índice)
 
