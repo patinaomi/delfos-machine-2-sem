@@ -89,22 +89,3 @@ Nosso aplicativo não é apenas um sistema de marcação de consultas, mas uma p
 
 🚀 Mais pacientes engajados + Clínicas com agenda cheia + Seguradoras reduzindo custos com emergências = Revolução na Odontologia Preventiva!
 
-
-🎨 Paleta do Projeto
-🔹 Primário: #024059
-🔹 Secundário: #f28705
-🔹 Terciário: #049dbf
-🔹 Destaque: #081828
-🔹 Neutro: #08c8f8
-🔹 Vermelho: #ff5d4b
-
-🎨 Paleta de Azuis Escuros para fontes
-🔹 Primário: #063970 (Azul Escuro Profundo)
-🔹 Secundário: #0A4275 (Azul Noturno)
-🔹 Terciário: #0D4A8A (Azul Royal Escuro)
-🔹 Destaque: #125CA6 (Azul Vibrante Escuro)
-🔹 Neutro: #081828 (Azul Cobalto Escuro)
-
-🔠 Fontes para o projeto
-
-# mobile-project-aplication-ios
