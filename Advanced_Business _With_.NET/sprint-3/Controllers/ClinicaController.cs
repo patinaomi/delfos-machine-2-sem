@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using System.Reflection;
 
 [Route("Clinica")] 
 public class ClinicaController : Controller
@@ -28,15 +29,16 @@ public class ClinicaController : Controller
     [HttpPost("Criar")]
     [ValidateAntiForgeryToken]
     [ApiExplorerSettings(IgnoreApi = true)]
-    public async Task<IActionResult> Criar([Bind("Id,CNPJ,Nome,Sobrenome,Telefone,Email,Senha")] Clinica Clinica)
+    public async Task<IActionResult> Criar([Bind("Id,CNPJ,Nome,Sobrenome,Telefone,Email,Senha")] Clinica clinica)
     {
         if (ModelState.IsValid)
         {
-            await _clinicaService.Criar(Clinica);
+            clinica.Perfil = "Clinica";
+            await _clinicaService.Criar(clinica);
             TempData["SuccessMessage"] = "Clinica cadastrado com sucesso!";
             //return RedirectToAction("Mensagem");
         }
-        return View(Clinica);
+        return View(clinica);
     }
 
     [HttpGet("Mensagem")]
@@ -48,36 +50,79 @@ public class ClinicaController : Controller
 
     // Rota de API para criar um Clinica
     /// <summary>
-    ///     Cria um novo Clinica.
+    ///     Cria um novo cadastro de Clinica no banco de dados.
     /// </summary>
     /// 
     /// <remarks>
-    /// Exemplo de body:
+    /// ## Criação de uma nova clínica
     /// 
-    /// {
-    ///     "nome": "João",
-    ///     "sobrenome": "Silva",
-    ///     "email": "joao@exemplo.com",
-    ///     "senha": "senha123"
-    /// }
+    /// Use este endpoint quando precisar cadastrar uma nova clínica. Aqui ainda não cadastramos os médicos, somente as empresas.
+    /// 
+    /// ### Campos que devem ser utilizados para criar um novo usuário:
+    /// 
+    /// - **nome**: Nome da clínica
+    /// - **cnpj**: CNPJ da clínica
+    /// - **telefone**: Número de telefone para contato
+    /// - **email**: Endereço de email para contato
+    /// - **senha**: Senha de acesso (será criptografada)
+    /// 
+    /// ### Campos que não devem ser utilizados para criar um novo usuário:
+    /// - **id**: ID não é necessário pois o banco vai criar um de forma automática.
+    /// - **perfil**: Não será necessário enviar pois é default aqui
+    /// 
+    /// ### Exemplo de requisição:
+    /// 
+    /// ```json
+    ///     {
+    ///         "nome": "João",
+    ///         "CNPJ": "1234567891011",
+    ///         "telefone": "11958757000"
+    ///         "email": "joao@exemplo.com",
+    ///         "senha": "senha123",
+    ///         "perfil": "Clinica"
+    ///     }
+    /// ```
+    /// 
+    /// Somente os campos incluídos no corpo da requisição serão cadastrados.
+    /// 
+    /// ## Exemplo de body que receberemos como resposta:
+    /// 
+    /// ```json
+    ///     {   
+    ///         "id": "67ce4b3d61760e36f862dd59"
+    ///         "nome": "João",
+    ///         "CNPJ": "1234567891011",
+    ///         "telefone": "11958757000"
+    ///         "email": "joao@exemplo.com",
+    ///         "senha": "senha123",
+    ///         "perfil": "Clinica"
+    ///     }
+    ///     
+    /// Perceba que a resposta irá criar um ID automático gerado pelo banco de dados.
+    /// 
+    /// ```
     /// </remarks>
     /// 
     /// <response code="200">Clinica criado com sucesso</response>
+    /// <response code="201">Registro efetuado</response>
     /// <response code="400">Dados inválidos fornecidos</response>
     /// <response code="500">Erro interno do servidor</response>
     [HttpPost("CadastrarClinica")]
     [Produces("application/json")]
     [ApiExplorerSettings(IgnoreApi = false)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(400)]
-    [ProducesResponseType(500)]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> CadastrarClinica([FromBody] Clinica clinica)
     {
         if (ModelState.IsValid)
         {
             clinica.Perfil = "Clinica";
             await _clinicaService.Criar(clinica);
-            return CreatedAtAction(nameof(ConsultarTodosClinicas), new { id = clinica.Id }, clinica); 
+            return CreatedAtAction(nameof(ConsultarTodos), new { id = clinica.Id }, clinica); 
         }
         return BadRequest(ModelState); 
     }
@@ -92,42 +137,100 @@ public class ClinicaController : Controller
         return View(Clinicas); 
     }
 
-    // Rota de API
+    // Rota de API para consultar todos os usuário de clinicas
     /// <summary>
     ///     Consultar a lista com todo os Clinicas.
     /// </summary>
     /// 
     /// <remarks>
-    /// Exemplo de body:
     /// 
-    /// [
-    ///     { 
-    ///         "id": "67cc95b32811515d372209ce",
-    ///         "nome": "claudio",
-    ///         "telefone": "11958757740",
-    ///         "email": "claudio_cssp@hotmail.com",
-    ///         "senha": "123456"
-    ///     },
-    ///     {
-    ///         "id": "67cca0540924d08d2c4b7819",
-    ///         "nome": "Caio",
-    ///         "telefone": "11958757740",
-    ///         "email": "caio@delfos.com",
-    ///         "senha": "123456"
-    ///     }
-    ///]
+    /// ## Consultar todos os usuários do banco
+    /// 
+    /// Use este endpoint quando precisar consultar as clínicas com todos campos específicos de uma clínica.
+    /// 
+    /// ### Exemplo de body que receberemos como resposta:
+    /// 
+    /// ```json
+    ///    [
+    ///         {
+    ///             "id": "67ce4b3d61760e36f862dd59",
+    ///             "nome": "Delfos",
+    ///             "cnpj": "1234567891011",
+    ///             "telefone": "4255888069",
+    ///             "email": "delfos@delfos.com",
+    ///             "senha": "123456",
+    ///             "perfil": "Clinica"
+    ///         },
+    ///         {
+    ///             "id": "67cf2b26c33c2aa2b9f0d069",
+    ///             "nome": "Machine",
+    ///             "cnpj": "1234567891011",
+    ///             "telefone": "11958757740",
+    ///             "email": "machine@delfos.com",
+    ///             "senha": "123456",
+    ///             "perfil": "Clinica"
+    ///         }
+    ///    ]
+    /// ```
     /// </remarks>
     /// 
     /// <response code="200">Clinica criado com sucesso</response>
     /// <response code="400">Dados inválidos fornecidos</response>
     /// <response code="500">Erro interno do servidor</response>
-    [HttpGet("ConsultarTodosClinicas")]
+    [HttpGet("ConsultarTodos")]
     [Produces("application/json")]
-    public async Task<IActionResult> ConsultarTodosClinicas()
+    public async Task<IActionResult> ConsultarTodos()
     {
         var Clinicas = await _clinicaService.ConsultarTodos();
         return Ok(Clinicas);
     }
+
+    /// <summary>
+    ///     Consultar uma única Clinica.
+    /// </summary>
+    /// 
+    /// <remarks>
+    /// 
+    /// ## Consultar uma única clínica pelo ID do banco de dados
+    /// 
+    /// Use este endpoint quando precisar consultar somente um clínica com todos campos específicos de uma clínica.
+    /// 
+    /// ### Exemplo de body que receberemos como resposta:
+    /// 
+    /// ```json
+    ///    {
+    ///        "id": "67ce4b3d61760e36f862dd59",
+    ///        "nome": "Delfos",
+    ///        "cnpj": "1234567891011",
+    ///        "telefone": "4255888069",
+    ///        "email": "delfos@delfos.com",
+    ///        "senha": "123456",
+    ///        "perfil": "Clinica"
+    ///     }
+    ///  
+    /// ```
+    /// </remarks>
+    /// 
+    /// <response code="200">Dados consultados com sucesso</response>
+    /// <response code="400">Dados inválidos fornecidos</response>
+    /// <response code="500">Erro interno do servidor</response>
+    [HttpGet("ConsultarId/{id}")]
+    [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> ConsultarId(string id)
+    {
+        var clinica = await _clinicaService.ConsultarId(id);
+
+        if (clinica == null)
+        {
+            return NotFound(new { message = "Clínica não encontrada." });
+        }
+
+        return Ok(clinica);
+    }
+
 
     // View para atualizar um Clinica
     [HttpGet("Atualizar")]
@@ -142,22 +245,22 @@ public class ClinicaController : Controller
             return RedirectToAction("Error");
         }
 
-        var Clinica = await _clinicaService.ConsultarId(userIdString);
-        if (Clinica == null)
+        var clinicas = await _clinicaService.ConsultarId(userIdString);
+        if (clinicas == null)
         {
             return NotFound();
         }
 
-        return View(Clinica);
+        return View(clinicas);
     }
 
     [HttpPost("Atualizar")]
     [ApiExplorerSettings(IgnoreApi = true)]
-    public async Task<IActionResult> Atualizar(Clinica Clinica)
+    public async Task<IActionResult> Atualizar(Clinica clinica)
     {
         if (!ModelState.IsValid)
         {
-            return View(Clinica);
+            return View(clinica);
         }
 
         //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -175,10 +278,10 @@ public class ClinicaController : Controller
             return NotFound();
         }
 
-        clinicaExistente.Nome = Clinica.Nome;
-        clinicaExistente.Telefone = Clinica.Telefone;
-        clinicaExistente.Email = Clinica.Email;
-        clinicaExistente.Senha = Clinica.Senha;
+        clinicaExistente.Nome = clinica.Nome;
+        clinicaExistente.Telefone = clinica.Telefone;
+        clinicaExistente.Email = clinica.Email;
+        clinicaExistente.Senha = clinica.Senha;
 
         await _clinicaService.Atualizar(clinicaExistente);
 
@@ -193,15 +296,45 @@ public class ClinicaController : Controller
         return View();
     }
 
-    // Rota de API para atualizar um Clinica
+    // Rota de API para atualizar uma Clinica
     /// <summary>
-    /// Atualizar os dados de um Clinica.
+    ///     Atualizar todos os dados de uma Clinica específica.
     /// </summary>
-    /// <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Clinica a ser atualizado</param>
-    /// <param name="nome" type="string" example="Claudio">Nome do Clinica</param>
-    /// <param name="telefone" type="string" example="11958887577">Telefone do Clinica</param>
-    /// <param name="email" type="string" example="claudio@defos.com.br">Email de contato</param>
-    /// <param name="senha" type="string" example="123123">Nova senha do Clinica</param>
+    /// 
+    /// <remarks>
+    /// ## Atualizar todos os dados da clínica
+    /// 
+    /// Use este endpoint quando precisar atualizar todos os dados de uma única vez. Usando está rota, se não for informado os dados dos demais campos, eles serão afetados por informações defaults do sistema.
+    /// 
+    /// <param name="id" type="string" example="67ce4b3d61760e36f862dd59">ID do Clinica a ser atualizado</param>
+    /// 
+    /// ### Campos que podem ser atualizados:
+    /// 
+    /// - **nome**: Nome da clínica
+    /// - **cnpj**: CNPJ da clínica
+    /// - **telefone**: Número de telefone para contato
+    /// - **email**: Endereço de email para contato
+    /// - **senha**: Senha de acesso (será criptografada)
+    /// 
+    /// ### Campos que não podem ser atualizados:
+    /// 
+    /// - **id**: ID do banco de dados
+    /// - **perfil**: Perfil da clínica que será sem o padrão "Clinica" a não ser que ela seja usuário "Comum".
+    /// 
+    /// ### Exemplo de requisição:
+    /// 
+    /// ```json
+    /// {
+    ///     "id": "67ce4b3d61760e36f862dd59",
+    ///     "nome": "Delfos",
+    ///     "cnpj": "1234567891011",
+    ///     "telefone": "11987654321",
+    ///     "email": "novo.email@clinica.com.br"
+    ///     "perfil": "Clinica",
+    /// }
+    /// ```
+    /// 
+    /// </remarks>
     /// 
     /// <response code="200">Clinica atualizado com sucesso</response>
     /// <response code="400">Dados inválidos fornecidos</response>
@@ -209,9 +342,9 @@ public class ClinicaController : Controller
     /// <response code="500">Erro interno do servidor</response>
     [HttpPut("AtualizarClinica/{id}")]
     [Produces("application/json")]
-    public async Task<IActionResult> AtualizarClinica(string id, [FromBody] Clinica Clinica)
+    public async Task<IActionResult> AtualizarClinica(string id, [FromBody] Clinica clinica)
     {
-        if (string.IsNullOrEmpty(id) || Clinica == null || id != Clinica.Id)
+        if (string.IsNullOrEmpty(id) || clinica == null || id != clinica.Id)
         {
             return BadRequest("Id do Clinica não corresponde ao fornecido.");
         }
@@ -223,14 +356,92 @@ public class ClinicaController : Controller
             return NotFound();
         }
 
-        clinicaExistente.Nome = Clinica.Nome;
-        clinicaExistente.Telefone = Clinica.Telefone;
-        clinicaExistente.Email = Clinica.Email;
-        clinicaExistente.Senha = Clinica.Senha;
+        clinicaExistente.Nome = clinica.Nome;
+        clinicaExistente.Telefone = clinica.Telefone;
+        clinicaExistente.Email = clinica.Email;
+        clinicaExistente.Senha = clinica.Senha;
 
         await _clinicaService.Atualizar(clinicaExistente);
 
         return Ok(clinicaExistente); 
+    }
+
+    // Rota de API para atualizar parcialmente um Clinica
+    /// <summary>
+    ///     Atualiza parcialmente os dados de uma clínica existente
+    /// </summary>
+    /// 
+    /// <param name="id" type="string" example="67ce4b3d61760e36f862dd59">ID da clínica a ser atualizada</param>
+    /// <param name="camposParaAtualizar">Campos específicos a serem atualizados</param>
+    /// 
+    /// <remarks>
+    /// 
+    /// ## Atualização Parcial de Clínica
+    /// 
+    /// Use este endpoint quando precisar atualizar apenas alguns campos específicos de uma clínica,
+    /// sem a necessidade de enviar todos os dados.
+    /// 
+    /// ### Campos que podem ser atualizados:
+    /// - **nome**: Nome da clínica
+    /// - **cnpj**: CNPJ da empresa/Clínica
+    /// - **telefone**: Número de telefone para contato
+    /// - **email**: Endereço de email para contato
+    /// - **senha**: Senha de acesso (será criptografada)
+    /// 
+    /// ### Campos que não podem ser atualizados:
+    /// - **Perfil**: Perfil = Clínica pois a rota utilizada foi a de parceiros e não de cliente
+    /// 
+    /// ### Exemplo de requisição:
+    /// 
+    /// ```json
+    /// {
+    ///     "id": "67ce4b3d61760e36f862dd59",
+    ///     "email": "novo.email@clinica.com.br"
+    /// }
+    /// ```
+    /// 
+    /// Somente os campos incluídos no corpo da requisição serão atualizados.
+    /// 
+    /// ### Exemplo de resposta da requisição:
+    /// 
+    /// ```json
+    /// {
+    ///     "id": "67ce4b3d61760e36f862dd59",
+    ///     "nome": "Delfos",
+    ///     "cnpj": "1234567891011",
+    ///     "telefone": "string",
+    ///     "email": "delfos@delfos.com", -- Validação pode ser feita pelo campo informado!
+    ///     "senha": "string",
+    ///     "perfil": "Clinica"
+    /// }
+    /// ```
+    /// </remarks>
+    /// 
+    /// <response code="200">Clinica atualizada com sucesso</response>
+    /// <response code="400">Dados inválidos fornecidos</response>
+    /// <response code="404">Clinica não encontrada</response>
+    /// <response code="500">Erro interno do servidor</response>
+    [HttpPatch("AtualizarParcial/{id}")]
+    [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> AtualizarClinica(string id, [FromBody] Dictionary<string, object> camposParaAtualizar)
+    {
+        if (string.IsNullOrEmpty(id) || camposParaAtualizar == null || !camposParaAtualizar.Any())
+        {
+            return BadRequest("Id da Clinica e/ou campos para atualização são necessários.");
+        }
+
+        var clinicaAtualizada = await _clinicaService.AtualizarParcial(id, camposParaAtualizar);
+
+        if (clinicaAtualizada == null)
+        {
+            return NotFound("Clinica não encontrada.");
+        }
+
+        return Ok(clinicaAtualizada);
     }
 
 
@@ -285,18 +496,30 @@ public class ClinicaController : Controller
     /// <summary>
     ///     Excluir os Clinicas do banco de dados.
     /// </summary>
-    /// 
+    ///
     /// <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Clinica a ser excluído</param>
     /// 
     /// <remarks>
-    /// Exemplo de body:
     /// 
-    /// {
-    ///     "nome": "João",
-    ///     "sobrenome": "Silva",
-    ///     "email": "joao@exemplo.com",
-    ///     "senha": "senha123"
-    /// }
+    /// ## Excluir uma clínica do banco de dados e dos cadastros.
+    /// 
+    /// ### Exemplo da requisição para excluir uma clínica:
+    /// 
+    /// ```json
+    ///     {
+    ///         "id": "67cf3f8f8d3a256253f2dab5",
+    ///     }
+    /// ```
+    /// 
+    /// ### Exemplo da resposta para excluir uma clínica:
+    /// 
+    /// ```json
+    ///     {
+    ///         "message": "Clinica excluído com sucesso."
+    ///     }
+    /// ``` 
+    /// 
+    /// Uma vez excluida da base, não tem reversão desta ação.
     /// </remarks>
     /// 
     /// <response code="200">Clinica criado com sucesso</response>
@@ -317,8 +540,6 @@ public class ClinicaController : Controller
 
         return Ok(new { message = "Clinica excluído com sucesso." });  
     }
-
-
 
 
 }

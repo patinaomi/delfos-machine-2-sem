@@ -59,17 +59,40 @@ public class TurnoController : Controller
     }
 
     /// <summary>
-    /// Cadastra um novo Turno de preferência para o usuário.
+    ///     Cadastra um novo Turno de preferência para o usuário.
     /// </summary>
-    /// <remarks>
-    /// Exemplo de body:
     /// 
-    /// {   
-    ///     "idUsuario": "67cc95b32811515d372209ce",
-    ///     "Turno": "Manhã"
-    /// }
+    /// <remarks>
+    /// 
+    /// ## Cadastrar um novo Turno de preferência para um usuário
+    /// 
+    /// Use este endPoint se o objetivo e cadastrar um novo Turno de preferência, lembrando que o usuário pode ter vários em seu cadastro.
+    /// 
+    /// ### Campos que devem ser utilizados para cadastrar um Turno de preferência:
+    /// - **idUsuario**: ID do banco e não o idUsuario
+    /// - **TurnoPreferencia**: Informe o Turno como string e no formato "08:00"
+    /// 
+    /// ### Campos que não devem ser utilizados para cadastrar um Turno de preferência:
+    /// - **Id**: Não é necessário informar o id, pois ele será gerado automaticamente pelo
+    /// 
+    /// ### Exemplo de body da requisição:
+    /// ```json
+    ///     {   
+    ///         "idUsuario": "67cc95b32811515d372209ce",
+    ///         "TurnoPreferencia": "Manhã"
+    ///     }
+    /// ``` 
+    /// 
+    /// ### Exemplo de body da resposto quando o cadastro é bem sucedido
+    /// ```json
+    ///     {
+    ///         "id": "67cf6c2a446498c2b6eb0a90",
+    ///         "idUsuario": "67cc95b32811515d372209ce",
+    ///         "TurnoPreferencia": "Noite"
+    ///     }
+    ///```
     /// </remarks>
-    /// <response code="201">Turno criado com sucesso</response>
+    /// <response code="201">Horário criado com sucesso</response>
     /// <response code="400">Dados inválidos</response>
     /// <response code="500">Erro interno</response>
     [HttpPost("CadastrarTurno")]
@@ -85,15 +108,14 @@ public class TurnoController : Controller
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        var idUsuario = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
-        if (string.IsNullOrEmpty(idUsuario))
-            return Unauthorized("Usuário não logado.");
+        if (string.IsNullOrEmpty(turnoDTO.IdUsuario))
+        return BadRequest("O campo IdUsuario é obrigatório.");
 
 
         var turno = new Turno
         {
             TurnoPreferencia = turnoDTO.TurnoPreferencia,
-            IdUsuario = idUsuario
+            IdUsuario = turnoDTO.IdUsuario
         };
 
         await _turnoService.Criar(turno);
@@ -111,20 +133,39 @@ public class TurnoController : Controller
     }
 
     /// <summary>
-    ///     Consultar o turno de preferência do usuário.
+    ///     Consultar todos os registros de Turnos de preferência no banco de dados.
     /// </summary>
     /// 
     /// <remarks>
-    /// Exemplo de body que virá de resposta:
     /// 
-    /// {
-    ///      "id": "67ce3a37f153b188528f8456",
-    ///      "idUsuario": "67cc95b32811515d372209ce",
-    ///      "turno": "Tarde"
-    /// }
+    /// ## Consultar todos os registros de Turnos do banco de dados
+    /// 
+    /// Use este endPoint se seu objetivo é recuperar todos os registros de Turnos do banco de dados
+    /// 
+    /// ### Campos que disponíveis na requisição:
+    /// - **id** : Id do banco de dados, que foi gerado automaticamente.
+    /// - **idUsuario** : IdUsuario que deseja registrar o endereço
+    /// - **TurnoPreferencia** string : Turno de preferência, podem ser vários.
+    /// 
+    /// ### Exemplo de body que virá de resposta:
+    /// 
+    /// ```json
+    ///[
+    ///    {
+    ///        "id": "67cdee51b304fd2aaac177c9",
+    ///        "idUsuario": "67cc95b32811515d372209ce",
+    ///        "TurnoPreferencia": "Tarde",
+    ///    },
+    ///    {
+    ///        "id": "67cdee91b304fd2aaac177ca",
+    ///        "idUsuario": "67cc95b32811515d372209ce",
+    ///        "TurnoPreferencia": "Manhã",
+    ///    }
+    ///]
+    /// ```
     /// </remarks>
     /// 
-    /// <response code="200">Turno consultado com sucesso</response>
+    /// <response code="200">Turnos consultado com sucesso</response>
     /// <response code="400">Dados inválidos fornecidos</response>
     /// <response code="500">Erro interno do servidor</response>
     [HttpGet("ConsultarTurno")]
@@ -138,6 +179,57 @@ public class TurnoController : Controller
     {
         var turnos = await _turnoService.ConsultarTodos(); 
         return Ok(turnos);
+    }
+
+    /// <summary>
+    ///     Consultar um único registro de preferência de Turno que o usuário cadastrou.
+    /// </summary>
+    /// 
+    /// <remarks>
+    /// 
+    /// ## Consultar um único Turno de preferência registrado, sendo consultado pelo ID do banco de dados
+    /// 
+    /// Use este endpoint quando precisar consultar somente um registro com todos campos específicos.
+    /// 
+    /// ### Campos que devem ser utilizados para consultar um Turno de preferência:
+    /// 
+    /// - **id**: ID do banco e não o idUsuario
+    /// 
+    ///  ### Exemplo de body para requisição:
+    ///  
+    /// ```json
+    ///     "id": "67ce3bb1c9562c029b01d3fe"
+    /// ```
+    /// 
+    /// ### Exemplo de body que receberemos como resposta:
+    /// 
+    /// ```json
+    ///    {
+    ///         "id": "67ce3bb1c9562c029b01d3fe",
+    ///         "idUsuario": "67cc95b32811515d372209ce",
+    ///         "TurnoPreferencia": "Tarde"
+    ///     }
+    /// ```
+    /// </remarks>
+    /// 
+    /// <response code="200">Dia consultado com sucesso</response>
+    /// <response code="400">Dados inválidos fornecidos</response>
+    /// <response code="500">Erro interno do servidor</response>
+    [HttpGet("ConsultarTurnoId/{id}")]
+    [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> ConsultarTurnoId(string id)
+    {
+        var horario = await _turnoService.ConsultarId(id);
+
+        if (horario == null)
+        {
+            return NotFound(new { message = "Turno não encontrado." });
+        }
+
+        return Ok(horario);
     }
 
 
@@ -196,16 +288,49 @@ public class TurnoController : Controller
     }
 
     /// <summary>
-    /// Atualiza um Turno existente do usuário, com base no ID do usuário.
+    ///     Atualiza as preferências de turnos de um usuário autenticado.
     /// </summary>
-    /// <param name="id" type="string" example="67ce3bb1c9562c029b01d3fe">ID do usuário a ser atualizado o horário.</param>
-    /// <param name="idUsuario" type="string" example="67cc95b32811515d372209ce">ID do usuário a ser atualizado o horário.</param>
-    /// <param name="horariosPreferencia" type="string" example="Tarde">Turno que deseja atualizar</param>
-    /// <response code="200">Turno atualizado com sucesso</response>
-    /// <response code="400">Dados inválidos</response>
-    /// <response code="401">Usuário não autorizado</response>
-    /// <response code="404">Turno não encontrado</response>
-    /// <response code="500">Erro interno do servidor</response>
+    /// 
+    /// <remarks>
+    /// 
+    /// ## Atualizar a preferência de turnos cadastrado pelo usuário
+    /// 
+    /// Use este endpoint se o objetivo for alterar no cadastro um ou mais turnos de preferência que o usuário deseja ser atendido.
+    /// 
+    /// ### Campos que devem ser utilizados para consultar um Turno de preferência:
+    /// - **id**: ID do banco e não o idUsuario
+    /// - **idUsuario**: IdUsuario gerado pelo banco de dados
+    /// - **turnoPreferencia**: Campo em string com o Turno de preferência neste exemplo "Manhã"
+    /// 
+    /// ### Exemplo de requisição
+    /// 
+    /// ```json
+    ///     {   
+    ///         "id": "67ce3d45c9562c029b01d3ff",
+    ///         "idUsuario": "67cc95b32811515d372209ce",
+    ///         "turnoPreferencia": "Tarde"
+    ///     }
+    /// 
+    /// ``` 
+    /// 
+    /// ### Exemplo do modelo de resposta quando ocorre sucesso na alteração
+    /// 
+    /// ```json
+    ///     {
+    ///         "id": "67ce3d45c9562c029b01d3ff",
+    ///         "idUsuario": "67cc95b32811515d372209ce",
+    ///         "turnoPreferencia": "Noite"
+    ///         "mensagem": "Horário atualizado com sucesso!"
+    ///    }
+    /// ```
+    /// 
+    /// </remarks>
+    /// 
+    /// <returns>Retorna 204 No Content se a atualização for bem-sucedida.</returns>
+    /// <response code="204">Dados atualizados com sucesso.</response>
+    /// <response code="400">Erro na requisição (dados inválidos).</response>
+    /// <response code="401">Usuário não autenticado.</response>
+    /// <response code="404">Nenhum registro encontrado para o usuário.</response>
     [HttpPut("AtualizarTurno/{id}")]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -218,19 +343,21 @@ public class TurnoController : Controller
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        var idUsuario = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
-        if (string.IsNullOrEmpty(idUsuario))
-            return Unauthorized("Usuário não logado.");
-
-        var turnoExistente = await _turnoService.ConsultarPorUsuarioId(id);
-        if (turnoExistente == null || turnoExistente.IdUsuario != idUsuario)
-            return NotFound("Horário não encontrado ou não pertence ao usuário.");
+        var turnoExistente = await _turnoService.ConsultarId(turnoDTO.Id);
+        if (turnoExistente == null)
+            return NotFound(new { message = "Horário não encontrado." });
 
         turnoExistente.TurnoPreferencia = turnoDTO.TurnoPreferencia;
 
         await _turnoService.Atualizar(turnoExistente);
 
-        return Ok(new { message = "Turno atualizado com sucesso!" });
+        return Ok(new
+        {
+            id = turnoExistente.Id,
+            idUsuario = turnoExistente.IdUsuario,
+            turnosPreferencia = turnoExistente.TurnoPreferencia,
+            mensagem = "Turno atualizado com sucesso!"
+        });
     }
 
 
@@ -255,12 +382,39 @@ public class TurnoController : Controller
     }
 
     /// <summary>
-    /// Exclui um Turno de preferência do usuário.
+    ///     Exclui um turno de preferência do usuário.
     /// </summary>
-    /// <param name="id" type="string" example="67cdee51b304fd2aaac177c9">ID do Turno a ser excluído.</param>
-    /// <response code="200">Turno excluído com sucesso</response>
+    /// 
+    /// <remarks>
+    /// 
+    /// ## Excluir um turno de preferência do usuário do cadastro feito no banco.
+    /// 
+    /// Use este endoPoint se seu objetivo é excluir um cadastro contendo o dia de preferência cadastrado errado. 
+    /// 
+    /// ### Exemplo da requisição para excluir:
+    /// 
+    /// ```json
+    ///     {
+    ///         "id": "67cf3f8f8d3a256253f2dab5",
+    ///     }
+    /// ```
+    /// 
+    /// ### Exemplo da resposta para excluir uma clínica:
+    /// 
+    /// ```json
+    ///     {
+    ///         "message": "Turno de preferência excluído com sucesso."
+    ///     }
+    /// ``` 
+    /// 
+    /// Uma vez excluida da base, não tem reversão desta ação.
+    /// 
+    /// </remarks>
+    /// 
+    /// <param name="id" type="string" example="67cdee51b304fd2aaac177c9">ID do dia a ser excluído.</param>
+    /// <response code="200">Dia excluído com sucesso</response>
     /// <response code="401">Usuário não autorizado</response>
-    /// <response code="404">Turno não encontrado</response>
+    /// <response code="404">Dia não encontrado</response>
     /// <response code="500">Erro interno do servidor</response>
     [HttpDelete("ExcluirTurno/{id}")]
     [Produces("application/json")]
