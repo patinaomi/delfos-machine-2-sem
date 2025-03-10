@@ -8,6 +8,7 @@ namespace Project.Infrastructure.Interfaces
         Task<Clinica> ConsultarId(string id);
         Task<List<Clinica>> ConsultarTodos();
         Task<Clinica?> Atualizar(Clinica clinica);
+        Task<Clinica?> AtualizarParcial(string id, Dictionary<string, object> camposParaAtualizar);
         Task Excluir(string id);
     }
 }
