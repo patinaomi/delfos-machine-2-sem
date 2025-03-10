@@ -31,4 +31,6 @@ namespace Project.Models;
         [DataType(DataType.Password)]
         public string? Senha { get; set; }
 
+        public string Perfil { get; set; } = "Comum";
+
     }
