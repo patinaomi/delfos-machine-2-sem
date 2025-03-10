@@ -1,0 +1,54 @@
+@model Project.Models.DiasPreferencia
+
+@{
+    ViewData["Title"] = "Atualizar endereco do usuário";
+}
+
+<section class="d-flex justify-content-center align-items-center mt-5 p-4" style="height: 80vh">
+    <!-- Container do Formulário ocupando 20% da largura e 100% da altura -->
+    <div class="w-20 d-flex align-items-center justify-content-center" style="height: 100vh; padding-right: 10px;">
+        <div class="container-fluid border p-4 bg-white" style="min-height: 80vh; width: 60vh;">
+            <h2 class="radley-regular" style="color: #9B4819;">Atualizar dados</h2>
+            <form asp-action="Atualizar" method="post">
+                <div class="form-group">
+                    <label asp-for="Id" class="control-label"></label>
+                    <input asp-for="Id" class="form-control"/>
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+               
+                <div class="form-group">
+                    <label asp-for="IdUsuario" class="control-label"></label>
+                    <input asp-for="IdUsuario" class="form-control"/>
+                    <span asp-validation-for="IdUsuario" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DiasSemana" class="control-label">Dias</label>
+                    <input asp-for="DiasSemana" class="form-control" />
+                    <span asp-validation-for="DiasSemana" class="text-danger"></span>
+                </div>
+            
+                <div class="form-group pt-3">
+                    <input type="submit" value="Enviar" class="btn" style="background-color: #9B4819; color: #fdf5e6;"/>
+                    <a asp-controller="DiasPreferencia" asp-action="Consultar" class="btn" style="background-color: #bc885d; color: #fdf5e6;">Consultar</a>
+                </div>
+
+                <!-- Exibir alerta de sucesso, se houver -->
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success mt-3">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
+                
+            </form>
+        </div>
+    </div>
+
+    <div class="w-80" style="height: 80vh">
+        <img src="~/assets/Usuario/imagem.png" alt="Imagem de fundo para área de cadastro cliente" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

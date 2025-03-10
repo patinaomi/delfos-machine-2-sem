@@ -1,0 +1,81 @@
+@using System.Security.Claims
+@model Project.Models.DiasPreferenciaDTO
+
+@{
+    ViewData["Title"] = "Endereco de preferencia";
+    var userId = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
+
+}
+
+<section class="d-flex p-3" style="height: 80vh">
+   
+    <div class="w-20 d-flex justify-content-center" style="height: 80vh; padding-right: 10px;">
+        <div class="container-fluid border p-4 bg-white" style="min-height: 80vh; width: 60vh;">
+            <h2 class="radley-regular" style="color: #9B4819">cadastre seu dias de preferencia/disponibilidade e continue pontuando</h2>
+
+            <!-- Saudação personalizada para meus clientes -->
+            <h6 class="mb-4">
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+
+                    var nomeUsuario = User.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value;
+                    @* Exibe o nome do usuário se ele estiver logado *@
+                    <span style="color: #bc885d;">Bem-vindo, @User.Identity.Name!</span>
+                    
+                    // Pegando o email do usuário
+                    var emailUsuario = User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Email)?.Value;
+
+                    // Pegando o ID do usuário
+                    var idUsuario = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
+
+                    //<span style="color: blue;">ID: @idUsuario</span>
+                }
+            </h6>
+        
+            <form asp-action="Criar" method="post">
+
+                <input asp-for="IdUsuario" value="@userId" type="hidden" />
+
+                <div class="form-group">
+                    <label asp-for="DiasSemana" class="control-label fs-6"></label>
+                        <select asp-for="DiasSemana" class="form-control">
+                            <option value="">Selecione</option>
+                            <option value="Segunda">Segunda-feira</option>
+                            <option value="Terca">Terça-feira</option>
+                            <option value="Quarta">Quarta-feira</option>
+                            <option value="Quinta">Quinta-feira</option>
+                            <option value="Sexta">Sexta-feira</option>
+                            <option value="Sabado">Sábado</option>
+                            <option value="Domingo">Domingo</option>
+                        </select>
+                    <span asp-validation-for="DiasSemana" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group pt-3">
+                    <input type="submit" class="btn" style="background-color: #9B4819; color: #fdf5e6;"/>
+                    <a asp-action="Consultar" class="btn" style="background-color: #bc885d; color: #fdf5e6;">Consultar</a>
+                    <a asp-controller="Endereco" asp-action="Criar" class="btn" style="background-color: #F4E1C1; color: #9B4819;">Voltar</a>
+                    <a asp-controller="Turno" asp-action="Criar" class="btn" style="background-color: #fdf5e6; color: #9B4819;">Próximo</a>
+                </div>
+
+                <!-- Exibir alerta de sucesso, se houver -->
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success mt-3">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
+                
+            </form>
+        </div>
+    </div>
+
+    <div class="w-100" style="height: 80vh">
+        <img src="~/assets/Onboarding/dias.jpg" alt="Imagem de fundo para área de cadastro cliente" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+    
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
