@@ -54,6 +54,61 @@ namespace Project.Repositories
             return null;
         }
 
+        public async Task<Usuario?> AtualizarParcial(string id, Dictionary<string, object> camposParaAtualizar)
+        {
+            var usuario = await ConsultarId(id);
+            if (usuario == null)
+            {
+                return null;
+            }
+
+            var updateDefinitionBuilder = Builders<Usuario>.Update;
+            var updateDefinitions = new List<UpdateDefinition<Usuario>>();
+
+            foreach (var campo in camposParaAtualizar)
+            {
+                switch (campo.Key.ToLower())
+                {
+                    case "nome":
+                        updateDefinitions.Add(updateDefinitionBuilder.Set(c => c.Nome, campo.Value.ToString()));
+                        break;
+                    case "telefone":
+                        updateDefinitions.Add(updateDefinitionBuilder.Set(c => c.Telefone, campo.Value.ToString()));
+                        break;
+                    case "email":
+                        updateDefinitions.Add(updateDefinitionBuilder.Set(c => c.Email, campo.Value.ToString()));
+                        break;
+                    case "senha":
+                        updateDefinitions.Add(updateDefinitionBuilder.Set(c => c.Senha, campo.Value.ToString()));
+                        break;
+                }
+            }
+
+            if (updateDefinitions.Count == 0)
+            {
+                return usuario;
+            }
+
+            // Combinar todas as definições de atualização
+            var combinedUpdate = updateDefinitionBuilder.Combine(updateDefinitions);
+            
+            // Filtro para encontrar o documento
+            var filtro = Builders<Usuario>.Filter.Eq(c => c.Id, id);
+            
+            // Executar a atualização
+            var resultado = await _usuarioCollection.UpdateOneAsync(filtro, combinedUpdate);
+
+            // Retornar o usuário atualizado se a operação for bem-sucedida
+            if (resultado.ModifiedCount > 0)
+            {
+                // Buscar o usuário atualizada
+                return await ConsultarId(id);
+            }
+
+            return null;
+        }
+
+
         public async Task Excluir(string id)
         {
             var filtro = Builders<Usuario>.Filter.Eq(u => u.Id, id);
