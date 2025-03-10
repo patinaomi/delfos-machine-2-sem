@@ -34,6 +34,11 @@ namespace Project.Application.Services
             return await _usuarioRepository.Atualizar(usuario);
         }
 
+        public async Task<Usuario?> AtualizarParcial(string id, Dictionary<string, object> camposParaAtualizar)
+        {
+            return await _usuarioRepository.AtualizarParcial(id, camposParaAtualizar);
+        }
+
         public async Task Excluir(string id)
         {
             await _usuarioRepository.Excluir(id);

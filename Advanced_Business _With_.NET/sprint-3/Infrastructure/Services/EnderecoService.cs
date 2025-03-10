@@ -28,6 +28,11 @@ namespace Project.Application.Services
             return await _enderecoRepository.ConsultarPorUsuarioId(usuarioId);
            
         }
+        public async Task<Endereco?> ConsultarId(string id)
+        {
+            var enderecos = await _enderecoRepository.ConsultarTodos();
+            return enderecos.FirstOrDefault(e => e.Id == id);
+        }
 
 
         public async Task<Endereco?> Atualizar(Endereco endereco)
@@ -35,10 +40,10 @@ namespace Project.Application.Services
             return await _enderecoRepository.Atualizar(endereco);
         }
 
-        public async Task<Endereco?> ConsultarId(string id)
+
+        public async Task<Endereco?> AtualizarParcial(string id, Dictionary<string, object> camposParaAtualizar)
         {
-            var enderecos = await _enderecoRepository.ConsultarTodos();
-            return enderecos.FirstOrDefault(e => e.Id == id);
+            return await _enderecoRepository.AtualizarParcial(id, camposParaAtualizar);
         }
 
 

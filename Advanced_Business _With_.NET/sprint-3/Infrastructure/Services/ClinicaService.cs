@@ -1,3 +1,4 @@
+using System.Reflection;
 using Project.Infrastructure.Interfaces;
 using Project.Models;
 
@@ -33,6 +34,12 @@ namespace Project.Application.Services
         {
             return await _clinicaRepository.Atualizar(Clinica);
         }
+
+        public async Task<Clinica?> AtualizarParcial(string id, Dictionary<string, object> camposParaAtualizar)
+        {
+            return await _clinicaRepository.AtualizarParcial(id, camposParaAtualizar);
+        }
+
 
         public async Task Excluir(string id)
         {
