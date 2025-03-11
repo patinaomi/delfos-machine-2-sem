@@ -1,0 +1,390 @@
+@import url('https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Radley:ital@0;1&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Fonts para os títulos */
+.radley-regular {
+  font-family: "Radley", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.radley-regular-italic {
+  font-family: "Radley", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* Fontes  para textos comuns */
+.carlito-regular {
+  font-family: "Carlito", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.carlito-bold {
+  font-family: "Carlito", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.carlito-regular-italic {
+  font-family: "Carlito", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.carlito-bold-italic {
+  font-family: "Carlito", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+
+.container {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: #fdf5e6;
+  height: 100%;
+}
+
+/* 
+
+Paleta final:
+1️⃣ Clara: #fdf5e6 (Bege suave)
+2️⃣ Bege Médio: #F4E1C1 (Bege quente)
+3️⃣ Bege Acinzentado: #E0C9A6 (Creme elegante)
+4️⃣ Marrom médio: #bc885d (Marrom caramelo)
+5️⃣ Marrom forte: #9B4819 (Marrom avermelhado)
+6️⃣ Novo tom intermediário: #D9A06F (Dourado queimado)
+7️⃣ Novo tom escuro: #5E2A10 (Marrom escuro)
+*/
+
+/*
+
+Botão Enviar: class="btn" style="background-color: #9B4819; color: #fdf5e6;"
+Botão Consultar: class="btn" style="background-color: #bc885d; color: #fdf5e6;"
+Botão Voltar: class="btn" style="background-color: #F4E1C1; color: #9B4819;"
+Botão Próximo ou Home: class="btn" style="background-color: #fdf5e6; color: #9B4819;"
+
+*/
+
+
+/* Botão */
+
+.btn-custom {
+  background-color: #9B4819; 
+  color: #fdf5e6; 
+  border: none;
+  border-radius: 5px; 
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+  padding: 10px;
+}
+
+.btn-custom:hover {
+  background-color: #bc885d;
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2); 
+}
+
+
+.progress-text {
+  position: relative;
+  display: inline-block;
+  color: #3C4748; 
+  transition: color 0.5s;
+}
+
+.progress-text::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background-color: #4CAF50;
+  z-index: -1;
+  animation: progress-animation 5s infinite;
+}
+
+@keyframes progress-animation {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}
+
+.progress-text::before {
+  animation: progress-animation 5s infinite;
+}
+
+/* Durante a animação, vamos alterar a cor do texto */
+.progress-text.animate-text {
+  color: white; 
+}
+
+/* Menu */
+
+.navbar {
+  background-color: #fdf5e6 !important;  
+  color: #9B4819 !important;          
+}
+
+.navbar a {
+  color: #9B4819 !important; 
+}
+
+.navbar-toggler-icon {
+  color: #9B4819 !important; 
+}
+
+
+
+h1.title, h2.sub-title, h3.highlight-text, p {
+  margin: 0; 
+  padding: 5px 0; 
+}
+
+h1.title {
+  font-size: 3em;
+  margin-bottom: 10px; 
+}
+
+h2.sub-title {
+  font-size: 2em;
+  margin-bottom: 15px;
+}
+
+h3.highlight-text {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+p {
+  font-size: 1.2em;
+  line-height: 1.6;
+}
+
+/* Projeto */
+
+.project-section {
+  background-image: url(/assets/Home/imagem3.jpg);
+  background-size: cover;
+  min-width: 100vh;
+  min-height: 100vh;
+  background-position: left center; 
+  display: flex;
+  flex-direction: column;    
+  justify-content: center;   
+  padding-left: 20px;        
+  padding-right: 100px;     
+  color: white;              
+}
+
+
+/* Container principal */
+.objectives-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px;
+  color: #fdf5e6;
+  min-height: 100vh;
+}
+
+/* Estilo do lado esquerdo */
+.content-left {
+  flex: 0 0 60%;
+}
+
+.content-left h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.content-left h2 {
+  font-size: 2em;
+  margin-top: 30px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.content-left .objective {
+  margin-top: 20px;
+  padding-left: 10px;
+  position: relative;
+  animation: slideInLeft 1s ease-out;
+}
+
+.content-left .objective h3 {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+  color: #009688;
+}
+
+.content-left .objective p {
+  font-size: 1.1em;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Estilo do lado direito */
+.content-right {
+  flex: 0 0 35%;
+  position: relative;
+}
+
+.energy-map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  animation: slideInRight 1.5s ease-out;
+}
+
+.map-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Animações */
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+      transform: translateX(-100%);
+  }
+  100% {
+      transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+      transform: translateX(100%);
+  }
+  100% {
+      transform: translateX(0);
+  }
+}
+
+/* Estilo do Footer */
+footer {
+  color: black;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  width: 100%;
+  bottom: 0;
+  margin-top: auto; 
+  
+}
+
+/* Login */
+.energy-section-login {
+  background-image: url(/assets/Login/imagem1.jpg);
+  background-size: cover;
+  min-width: 100vh;
+  min-height: 80vh;
+  background-position: left center; 
+  display: flex;
+  flex-direction: column;    
+  justify-content: center;   
+  padding-left: 20px;        
+  padding-right: 100px;     
+  color: white;              
+}
+
+/* Video */
+.background-image-video {
+  background-image: url('../assets/Video/imagem.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Mapa */
+
+/* Popup */
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+  width: 300px;
+  max-width: 80%;
+}
+.popup.active {
+  display: block;
+}
+
+/* Mensagem */
+.energy-section-message {
+  background-image: url(/assets/Mensagem/purple-speech-balloon-design-element_53876-119935.jpg);
+  background-size: fill;
+  min-width: 100vh;
+  min-height: 100vh;
+  background-position: center; 
+  display: flex;
+  flex-direction: column;    
+  justify-content: center;   
+  padding-left: 20px;        
+  padding-right: 100px;     
+  color: white;              
+}
+
+.carousel-slide-container {
+  display: flex;
+  transition: transform 1s ease;
+  width: 100%;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  height: 100vh;
+  position: relative;
+  text-align: center;
+}
+
+.dot {
+  width: 15px;
+  height: 15px;
+  margin: 0 5px;
+  border-radius: 50%;
+  background-color: white;
+  opacity: 0.5;
+  cursor: pointer;
+}
