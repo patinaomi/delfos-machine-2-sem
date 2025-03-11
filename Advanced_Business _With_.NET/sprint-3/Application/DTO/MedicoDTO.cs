@@ -3,7 +3,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 namespace Project.Models;
 
-    public class UsuarioDTO
+    public class MedicoDTO
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -34,5 +34,10 @@ namespace Project.Models;
         public string? Senha { get; set; }
 
         public string Perfil { get; set; } = "Comum";
+
+        [Required(ErrorMessage = "A Especilidade é obrigatória")]
+        [StringLength(100, ErrorMessage = "A Especilidade deve ter no máximo 50 caracteres")]
+        [RegularExpression(@"^[a-zA-Zà-úÀ-Ú\s]+$", ErrorMessage = "A Especilidade deve conter apenas letras.")]
+        public string? Especilidade { get; set; }
 
     }
