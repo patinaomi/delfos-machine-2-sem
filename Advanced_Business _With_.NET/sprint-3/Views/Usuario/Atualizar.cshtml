@@ -1,0 +1,66 @@
+@model Project.Models.Usuario
+
+@{
+    ViewData["Title"] = "Atualizar dados do usuário";
+}
+
+<section class="d-flex justify-content-center align-items-center mt-5 p-5" style="height: 80vh">
+    <!-- Container do Formulário ocupando 20% da largura e 100% da altura -->
+    <div class="w-20 d-flex align-items-center justify-content-center" style="height: 100vh; padding-right: 10px;">
+        <div class="container-fluid border p-4 bg-white" style="min-height: 80vh; width: 60vh;">
+            <h2 class="radley-regular" style="color: #9B4819;">Atualizar dados</h2>
+            <form asp-action="Atualizar" method="post">
+                <div class="form-group">
+                    <label asp-for="Nome" class="control-label"></label>
+                    <input asp-for="Nome" class="form-control"/>
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CPF" class="control-label"></label>
+                    <input asp-for="CPF" class="form-control"/>
+                    <span asp-validation-for="CPF" class="text-danger"></span>
+                </div>
+               
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control"/>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Telefone" class="control-label"></label>
+                    <input asp-for="Telefone" class="form-control" />
+                    <span asp-validation-for="Telefone" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="Senha" class="control-label">Senha</label>
+                    <input asp-for="Senha" class="form-control" type="password"/>
+                    <span asp-validation-for="Senha" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group pt-3">
+                    <input type="submit" value="salvar" class="btn" style="background-color: #9B4819; color: #fdf5e6;" />
+                </div>
+            </form>
+
+            <div>
+                <h2 class="radley-regular mt-3" style="color: #9B4819;">Complete o cadastro</h2>
+                <p>Preencha as demais informações e saiba como nosso modelo funciona e ainda ganhe com isso, com o nosso programa de Benefícios.</p>
+                
+                <a asp-controller="Endereco" asp-action="Criar" class="btn" style="background-color: #bc885d; color: #fdf5e6;">insira seu endereco</a>
+                <a asp-controller="Home" asp-action="Inicio" class="btn" style="background-color: #F4E1C1; color: #9B4819;">Voltar</a>
+            </div>
+
+        </div>
+    </div>
+    
+    <div class="w-80" style="height: 80vh">
+        <img src="~/assets/Usuario/imagem.png" alt="Imagem de fundo para área de cadastro cliente" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
