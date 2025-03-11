@@ -1,0 +1,89 @@
+@using System.Security.Claims
+@model Project.Models.HorariosDTO
+
+@{
+    ViewData["Title"] = "Horário de preferencia";
+    var userId = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
+
+}
+
+<section class="d-flex p-3" style="height: 80vh">
+   
+    <div class="w-20 d-flex justify-content-center" style="height: 80vh; padding-right: 10px;">
+        <div class="container-fluid border p-4 bg-white" style="min-height: 80vh; width: 60vh;">
+            <h2 class="radley-regular" style="color: #9B4819;">Cadastrar seu horário de preferencia</h2>
+
+            <!-- Saudação personalizada para meus clientes -->
+            <h6 class="mb-4">
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+
+                    var nomeUsuario = User.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value;
+                    @* Exibe o nome do usuário se ele estiver logado *@
+                    <span style="color: #bc885d ;">Bem-vindo, @User.Identity.Name!</span>
+                    
+                    // Pegando o email do usuário
+                    var emailUsuario = User.Claims.FirstOrDefault(c => c.Type == System.Security.Claims.ClaimTypes.Email)?.Value;
+
+                    // Pegando o ID do usuário
+                    var idUsuario = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
+
+                    //<span style="color: blue;">ID: @idUsuario</span>
+                }
+            </h6>
+        
+            <form asp-action="Criar" method="post">
+
+                <input asp-for="IdUsuario" value="@userId" type="hidden" />
+
+                <div class="form-group">
+                    <label asp-for="HorariosPreferencia" class="control-label fs-6"></label>
+                        <select asp-for="HorariosPreferencia" class="form-control">
+                            <option value="">Selecione</option>
+                            <option value="06:00">06:00</option>
+                            <option value="07:00">07:00</option>
+                            <option value="08:00">08:00</option>
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="13:00">13:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="17:00">17:00</option>
+                            <option value="18:00">18:00</option>
+                            <option value="19:00">19:00</option>
+                            <option value="20:00">20:00</option>
+                            <option value="21:00">21:00</option>
+                        </select>
+                    <span asp-validation-for="HorariosPreferencia" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group pt-3">
+                    <input type="submit" class="btn" style="background-color: #9B4819; color: #fdf5e6;"/>
+                    <a asp-action="Consultar" class="btn" style="background-color: #bc885d; color: #fdf5e6;">Consultar</a>
+                    <a asp-controller="Turno" asp-action="Criar" class="btn" style="background-color: #F4E1C1; color: #9B4819;">Voltar</a>
+                </div>
+
+                <!-- Exibir alerta de sucesso, se houver -->
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success mt-3">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
+                
+            </form>
+        </div>
+    </div>
+
+    <div class="w-100" style="height: 80vh">
+        <img src="~/assets/Onboarding/horario.jpg" alt="Imagem de fundo para área de cadastro cliente" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+    
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
