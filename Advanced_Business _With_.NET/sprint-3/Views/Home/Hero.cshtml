@@ -1,0 +1,120 @@
+﻿@{
+    ViewData["Title"] = "Hero";
+}
+
+<section class="text-center justify-content-center" style="color: #bc885d; align-items: center; justify-content: center; justify-items: center;">
+    <div class="container">
+        <div class="row p-5">
+            <div class="col-12">
+                <h5 class="display-4 radley-regular" style="color: #9B4819;">Delfos Machine</h5>
+                
+                <!-- Saudação personalizada para meus clientes -->
+                <h6 class="mb-4 carlito-regular">
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+
+                        var nomeUsuario = User.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value;
+                        @* Exibe o nome do usuário se ele estiver logado *@
+                        <span>Bem-vindo, @User.Identity.Name!</span>
+                        
+                        // Busca o ID do usuário autenticado a partir das claims
+                        var idUsuario = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
+
+                        // Exibe o ID do usuário
+                        //<span>Meu ID: @idUsuario</span>
+                    }
+                    else
+                    {
+                        @* Exibe "Visitante" se o usuário não estiver logado *@
+                        <span#bc885d>Bem-vindo, Visitante! Faça seu login para acessar suas informações personalizadas.</span#bc885d>
+                    
+                    }
+                </h6>
+
+                <div class="d-flex justify-content-center gap-3" style="justify-content: center; align-items: center; align-content: center; justify-items: center;">
+
+                    <div class="d-flex justify-content-center mt-4">
+                            <div class="card shadow-lg rounded-lg overflow-hidden" style="max-width: 22rem;">
+                                <img
+                                    alt="Card"
+                                    src="/assets/Home/imagem1.jpg"
+                                    class="img-fluid"
+                                    style="height: 200px; object-fit: contains;"
+                                />
+                                <div class="card-body">
+                                    <h3 class="card-title w-100 radley-regular" style="color: #9B4819;">usuário</h3>
+                                    <p class="carlito-regular" style="color: #3C4748;">
+                                        Avalie seus dados cadastrais básicos e modifique a qualquer momento.
+                                    </p>
+                                    <a href="@Url.Action("Atualizar", "Usuario")" class="btn btn-custom w-100">
+                                        clique aqui <i class="pi pi-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-4">
+                            <div class="card shadow-lg rounded-lg overflow-hidden" style="max-width: 22rem;">
+                                <img
+                                    alt="Card"
+                                    src="/assets/Onboarding/familia.jpg"
+                                    class="img-fluid"
+                                    style="height: 200px; object-fit: contains;"
+                                />
+                                <div class="card-body">
+                                    <h3 class="card-title radley-regular" style="color: #9B4819;">sugestões</h3>
+                                    <p class="carlito-regular" style="color: #3C4748;">
+                                        Avalie as Sugestões preventivas que temos disponível para você.
+                                    </p>
+                                    <a href="@Url.Action("Criar", "Endereco")" class="btn btn-custom w-100">
+                                        clique aqui <i class="pi pi-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-4">
+                            <div class="card shadow-lg rounded-lg overflow-hidden" style="max-width: 22rem;">
+                                <img
+                                    alt="Card"
+                                    src="/assets/Onboarding/saude-clinica.jpg"
+                                    class="img-fluid"
+                                    style="height: 200px; object-fit: contains;"
+                                />
+                                <div class="card-body">
+                                    <h3 class="card-title w-100 radley-regular" style="color: #9B4819;">agendamentos</h3>
+                                    <p class="carlito-regular" style="color: #3C4748;">
+                                        Confira as consultas agendadas e todo o histórico disponível.
+                                    </p>
+                                    <a href="@Url.Action("Criar", "DiasPreferencia")" class="btn btn-custom w-100">
+                                        clique aqui <i class="pi pi-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-4">
+                            <div class="card shadow-lg rounded-lg overflow-hidden" style="max-width: 22rem;">
+                                <img
+                                    alt="Card"
+                                    src="/assets/Home/imagem6.png"
+                                    class="img-fluid"
+                                    style="height: 200px; object-fit: contains;"
+                                />
+                                <div class="card-body">
+                                    <h3 class="card-title w-100 radley-regular" style="color: #9B4819;">benefícios</h3>
+                                    <p class="carlito-regular" style="color: #3C4748;">
+                                        Conheça nosso programa de benefício e como anda seu histórico.
+                                    </p>
+                                    <a href="@Url.Action("Criar", "Turno")" class="btn btn-custom w-100">
+                                        clique aqui <i class="pi pi-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

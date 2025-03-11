@@ -1,0 +1,120 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<section class="text-center height:auto justify-content-center" style="color: #fdf5e6;; align-items: center; justify-content: center; justify-items: center; padding: 30px; max-height: 100vh; width: 100%;">
+    <div class="container" style="color: #fdf5e6;">
+        <div class="row">
+            <div class="col-12" style="color: #fdf5e6;">
+                <h5 class="radley-regular" style="color: #bc885d; font-size: 3rem;">Receba sugestões personalizadas para você</h5>
+
+                <!-- Saudação personalizada para meus clientes -->
+                <h6 class="mb-4">
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        var nomeUsuario = User.Claims.FirstOrDefault(c => c.Type == "FullName")?.Value;
+                        @* Exibe o nome do usuário se ele estiver logado *@
+                        <span class="radley-regular" style="color: #bc885d;">Bem-vindo, @User.Identity.Name!</span>
+                    }
+                    else
+                    {
+                        @* Exibe "Visitante" se o usuário não estiver logado *@
+                        <span class="radley-regular" style="color: #bc885d;">Bem-vindo, Visitante! Faça seu login para acessar suas informações personalizadas.</span>
+                    }
+                </h6>
+
+                <!-- Carrossel -->
+                <div id="carrossel" class="carousel-container" style="position: relative; overflow: hidden; border: 2px solid #9B4819; border-radius: 10px; height: 70vh;">
+                    <!-- Imagens do Carrossel -->
+                    <div class="carousel-slide-container" style="display: flex; transition: transform 1s ease;">
+                        <div class="carousel-slide" style="flex: 0 0 100%; text-align: center; background-image: url('/assets/Onboarding/primeira.jpg'); background-size: contain; background-position: center; height: 100vh; position: relative; text-align: center;">
+                          
+                            <div style="position: absolute; top: 10%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2rem; background-color: rgba(189, 182, 182, 0.5); padding: 10px; width: 100%;">
+                                Esteja no trabalho..
+                            </div>
+                        </div>
+                        <div class="carousel-slide" style="flex: 0 0 100%; text-align: center; background-image: url('/assets/Onboarding/casa.jpg'); background-size: cover; background-position: center; height: 100vh; position: relative;">
+                        
+                            <div style="position: absolute; top: 10%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2rem; background-color: rgba(189, 182, 182, 0.5); padding: 10px; width: 100%;">
+                                em sua residência...
+                            </div>
+                        </div>
+                        <div class="carousel-slide" style="flex: 0 0 100%; text-align: center; background-image: url('/assets/Onboarding/familia.jpg'); background-size: contain; background-position: center; height: 100vh; position: relative; ">
+                            <div style="position: absolute; top: 10%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2rem; background-color: rgba(189, 182, 182, 0.5); padding: 10px; width: 100%;">
+                                com sua família
+                            </div>
+                        </div>
+                        <div class="carousel-slide" style="flex: 0 0 100%; text-align: center; background-image: url('/assets/Onboarding/viajando.jpg'); background-size: cover; background-position: center; height: 100vh; position: relative; ">
+                           <div style="position: absolute; top: 10%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2rem; background-color: rgba(189, 182, 182, 0.5); padding: 10px; width: 100%;">
+                                viajando...
+                            </div>
+                        </div>
+                        <div class="carousel-slide" style="flex: 0 0 100%; text-align: center; background-image: url('/assets/Onboarding/amigos.jpg'); background-size: cover; background-position: center; height: 100vh; position: relative; ">
+                            <div style="position: absolute; top: 10%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2rem; background-color: rgba(189, 182, 182, 0.5); padding: 10px; width: 100%;">
+                                na casa de amigos ou com os amigos...
+                            </div>
+                        </div>
+                        <div class="carousel-slide" style="flex: 0 0 100%; text-align: center; background-image: url('/assets/Onboarding/dias.jpg'); background-size: cover; background-position: center; height: 100vh; position: relative; ">
+                            <div style="position: absolute; top: 10%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2rem; background-color: rgba(189, 182, 182, 0.5); padding: 10px; width: 100%;">
+                                Em todos esses momentos, você pode aproveitar e ainda escolher seu dia...
+                            </div>
+                        </div>
+                        <div class="carousel-slide" style="flex: 0 0 100%; text-align: center; background-image: url('/assets/Onboarding/horario.jpg'); background-size: cover; background-position: center; height: 100vh; position: relative; ">
+                            <div style="position: absolute; top: 10%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2rem; background-color: rgba(189, 182, 182, 0.5); padding: 10px; width: 100%;">
+                                seu horário de preferência...
+                            </div>
+                        </div>
+                        <div class="carousel-slide" style="flex: 0 0 100%; text-align: center; background-image: url('/assets/Onboarding/satisfacao.jpg'); background-size: cover; background-position: center; height: 100vh; position: relative; ">
+                            <div style="position: absolute; top: 10%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2rem; background-color: rgba(189, 182, 182, 0.5); padding: 10px; width: 100%;">
+                                com certeza com uma satisfação elevada de acordo com outros usuários...
+                            </div>
+                        </div>
+                        <div class="carousel-slide" style="flex: 0 0 100%; text-align: center; background-image: url('/assets/Onboarding/preco.jpg'); background-size: cover; background-position: center; height: 100vh; position: relative; ">
+                            <div style="position: absolute; top: 10%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2rem; background-color: rgba(189, 182, 182, 0.5); padding: 10px; width: 100%;">
+                                preço que sabe no seu bolso...
+                            </div>
+                        </div>
+                        <div class="carousel-slide" style="flex: 0 0 100%; text-align: center; background-image: url('/assets/Onboarding/local.jpg'); background-size: cover; background-position: center; height: 100vh; position: relative; ">
+                            <div style="position: absolute; top: 10%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2rem; background-color: rgba(189, 182, 182, 0.5); padding: 10px; width: 100%;">
+                                e não podemos esquecer do lugar mais próximo de você...
+                            </div>
+                        </div>
+                        <div class="carousel-slide" style="flex: 0 0 100%; text-align: center; background-image: url('/assets/Onboarding/saude-cliente.jpg'); background-size: cover; background-position: center; height: 100vh; position: relative;">
+                           <div style="position: absolute; top: 10%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2rem; background-color: rgba(189, 182, 182, 0.5); padding: 10px; width: 100%;">
+                                para cuidar da sua saúde, sem deixar esses momentos de lado...
+                            </div>
+                        </div>
+                        <div class="carousel-slide" style="flex: 0 0 100%; text-align: center; background-image: url('/assets/Onboarding/saude-clinica.jpg'); background-size: cover; background-position: center; height: 100vh; position: relative;">
+                            <div style="position: absolute; top: 10%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2rem; background-color: rgba(189, 182, 182, 0.5); padding: 10px; width: 100%;">
+                                Vamos encontrar a melhor clínica...
+                            </div>
+                        </div>
+                        <div class="carousel-slide" style="flex: 0 0 100%; text-align: center; background-image: url('/assets/Onboarding/conexoes.jpg'); background-size: cover; background-position: center; height: 100vh; position: relative;">
+                            <div style="position: absolute; top: 10%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2rem; background-color: rgba(189, 182, 182, 0.5); padding: 10px; width: 100%;">
+                                e os melhores parceiros para cuidar de você e de quem você ama...
+                            </div>
+                        </div>
+                        <div class="carousel-slide" style="flex: 0 0 100%; text-align: center; background-image: url('/assets/Onboarding/projeto.jpg'); background-size: cover; background-position: center; height: 100vh; position: relative;">
+                            <div style="position: absolute; top: 10%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2rem; background-color: rgba(189, 182, 182, 0.5); padding: 10px; width: 100%;">
+                                Nosso modelo faz tudo enquanto você está aproveitando e te avisa nos momentos certos.
+                            </div>
+                        </div>
+                        <div class="carousel-slide" style="flex: 0 0 100%; text-align: center; background-image: url('/assets/Onboarding/final.jpg'); background-size: cover; background-position: center; height: 100vh; position: relative;">
+                            <div style="position: absolute; top: 10%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 2rem; background-color: rgba(189, 182, 182, 0.5); padding: 10px; width: 100%;">
+                                esse é o nosso jeito de ser e nosso objetivo. Trazer saúde preventiva e criar laços entre seguradora e parceiros.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bolinhas de navegação -->
+                    <div style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex;">
+                        <div class="dot" style="width: 15px; height: 15px; margin: 0 5px; border-radius: 50%; background-color: white; opacity: 0.5;" onclick="moveToSlide(0)"></div>
+                        <div class="dot" style="width: 15px; height: 15px; margin: 0 5px; border-radius: 50%; background-color: white; opacity: 0.5;" onclick="moveToSlide(1)"></div>
+                        <div class="dot" style="width: 15px; height: 15px; margin: 0 5px; border-radius: 50%; background-color: white; opacity: 0.5;" onclick="moveToSlide(2)"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
