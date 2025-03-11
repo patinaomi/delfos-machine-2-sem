@@ -1,7 +1,6 @@
 using Project.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Project.Infrastructure;
 using MongoDB.Driver;
 
 [Route("DadosCadastrais")]
@@ -12,6 +11,7 @@ public class DadosCadastraisController : Controller
     private readonly IMongoCollection<DiasPreferencia> _diasPreferencia;
     private readonly IMongoCollection<Turno> _turnos;
     private readonly IMongoCollection<Horarios> _horarios;
+
 
     public DadosCadastraisController(IMongoClient mongoClient)
     {

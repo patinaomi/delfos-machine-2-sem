@@ -1,0 +1,151 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = LexusTech
+build_property.RootNamespace = LexusTech
+build_property.ProjectDir = /Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project
+build_property._RazorSourceGeneratorDebug = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/DadosCadastrais/Consultar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGFkb3NDYWRhc3RyYWlzL0NvbnN1bHRhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Endereco/Atualizar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW5kZXJlY28vQXR1YWxpemFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Endereco/ConfirmarExcluir.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW5kZXJlY28vQ29uZmlybWFyRXhjbHVpci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Endereco/Consultar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW5kZXJlY28vQ29uc3VsdGFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Endereco/Criar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW5kZXJlY28vQ3JpYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Endereco/MensagemAtualizacao.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW5kZXJlY28vTWVuc2FnZW1BdHVhbGl6YWNhby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Endereco/MensagemExclusao.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW5kZXJlY28vTWVuc2FnZW1FeGNsdXNhby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Home/Diferencial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9EaWZlcmVuY2lhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Home/Objetivo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9PYmpldGl2by5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Home/Problema.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcm9ibGVtYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Home/Projeto.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcm9qZXRvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Home/Prototipo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcm90b3RpcG8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Home/Solucao.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Tb2x1Y2FvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Home/Time.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9UaW1lLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Home/VideoProjeto.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9WaWRlb1Byb2pldG8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Login/Logar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTG9naW4vTG9nYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Login/MensagemErro.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTG9naW4vTWVuc2FnZW1FcnJvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/LoginLog/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTG9naW5Mb2cvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Mapa/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTWFwYS9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Usuario/Atualizar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXN1YXJpby9BdHVhbGl6YXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Usuario/ConfirmarExcluir.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXN1YXJpby9Db25maXJtYXJFeGNsdWlyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Usuario/Consultar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXN1YXJpby9Db25zdWx0YXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Usuario/Criar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXN1YXJpby9Dcmlhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Usuario/Mensagem.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXN1YXJpby9NZW5zYWdlbS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Usuario/MensagemAtualizacao.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXN1YXJpby9NZW5zYWdlbUF0dWFsaXphY2FvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Usuario/MensagemExclusao.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXN1YXJpby9NZW5zYWdlbUV4Y2x1c2FvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-mp7x2r9llk

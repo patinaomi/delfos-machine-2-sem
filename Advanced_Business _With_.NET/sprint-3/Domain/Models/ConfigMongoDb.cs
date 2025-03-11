@@ -12,5 +12,9 @@
             public string HorariosCollectionName { get; set; } = null!;
             public string ClinicaCollectionName { get; set; } = null!;
             public string MedicoCollectionName { get; set; } = null!;
+            public string SugestaoConsultaClinicaCollectionName { get; set; } = null!;
+            public string SugestaoConsultaClienteCollectionName { get; set; } = null!;
+            public string MotivoRecusaCollectionName { get; set; } = null!;
+
         }
     }

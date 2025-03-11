@@ -9,7 +9,7 @@ public class DadosCadastraisService : IDadosCadastraisService
         _dadosCadastraisRepository = dadosCadastraisRepository;
     }
 
-    public DadosCadastraisDto ObterDadosCadastraisPorUsuarioId(string userId)
+    public DadosCadastraisDTO ObterDadosCadastraisPorUsuarioId(string userId)
     {
         var usuario = _dadosCadastraisRepository.ObterUsuarioPorId(userId);
         var endereco = _dadosCadastraisRepository.ObterEnderecoPorUsuarioId(userId);
@@ -17,21 +17,19 @@ public class DadosCadastraisService : IDadosCadastraisService
         var turnos = _dadosCadastraisRepository.ObterTurnosPorUsuarioId(userId);
         var horarios = _dadosCadastraisRepository.ObterHorariosPorUsuarioId(userId);
 
-        return new DadosCadastraisDto
+        return new DadosCadastraisDTO
         {
             Usuario = new UsuarioDTO
             {
                 Id = usuario.Id,
                 Nome = usuario.Nome,
                 Email = usuario.Email
-                // Outros campos do UsuarioDTO
             },
             Endereco = new EnderecoDTO
             {
                 Rua = endereco.Rua,
                 CEP = endereco.CEP,
                 Cidade = endereco.Cidade,
-                // Outros campos do EnderecoDTO
             },
             DiasPreferencia = diasPreferencia.Select(dp => new DiasPreferenciaDTO
             {

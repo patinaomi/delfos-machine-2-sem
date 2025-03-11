@@ -1,0 +1,2643 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Project</name>
+    </assembly>
+    <members>
+        <member name="M:ClinicaController.CadastrarClinica(Project.Models.Clinica)">
+            <summary>
+                Cria um novo cadastro de Clinica no banco de dados.
+            </summary>
+            
+            <remarks>
+            ## Criação de uma nova clínica
+            
+            Use este endpoint quando precisar cadastrar uma nova clínica. Aqui ainda não cadastramos os médicos, somente as empresas.
+            
+            ### Campos que devem ser utilizados para criar um novo usuário:
+            
+            - **nome**: Nome da clínica
+            - **cnpj**: CNPJ da clínica
+            - **telefone**: Número de telefone para contato
+            - **email**: Endereço de email para contato
+            - **senha**: Senha de acesso (será criptografada)
+            
+            ### Campos que não devem ser utilizados para criar um novo usuário:
+            - **id**: ID não é necessário pois o banco vai criar um de forma automática.
+            - **perfil**: Não será necessário enviar pois é default aqui
+            
+            ### Exemplo de requisição:
+            
+            ```json
+                {
+                    "nome": "João",
+                    "CNPJ": "1234567891011",
+                    "telefone": "11958757000"
+                    "email": "joao@exemplo.com",
+                    "senha": "senha123",
+                    "perfil": "Clinica"
+                }
+            ```
+            
+            Somente os campos incluídos no corpo da requisição serão cadastrados.
+            
+            ## Exemplo de body que receberemos como resposta:
+            
+            ```json
+                {   
+                    "id": "67ce4b3d61760e36f862dd59"
+                    "nome": "João",
+                    "CNPJ": "1234567891011",
+                    "telefone": "11958757000"
+                    "email": "joao@exemplo.com",
+                    "senha": "senha123",
+                    "perfil": "Clinica"
+                }
+                
+            Perceba que a resposta irá criar um ID automático gerado pelo banco de dados.
+            
+            ```
+            </remarks>
+            
+            <response code="200">Clinica criado com sucesso</response>
+            <response code="201">Registro efetuado</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:ClinicaController.ConsultarTodos">
+            <summary>
+                Consultar a lista com todo os Clinicas.
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar todos os usuários do banco
+            
+            Use este endpoint quando precisar consultar as clínicas com todos campos específicos de uma clínica.
+            
+            ### Exemplo de body que receberemos como resposta:
+            
+            ```json
+               [
+                    {
+                        "id": "67ce4b3d61760e36f862dd59",
+                        "nome": "Delfos",
+                        "cnpj": "1234567891011",
+                        "telefone": "4255888069",
+                        "email": "delfos@delfos.com",
+                        "senha": "123456",
+                        "perfil": "Clinica"
+                    },
+                    {
+                        "id": "67cf2b26c33c2aa2b9f0d069",
+                        "nome": "Machine",
+                        "cnpj": "1234567891011",
+                        "telefone": "11958757740",
+                        "email": "machine@delfos.com",
+                        "senha": "123456",
+                        "perfil": "Clinica"
+                    }
+               ]
+            ```
+            </remarks>
+            
+            <response code="200">Clinica criado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:ClinicaController.ConsultarId(System.String)">
+            <summary>
+                Consultar uma única Clinica.
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar uma única clínica pelo ID do banco de dados
+            
+            Use este endpoint quando precisar consultar somente um clínica com todos campos específicos de uma clínica.
+            
+            ### Exemplo de body que receberemos como resposta:
+            
+            ```json
+               {
+                   "id": "67ce4b3d61760e36f862dd59",
+                   "nome": "Delfos",
+                   "cnpj": "1234567891011",
+                   "telefone": "4255888069",
+                   "email": "delfos@delfos.com",
+                   "senha": "123456",
+                   "perfil": "Clinica"
+                }
+             
+            ```
+            </remarks>
+            
+            <response code="200">Dados consultados com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:ClinicaController.AtualizarClinica(System.String,Project.Models.Clinica)">
+            <summary>
+                Atualizar todos os dados de uma Clinica específica.
+            </summary>
+            
+            <remarks>
+            ## Atualizar todos os dados da clínica
+            
+            Use este endpoint quando precisar atualizar todos os dados de uma única vez. Usando está rota, se não for informado os dados dos demais campos, eles serão afetados por informações defaults do sistema.
+            
+            <param name="id" type="string" example="67ce4b3d61760e36f862dd59">ID do Clinica a ser atualizado</param>
+            
+            ### Campos que podem ser atualizados:
+            
+            - **nome**: Nome da clínica
+            - **cnpj**: CNPJ da clínica
+            - **telefone**: Número de telefone para contato
+            - **email**: Endereço de email para contato
+            - **senha**: Senha de acesso (será criptografada)
+            
+            ### Campos que não podem ser atualizados:
+            
+            - **id**: ID do banco de dados
+            - **perfil**: Perfil da clínica que será sem o padrão "Clinica" a não ser que ela seja usuário "Comum".
+            
+            ### Exemplo de requisição:
+            
+            ```json
+            {
+                "id": "67ce4b3d61760e36f862dd59",
+                "nome": "Delfos",
+                "cnpj": "1234567891011",
+                "telefone": "11987654321",
+                "email": "novo.email@clinica.com.br"
+                "perfil": "Clinica",
+            }
+            ```
+            
+            </remarks>
+            
+            <response code="200">Clinica atualizado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="404">Clinica não encontrado</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:ClinicaController.AtualizarClinica(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+                Atualiza parcialmente os dados de uma clínica existente
+            </summary>
+            
+            <param name="id" type="string" example="67ce4b3d61760e36f862dd59">ID da clínica a ser atualizada</param>
+            <param name="camposParaAtualizar">Campos específicos a serem atualizados</param>
+            
+            <remarks>
+            
+            ## Atualização Parcial de Clínica
+            
+            Use este endpoint quando precisar atualizar apenas alguns campos específicos de uma clínica,
+            sem a necessidade de enviar todos os dados.
+            
+            ### Campos que podem ser atualizados:
+            - **nome**: Nome da clínica
+            - **cnpj**: CNPJ da empresa/Clínica
+            - **telefone**: Número de telefone para contato
+            - **email**: Endereço de email para contato
+            - **senha**: Senha de acesso (será criptografada)
+            
+            ### Campos que não podem ser atualizados:
+            - **Perfil**: Perfil = Clínica pois a rota utilizada foi a de parceiros e não de cliente
+            
+            ### Exemplo de requisição:
+            
+            ```json
+            {
+                "id": "67ce4b3d61760e36f862dd59",
+                "email": "novo.email@clinica.com.br"
+            }
+            ```
+            
+            Somente os campos incluídos no corpo da requisição serão atualizados.
+            
+            ### Exemplo de resposta da requisição:
+            
+            ```json
+            {
+                "id": "67ce4b3d61760e36f862dd59",
+                "nome": "Delfos",
+                "cnpj": "1234567891011",
+                "telefone": "string",
+                "email": "delfos@delfos.com", -- Validação pode ser feita pelo campo informado!
+                "senha": "string",
+                "perfil": "Clinica"
+            }
+            ```
+            </remarks>
+            
+            <response code="200">Clinica atualizada com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="404">Clinica não encontrada</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:ClinicaController.ExcluirClinica(System.String)">
+             <summary>
+                 Excluir os Clinicas do banco de dados.
+             </summary>
+            
+             <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Clinica a ser excluído</param>
+             
+             <remarks>
+             
+             ## Excluir uma clínica do banco de dados e dos cadastros.
+             
+             ### Exemplo da requisição para excluir uma clínica:
+             
+             ```json
+                 {
+                     "id": "67cf3f8f8d3a256253f2dab5",
+                 }
+             ```
+             
+             ### Exemplo da resposta para excluir uma clínica:
+             
+             ```json
+                 {
+                     "message": "Clinica excluído com sucesso."
+                 }
+             ``` 
+             
+             Uma vez excluida da base, não tem reversão desta ação.
+             </remarks>
+             
+             <response code="200">Clinica criado com sucesso</response>
+             <response code="400">Dados inválidos fornecidos</response>
+             <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:DiasPreferenciaController.CadastrarDia(Project.Models.DiasPreferenciaDTO)">
+            <summary>
+                Cadastra um novo dia de preferência para um usuário autenticado.
+            </summary>
+            
+            <remarks>
+            
+            ## Cadastra um ou mais dias de preferência que o usuário pode ter de recomendação para uma consulta
+            
+            Use este endpoint quando precisar registrar um dia como preferência para receber sugestão de consultas.
+            
+            ### Campos que devem ser utilizados para criar um novo dia:
+            
+            - **idUsuario**: IdUsuario logado na sessão
+            - **DiasSemana**: Dia deseja sendo Segunda-feira, Terça-feira, Quarta-feira, Quinta-feira, Sexta-feira ou Sábado.
+            
+            ### Exemplo de body a ser informado para criar o dia de preferência do usuário:
+            
+            ```json
+                {   
+                    "idUsuario": "67cc95b32811515d372209ce",
+                    "diaSemana": "Segunda-feira"
+                }
+            ``` 
+            
+            ### Campos que não devem ser utilizados para criar um novo dia:
+            - **id** : Id será criado de forma automática pelo banco de dados.
+            
+            ### Exemplo de body de retorno:
+            
+            ```json
+                "Dia de preferência cadastrado com sucesso."
+            ```
+            </remarks>
+            
+            <returns>Retorna 201 Created se o cadastro for bem-sucedido.</returns>
+            <response code="201">Preferência de dia cadastrada com sucesso.</response>
+            <response code="400">Erro na requisição (dados inválidos).</response>
+            <response code="401">Usuário não autenticado.</response>
+        </member>
+        <member name="M:DiasPreferenciaController.ConsultarTodosDias">
+            <summary>
+                Obtém todas as preferências de dias cadastradas no sistema pelo cliente.
+            </summary>
+            <remarks>
+            
+            ## Consultar uma lista dos dias que foram cadastrados como preferência
+            
+            Use este endpoint quando precisar consultar todos os dias cadastrados pelo usuário com todos campos específicos de uma clínica de retorno.
+            
+            ### Campos que devem ser utilizados para consultar um dia de preferência:
+            
+            - **Não é necessário informar nenhum dado, apenas clicar em executar que uma lista será concedida**
+            
+            ### Exemplo da resposta que será devolvida quando a consulta está correta:
+            
+            ```json
+            [
+              {
+                 "id": "67ce27cdd664f98dbe755904",
+                 "idUsuario": "67cc95b32811515d372209ce",
+                 "diasSemana": "Segunda"
+             },
+             {
+                 "id": "67ce27d2d664f98dbe755905",
+                 "idUsuario": "67cc95b32811515d372209ce",
+                 "diasSemana": "Segunda"
+             },
+             {
+                 "id": "67ce33dff151c271f57510af",
+                 "idUsuario": "67cc95b32811515d372209ce",
+                 "diasSemana": "Terça-feira"
+             }
+            ]
+            ``` 
+            
+            </remarks>
+            <returns>Retorna uma lista contendo todas as preferências de dias.</returns>
+            <response code="200">Retorna a lista de preferências.</response>
+        </member>
+        <member name="M:DiasPreferenciaController.ConsultarDiaId(System.String)">
+            <summary>
+                Consultar um único registro de preferência do dia que o usuário cadastrou.
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar uma único dia de preferência registrado, sendo consultado pelo ID do banco de dados
+            
+            Use este endpoint quando precisar consultar somente um registro com todos campos específicos.
+            
+            ### Campos que devem ser utilizados para consultar um dia de preferência:
+            
+            - **id**: ID do banco e não o idUsuario
+            
+             ### Exemplo de body para requisição:
+             
+            ```json
+                "id": "67ce3f3b334baff73edd38b6"
+            ```
+            
+            ### Exemplo de body que receberemos como resposta:
+            
+            ```json
+               {
+                   "id": "67ce3f3b334baff73edd38b6",
+                   "idUsuario": "67cc95b32811515d372209ce",
+                   "diaSemana": "Segunda-feira"
+                }
+             
+            ```
+            </remarks>
+            
+            <response code="200">Dia consultado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:DiasPreferenciaController.AtualizarDiaPreferencia(System.String,Project.Models.DiasPreferencia)">
+            <summary>
+                Atualiza as preferências de dias de um usuário autenticado.
+            </summary>
+            
+            <remarks>
+            
+            ## Atualizar a preferência de dia cadastrado pelo usuário
+            
+            Use este endpoint se o objetivo for alterar no cadastro um ou mais dias de preferência que o usuário deseja ser atendido.
+            
+            ### Exemplo de requisição
+            
+            ```json
+                {   
+                    "id": "67ce4b3d61760e36f862dd59",
+                    "idUsuario": "67cc95b32811515d372209ce",
+                    "DiasSemana": "Sábado"
+                }
+            
+            ``` 
+            
+            ### Exemplo do modelo de resposta quando ocorre sucesso na alteração
+            
+            ```json
+                {
+                    "id": "67cf5a8b8f6c3c886a4deb56",
+                    "idUsuario": "67cc95b32811515d372209ce",
+                    "diasSemana": "Segunda-feira"
+               }
+            ```
+            
+            </remarks>
+            
+            <returns>Retorna 204 No Content se a atualização for bem-sucedida.</returns>
+            <response code="204">Dados atualizados com sucesso.</response>
+            <response code="400">Erro na requisição (dados inválidos).</response>
+            <response code="401">Usuário não autenticado.</response>
+            <response code="404">Nenhum registro encontrado para o usuário.</response>
+        </member>
+        <member name="M:DiasPreferenciaController.ExcluirEndereco(System.String)">
+            <summary>
+            Exclui um dia de preferência do usuário.
+            </summary>
+            
+            <remarks>
+            
+            ## Excluir um dia de preferência do usuário do cadastro
+            
+            Use este endoPoint se seu objetivo é excluir um cadastro contendo o dia de preferência cadastrado errado. 
+            
+            ### Exemplo da requisição para excluir:
+            
+            ```json
+                {
+                    "id": "67cf3f8f8d3a256253f2dab5",
+                }
+            ```
+            
+            ### Exemplo da resposta para excluir uma clínica:
+            
+            ```json
+                {
+                    "message": "Dia de preferência excluído com sucesso."
+                }
+            ``` 
+            
+            Uma vez excluida da base, não tem reversão desta ação.
+            
+            </remarks>
+            
+            <param name="id" type="string" example="67cdee51b304fd2aaac177c9">ID do dia a ser excluído.</param>
+            <response code="200">Dia excluído com sucesso</response>
+            <response code="401">Usuário não autorizado</response>
+            <response code="404">Dia não encontrado</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:EnderecoController.CadastrarEndereco(Project.Models.EnderecoDTO)">
+             <summary>
+                 Cadastra um novo endereço de preferência para o usuário.
+             </summary>
+             
+             <remarks>
+             
+             ## Cadastrar novo endereço de preferência para o usuário
+             
+             Use este endPoint para cadastrar um endereço de peferência para o usuário. Com este endereço, o modelo de IA será capaz de buscar uma  clínica próxima do cliente.
+             
+             ### Campos que devem ser utilizados para criar um novo dia:
+             - **idUsuario** : IdUsuario que deseja registrar o endereço
+             - **cep** string : CEP de preferência e não de residência
+             - **estado** string : Estado de preferência e não de residência
+             - **cidade** string : Cidade de preferência e não de residência
+             - **bairro** string : Bairro de preferência e não de residência
+             - **rua** string : Rua de preferência e não de residência
+             
+             ### Campos que não devem ser utilizados para criar um novo dia:
+             - **id** : Id do dia que será gerado automaticamente
+            
+             
+             ### Exemplo de body para requisição:
+             
+             ```json
+                 {   
+                     "idUsuario": "67cc95b32811515d372209ce",
+                     "cep": "12345678",
+                     "estado": "São Paulo",
+                     "cidade": "São Paulo",
+                     "bairro": "Centro",
+                     "rua": "Cantori 30"
+                 }
+             ```
+             
+             ### Exemplo de resposta:
+             
+             ```json
+                 {   
+                     "id": "67cc95b32811515d37220000",
+                     "idUsuario": "67cc95b32811515d372209ce",
+                     "cep": "12345678",
+                     "estado": "São Paulo",
+                     "cidade": "São Paulo",
+                     "bairro": "Centro",
+                     "rua": "Cantori 30"
+                 }
+             ```
+             
+             </remarks>
+             <response code="201">Endereço criado com sucesso</response>
+             <response code="400">Dados inválidos</response>
+             <response code="500">Erro interno</response>
+        </member>
+        <member name="M:EnderecoController.ConsultarTodosEndereco">
+             <summary>
+                 Consultar o endereço de preferência do usuário.
+             </summary>
+             
+             <remarks>
+             
+             ## Consultar todos os registros de endereço do banco de dados
+             
+             Use este endPoint se seu objetivo é recuperar todos os registros de endereços do banco de dados
+             
+             ### Campos que disponíveis na requisição:
+             - **id** : Id do banco de dados, que foi gerado automaticamente.
+             - **idUsuario** : IdUsuario que deseja registrar o endereço
+             - **cep** string : CEP de preferência e não de residência
+             - **estado** string : Estado de preferência e não de residência
+             - **cidade** string : Cidade de preferência e não de residência
+             - **bairro** string : Bairro de preferência e não de residência
+             - **rua** string : Rua de preferência e não de residência
+             
+             ### Exemplo de body que virá de resposta:
+             
+             ```json
+            [
+                {
+                    "id": "67cdee51b304fd2aaac177c9",
+                    "idUsuario": "67cc95b32811515d372209ce",
+                    "cep": "01739018",
+                    "estado": "São Paulo",
+                    "cidade": "São Paulo",
+                    "bairro": "Vila Andrade",
+                    "rua": "Cantori 30"
+                },
+                {
+                    "id": "67cdee91b304fd2aaac177ca",
+                    "idUsuario": "67cc95b32811515d372209ce",
+                    "cep": "05728020",
+                    "estado": "São Paulo",
+                    "cidade": "São Paulo",
+                    "bairro": "Teste",
+                    "rua": "Teste"
+                }
+            ]
+             ```
+             </remarks>
+             
+             <response code="200">Endereco consultado com sucesso</response>
+             <response code="400">Dados inválidos fornecidos</response>
+             <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:EnderecoController.ConsultarEnderecoId(System.String)">
+            <summary>
+                Consultar um único registro de preferência de endereço que o usuário cadastrou.
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar um único endereço de preferência registrado, sendo consultado pelo ID do banco de dados
+            
+            Use este endpoint quando precisar consultar somente um registro com todos campos específicos.
+            
+            ### Campos que devem ser utilizados para consultar um endereço de preferência:
+            
+            - **id**: ID do banco e não o idUsuario
+            
+             ### Exemplo de body para requisição:
+             
+            ```json
+                "id": "67cdee91b304fd2aaac177ca"
+            ```
+            
+            ### Exemplo de body que receberemos como resposta:
+            
+            ```json
+               {
+                    "id": "67cdee91b304fd2aaac177ca",
+                    "idUsuario": "67cc95b32811515d372209ce",
+                    "cep": "05728020",
+                    "estado": "São Paulo",
+                    "cidade": "São Paulo",
+                    "bairro": "Teste",
+                    "rua": "Teste"
+                }
+            ```
+            </remarks>
+            
+            <response code="200">Dia consultado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:EnderecoController.AtualizarEndereco(System.String,Project.Models.EnderecoDTO)">
+            <summary>
+                Atualiza o endereço completo existente do usuário, com base no ID do usuário e ID do banco de dados.
+            </summary>
+            
+            <remarks>
+            
+            ## Atualizar a preferência de endereço cadastrado pelo usuário
+            
+            Use este endpoint se o objetivo for atualizar todos os campos do endereço no cadastro. Se for parcial, utilize outro endPoint.
+            
+            ### Exemplo de requisição
+            
+            ```json
+                {   
+                    "id": "67ce4b3d61760e36f862dd59",
+                    "idUsuario": "67cc95b32811515d372209ce",
+                    "cep": "05763290",
+                    "estado": "SP", 
+                    "cidade": "São Paulo",
+                    "Bairro": "Vila Madalena",
+                    "Rua": "Rua do Pão de Queijo"
+                }
+            
+            ``` 
+            
+            ### Se preencher alguns campos e outros não, estes campos serão preenchidos com dados inválidos e default criado pelo sistema.
+            </remarks>
+            
+            
+            <param name="id" type="string" example="67cc95b32811515d372209ce">ID do usuário a ser atualizado o endereço.</param>
+            <param name="enderecoDTO">Dados do endereço a serem atualizados.</param>
+            <response code="200">Endereço atualizado com sucesso</response>
+            <response code="400">Dados inválidos</response>
+            <response code="401">Endereço não autorizado</response>
+            <response code="404">Endereço não encontrado</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:EnderecoController.AtualizarClinica(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+                Atualiza parcialmente os dados de um endereço existente
+            </summary>
+            
+            <param name="id" type="string" example="67ce4b3d61760e36f862dd59">ID da endereço a ser atualizada</param>
+            <param name="camposParaAtualizar">Campos específicos a serem atualizados</param>
+            
+            <remarks>
+            
+            ## Atualização Parcial dos dados
+            
+            Use este endpoint quando precisar atualizar apenas alguns campos específicos de uma tabela,
+            sem a necessidade de enviar todos os dados.
+            
+            ### Campos que podem ser atualizados:
+            - **id**: ID gerado pelo banco de dados
+            - **cep**: CEP do endereço
+            - **Estado**: Estado do endereço
+            - **Cidade**: Cidade do endereço de preferência do usuário
+            - **Bairro**: Bairro do endereço
+            - **Rua**: Endereço completo com número
+            
+            ### Campos que não podem ser atualizados:
+            - **IdUsuario**: IdUsuario que foi gerado pelo banco de dados
+            
+            ### Exemplo de requisição:
+            
+            ```json
+            {
+                "id": "67ce4b3d61760e36f862dd59",
+                "email": "novo.email@clinica.com.br"
+            }
+            ```
+            
+            Somente os campos incluídos no corpo da requisição serão atualizados.
+            
+            ### Exemplo de resposta da requisição:
+            
+            ```json
+            {
+                "id": "67cdee91b304fd2aaac177ca",
+                "idUsuario": "67cc95b32811515d372209ce",
+                "cep": "05763290",
+                "estado": "São Paulo",
+                "cidade": "São Paulo",
+                "bairro": "Teste",
+                "rua": "Teste"
+            }
+            ```
+            </remarks>
+            
+            <response code="200">Clinica atualizada com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="404">Clinica não encontrada</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:EnderecoController.ExcluirEndereco(System.String)">
+            <summary>
+            Exclui um endereço do usuário.
+            </summary>
+            
+            <remarks>
+            
+            ## Excluir um endereço de preferência do usuário cadastrado
+            
+            Use este endoPoint se seu objetivo é excluir um cadastro contendo o endereço de preferência cadastrado errado. 
+            
+            ### Exemplo da requisição para excluir:
+            
+            ```json
+                {
+                    "id": "67cf3f8f8d3a256253f2dab5",
+                }
+            ```
+            
+            ### Exemplo da resposta para excluir uma clínica:
+            
+            ```json
+                {
+                    "message": "Endereço de preferência excluído com sucesso."
+                }
+            ``` 
+            
+            Uma vez excluida da base, não tem reversão desta ação.
+            
+            </remarks>
+            
+            <param name="id" type="string" example="67cdee51b304fd2aaac177c9">ID do endereço a ser excluído.</param>
+            <response code="200">Endereço excluído com sucesso</response>
+            <response code="401">Usuário não autorizado</response>
+            <response code="404">Endereço não encontrado</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:HorariosController.CadastrarHorario(Project.Models.HorariosDTO)">
+             <summary>
+                 Cadastra um novo horário de preferência para o usuário.
+             </summary>
+             
+             <remarks>
+             
+             ## Cadastrar um novo horário de preferência para um usuário
+             
+             Use este endPoint se o objetivo e cadastrar um novo horário de preferência, lembrando que o usuário pode ter vários em seu cadastro.
+             
+             ### Campos que devem ser utilizados para cadastrar um horário de preferência:
+             - **idUsuario**: ID do banco e não o idUsuario
+             - **HorariosPreferencia**: Informe o horário como string e no formato "08:00"
+             
+             ### Campos que não devem ser utilizados para cadastrar um horário de preferência:
+             - **Id**: Não é necessário informar o id, pois ele será gerado automaticamente pelo
+             
+             ### Exemplo de body da requisição:
+             ```json
+                 {   
+                     "idUsuario": "67cc95b32811515d372209ce",
+                     "horariosPreferencia": "07:00"
+                 }
+             ``` 
+             
+             ### Exemplo de body da resposto quando o cadastro é bem sucedido
+             ```json
+                 {
+                     "id": "67cf6c2a446498c2b6eb0a90",
+                     "idUsuario": "67cc95b32811515d372209ce",
+                     "horariosPreferencia": "22:00"
+                 }
+            ```
+             </remarks>
+             <response code="201">Horário criado com sucesso</response>
+             <response code="400">Dados inválidos</response>
+             <response code="500">Erro interno</response>
+        </member>
+        <member name="M:HorariosController.ConsultarTodosHorarios">
+             <summary>
+                 Consultar todos os registros de horários de preferência no banco de dados.
+             </summary>
+             
+             <remarks>
+             
+             ## Consultar todos os registros de horários do banco de dados
+             
+             Use este endPoint se seu objetivo é recuperar todos os registros de horários do banco de dados
+             
+             ### Campos que disponíveis na requisição:
+             - **id** : Id do banco de dados, que foi gerado automaticamente.
+             - **idUsuario** : IdUsuario que deseja registrar o endereço
+             - **HorariosPreferencia** string : Horário de preferência, podem ser vários.
+             
+             ### Exemplo de body que virá de resposta:
+             
+             ```json
+            [
+                {
+                    "id": "67cdee51b304fd2aaac177c9",
+                    "idUsuario": "67cc95b32811515d372209ce",
+                    "HorariosPreferencia": "07:00",
+                },
+                {
+                    "id": "67cdee91b304fd2aaac177ca",
+                    "idUsuario": "67cc95b32811515d372209ce",
+                    "HorariosPreferencia": "22:00",
+                }
+            ]
+             ```
+             </remarks>
+             
+             <response code="200">Horário consultado com sucesso</response>
+             <response code="400">Dados inválidos fornecidos</response>
+             <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:HorariosController.ConsultarHorarioId(System.String)">
+            <summary>
+                Consultar um único registro de preferência de horário que o usuário cadastrou.
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar um único horário de preferência registrado, sendo consultado pelo ID do banco de dados
+            
+            Use este endpoint quando precisar consultar somente um registro com todos campos específicos.
+            
+            ### Campos que devem ser utilizados para consultar um horário de preferência:
+            
+            - **id**: ID do banco e não o idUsuario
+            
+             ### Exemplo de body para requisição:
+             
+            ```json
+                "id": "67ce3bb1c9562c029b01d3fe"
+            ```
+            
+            ### Exemplo de body que receberemos como resposta:
+            
+            ```json
+               {
+                    "id": "67ce3bb1c9562c029b01d3fe",
+                    "idUsuario": "67cc95b32811515d372209ce",
+                    "horarioPreferencia": "22:00"
+                }
+            ```
+            </remarks>
+            
+            <response code="200">Dia consultado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:HorariosController.AtualizarHorario(System.String,Project.Models.HorariosDTO)">
+            <summary>
+                Atualiza as preferências de hoários de um usuário autenticado.
+            </summary>
+            
+            <remarks>
+            
+            ## Atualizar a preferência de horários cadastrado pelo usuário
+            
+            Use este endpoint se o objetivo for alterar no cadastro um ou mais hoários de preferência que o usuário deseja ser atendido.
+            
+            ### Campos que devem ser utilizados para consultar um Horário de preferência:
+            - **id**: ID do banco e não o idUsuario
+            - **idUsuario**: IdUsuario gerado pelo banco de dados
+            - **horariosPreferencia**: Campo em string com o horário de preferência neste exemplo "07:00"
+            
+            ### Exemplo de requisição
+            
+            ```json
+                {   
+                    "id": "67ce3bb1c9562c029b01d3fe",
+                    "idUsuario": "67cc95b32811515d372209ce",
+                    "HorariosPreferencia": "24:00"
+                }
+            
+            ``` 
+            
+            ### Exemplo do modelo de resposta quando ocorre sucesso na alteração
+            
+            ```json
+                {
+                    "id": "67ce3bb1c9562c029b01d3fe",
+                    "idUsuario": "67cc95b32811515d372209ce",
+                    "HorariosPreferencia": "24:00"
+                    "mensagem": "Horário atualizado com sucesso!"
+               }
+            ```
+            
+            </remarks>
+            
+            <returns>Retorna 204 No Content se a atualização for bem-sucedida.</returns>
+            <response code="204">Dados atualizados com sucesso.</response>
+            <response code="400">Erro na requisição (dados inválidos).</response>
+            <response code="401">Usuário não autenticado.</response>
+            <response code="404">Nenhum registro encontrado para o usuário.</response>
+        </member>
+        <member name="M:HorariosController.ExcluirHorario(System.String)">
+            <summary>
+                Exclui um horário de preferência do usuário.
+            </summary>
+            
+            <remarks>
+            
+            ## Excluir um horário de preferência do usuário do cadastro feito no banco.
+            
+            Use este endoPoint se seu objetivo é excluir um cadastro contendo o dia de preferência cadastrado errado. 
+            
+            ### Exemplo da requisição para excluir:
+            
+            ```json
+                {
+                    "id": "67cf3f8f8d3a256253f2dab5",
+                }
+            ```
+            
+            ### Exemplo da resposta para excluir uma clínica:
+            
+            ```json
+                {
+                    "message": "Horário de preferência excluído com sucesso."
+                }
+            ``` 
+            
+            Uma vez excluida da base, não tem reversão desta ação.
+            
+            </remarks>
+            
+            <param name="id" type="string" example="67cdee51b304fd2aaac177c9">ID do dia a ser excluído.</param>
+            <response code="200">Dia excluído com sucesso</response>
+            <response code="401">Usuário não autorizado</response>
+            <response code="404">Dia não encontrado</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:MedicoController.CadastrarMedico(Project.Models.Medico)">
+            <summary>
+                Cria um novo Médico.
+            </summary>
+            
+            <remarks>
+            
+            ## Cadastrar novo Médico no banco de dados
+            
+            Use este endPoint para cadastrar um Médico. Somente Médicos cadastrados podem efetuar o Login na plataforma.
+            
+            ### Campos que devem ser utilizados para criar um novo dia:
+            - **nome** string : Nome completo do Médico
+            - **cpf** string : CPF oficial do Médico com 11 digitos
+            - **telefone** string : Telefone de contato
+            - **email** string : Email principal de contato
+            - **senha** string : Senha de acesso (teremos hash para proteger a senha)
+            - **perfil** string : Todos os Médicos cadastrados nesta rota, nasceram com perfil padrão = "Medico"
+            - **especilidade** string : Especilidade principal de contato
+            
+            ### Campos que não devem ser utilizados para criar um novo dia:
+            - **id** : Id do dia que será gerado automaticamente
+            - **idUsuario** : IdUsuario será uma cópia do Id e utilizado nas demais tabelas. Será gerado de forma automática.   
+            
+            
+            ### Exemplo de body para requisição:
+            ```json
+                {
+                    "nome": "João",
+                    "cpf": "12345678910",
+                    "sobrenome": "Silva",
+                    "email": "joao@exemplo.com",
+                    "senha": "senha123",
+                    "perfil": "Comum",
+                    "especilidade" : "Clinica Geral"
+                }
+            ```
+            
+            ### Exemplo de resposta quando o cadastro for efetuado:
+            
+            ```json
+                {   
+                    "id": "67cc95b32811515d37220000", -- gerado pelo banco de dados
+                    "nome": "Delfos Machine",
+                    "cpf": "12345678910",
+                    "telefone": "11975776758",
+                    "email": "delfos@delfos.com",
+                    "senha": "123456",
+                    "perfil": "Comum",
+                    "especilidade" : "Clinica Geral"
+                }
+            ```
+            </remarks>
+            
+            <response code="200">Requisição realizada com sucesso</response>
+            <response code="201">Médico criado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:MedicoController.ConsultarTodosMedicos">
+            <summary>
+                Consultar a lista com todo os Médicos.
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar todos os registros de Médicos do banco de dados
+            
+            Use este endPoint se seu objetivo é recuperar todos os registros de Médicos do banco de dados
+            
+            ### Campos disponiveis para consultar os Médicos:
+            - **id** : Id do dia que será gerado automaticamente
+            - **nome** string : Nome completo do Médico
+            - **cpf** string : CPF oficial do Médico com 11 digitos
+            - **telefone** string : Telefone de contato
+            - **email** string : Email principal de contato
+            - **senha** string : Senha de acesso (teremos hash para proteger a senha)
+            - **perfil** string : Todos os Médicos cadastrados nesta rota, nasceram com perfil padrão = "Comum"
+            - **especilidade** string : Especilidade principal de contato
+            
+            Exemplo de body de resposta, sempre será uma lista com todos os Médicos no banco:
+            ```json
+                [
+                    { 
+                        "id": "67cc95b32811515d372209ce",
+                        "nome": "claudio",
+                        "cpf": "12345678910",
+                        "telefone": "11958757740",
+                        "email": "claudio_cssp@hotmail.com",
+                        "senha": "123456",
+                        "especilidade" : "Clinica Geral"
+                    },
+                    {
+                        "id": "67cca0540924d08d2c4b7819",
+                        "nome": "Caio",
+                        "cpf": "12345678910",
+                        "telefone": "11958757740",
+                        "email": "caio@delfos.com",
+                        "senha": "123456",
+                        "especilidade" : "Clinica Geral"
+                    }
+                ]
+            ```
+            </remarks>
+            
+            <response code="200">Médico criado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:MedicoController.ConsultarMedicoId(System.String)">
+            <summary>
+                Consultar um único registro de Médico
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar um único Médico no banco, sendo consultado pelo ID do banco de dados
+            
+            Use este endpoint quando precisar consultar somente um registro com todos campos específicos.
+            
+            ### Campos que devem ser utilizados para consultar um Médico:
+            
+            - **id**: ID do banco
+            
+             ### Exemplo de body para requisição:
+             
+            ```json
+                "id": "67cc95b32811515d372209ce"
+            ```
+            
+            ### Exemplo de body que receberemos como resposta:
+            
+            ```json
+               {
+                    "id": "67cc95b32811515d372209ce",
+                    "nome": "Claudio",
+                    "cpf": "12345678910",
+                    "telefone": "11958755567",
+                    "email": "delfos@delfosmachine.com",
+                    "senha": "123456",
+                    "perfil": "Comum",
+                    "especilidade" : "Clinica Geral"
+                }
+            ```
+            </remarks>
+            
+            <response code="200">Médico consultado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:MedicoController.AtualizarMedico(System.String,Project.Models.Medico)">
+            <summary>
+                Atualiza os dados completos existente do Médico, com base no ID do banco de dados
+            </summary>
+            
+            <remarks>
+            
+            ## Atualizar todas as informações do Médico no banco
+            
+            Use este endpoint se o objetivo for atualizar todos os campos para o Médico no cadastro. Se for parcial, utilize outro endPoint.
+            
+            ### Exemplo de requisição
+            
+            ```json
+                {   
+                    "id": "67ce4b3d61760e36f862dd59",
+                    "nome": "Patricia Delfos",
+                    "cpf": "12345678910",
+                    "telefone": "1155122066",
+                    "email": "patricia@delfos.com", 
+                    "senha": "123456",
+                    "perfil": "Comum",
+                    "especilidade" : "Clinica Geral"
+                }
+            ``` 
+            
+            ### Se preencher alguns campos e outros não, estes campos serão preenchidos com dados inválidos e default criado pelo sistema.
+            </remarks>
+            
+            
+            <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Médico no banco de dados.</param>
+            <param name="medicoDto">Dados do Médico a serem atualizados.</param>
+            <response code="200">Médico atualizado com sucesso</response>
+            <response code="400">Dados inválidos</response>
+            <response code="401">Médico não autorizado</response>
+            <response code="404">Médico não encontrado</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:MedicoController.AtualizarClinica(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+                Atualiza parcialmente os dados de uma Médico existente
+            </summary>
+            
+            <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Médico a ser atualizada</param>
+            
+            <remarks>
+            
+            ## Atualização Parcial de um Médico
+            
+            Use este endpoint quando precisar atualizar apenas alguns campos específicos de um Médico,
+            sem a necessidade de enviar todos os dados.
+            
+            ### Campos que podem ser atualizados:
+            - **nome**: Nome do Médico
+            - **cpf** string : CPF oficial do Médico com 11 digitos
+            - **telefone**: Número de telefone para contato
+            - **email**: Endereço de email para contato
+            - **senha**: Senha de acesso (será criptografada)
+            - **especilidade** string : Especilidade principal de contato
+            
+            ### Campos que não podem ser atualizados:
+            - **Perfil**: Perfil = Comum pois a rota utilizada foi a de clientes e não de parceiros
+            
+            ### Exemplo de requisição:
+            
+            ```json
+            {
+                "id": "67cc95b32811515d372209ce",
+                "email": "novo.email@clinica.com.br"
+            }
+            ```
+            
+            Somente os campos incluídos no corpo da requisição serão atualizados.
+            
+            ### Exemplo de resposta da requisição:
+            
+            ```json
+            {
+                "id": "67ce4b3d61760e36f862dd59",
+                "nome": "Delfos",
+                "cpf": "12345678910",
+                "telefone": "string",
+                "email": "delfos@delfos.com", -- Validação pode ser feita pelo campo informado!
+                "senha": "string",
+                "perfil": "Comum",
+                "especilidade" : "Clinica Geral"
+            }
+            ```
+            </remarks>
+            
+            <response code="200">Médico atualizada com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="404">Médico não encontrada</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:MedicoController.ExcluirMedico(System.String)">
+             <summary>
+                 Excluir os Médico do banco de dados.
+             </summary>
+            
+             <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Médico a ser excluído</param>
+             
+             <remarks>
+             
+             ## Excluir um Médico do banco de dados e dos cadastros.
+             
+             ### Exemplo da requisição para excluir um Médico:
+             
+             ```json
+                 {
+                     "id": "67cc95b32811515d372209ce",
+                 }
+             ```
+             
+             ### Exemplo da resposta para excluir um Médico:
+             
+             ```json
+                 {
+                     "message": "Médico excluído com sucesso."
+                 }
+             ``` 
+             
+             Uma vez excluida da base, não tem reversão desta ação.
+             </remarks>
+             
+             <response code="200">Médico criado com sucesso</response>
+             <response code="400">Dados inválidos fornecidos</response>
+             <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:MotivoRecusaController.CadastrarMotivo(Project.Models.MotivoRecusa)">
+            <summary>
+                Cria um novo Motivo de recusa.
+            </summary>
+            
+            <remarks>
+            
+            ## Cadastrar novo Motivo de recusa no banco de dados
+            
+            Use este endpoint para cadastrar um Motivo de recusa. Apenas motivos de recusa cadastrados podem ser utilizados na plataforma.
+            
+            ### Campos que devem ser utilizados para criar um novo motivo:
+            - **motivo** string : Descrição curta do Motivo de recusa (ex: "Cliente não compareceu").
+            - **descricao** string : Descrição detalhada do Motivo de recusa (ex: "O cliente não compareceu na consulta agendada sem aviso prévio").
+            
+            ### Campos que não devem ser utilizados para criar um novo motivo:
+            - **id** : Id do motivo que será gerado automaticamente.
+            
+            ### Exemplo de body para requisição:
+            ```json
+                {
+                    "motivo": "Cliente não compareceu",
+                    "descricao": "O cliente não compareceu na consulta agendada sem aviso prévio."
+                }
+            ```
+            
+            ### Exemplo de resposta quando o cadastro for efetuado:
+            
+            ```json
+                {   
+                    "id": "67cc95b32811515d37220000", -- gerado pelo banco de dados
+                    "motivo": "Cliente não compareceu",
+                    "descricao": "O cliente não compareceu na consulta agendada sem aviso prévio."
+                }
+            ```
+            </remarks>
+            
+            <response code="200">Requisição realizada com sucesso</response>
+            <response code="201">Motivo de recusa criado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:MotivoRecusaController.ConsultarTodosMotivos">
+            <summary>
+                Consultar a lista com todos os Motivos de recusa.
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar todos os registros de Motivos de recusa do banco de dados
+            
+            Use este endpoint se seu objetivo é recuperar todos os registros de Motivos de recusa do banco de dados.
+            
+            ### Campos disponíveis para consultar os Motivos de recusa:
+            - **id** : Id do motivo de recusa, gerado automaticamente.
+            - **motivo** string : Descrição curta do Motivo de recusa (ex: "Cliente não compareceu").
+            - **descricao** string : Descrição detalhada do Motivo de recusa (ex: "O cliente não compareceu na consulta agendada sem aviso prévio").
+            
+            ### Exemplo de corpo de resposta (body), sempre será uma lista com todos os Motivos de recusa no banco:
+            ```json
+                [
+                    { 
+                        "id": "67cc95b32811515d372209ce",
+                        "motivo": "Cliente não compareceu",
+                        "descricao": "O cliente não compareceu na consulta agendada sem aviso prévio."
+                    },
+                    {
+                        "id": "67cca0540924d08d2c4b7819",
+                        "motivo": "Pedido Cancelado",
+                        "descricao": "O pedido foi cancelado por motivo pessoal do cliente."
+                    }
+                ]
+            ```
+            </remarks>
+            
+            <response code="200">Motivos de recusa recuperados com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:MotivoRecusaController.ConsultarMotivoId(System.String)">
+            <summary>
+                Consultar um único registro de Motivo de recusa
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar um único Motivo de recusa no banco, sendo consultado pelo ID do banco de dados
+            
+            Use este endpoint quando precisar consultar somente um registro com todos os campos específicos.
+            
+            ### Campos que devem ser utilizados para consultar um Motivo de recusa:
+            
+            - **id**: ID do motivo de recusa no banco.
+            
+             ### Exemplo de corpo para requisição:
+             
+            ```json
+                "id": "67d0b66edb7709d2ac4f7f74"
+            ```
+            
+            ### Exemplo de corpo que receberemos como resposta:
+            
+            ```json
+               {
+                    "id": "67d0b66edb7709d2ac4f7f74",
+                    "motivo": "Sem sistema",
+                    "descricao": "O sistema está inoperante no momento."
+                }
+            ```
+            </remarks>
+            
+            <response code="200">Motivo de recusa consultado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:MotivoRecusaController.AtualizarMotivo(System.String,Project.Models.MotivoRecusa)">
+            <summary>
+                Atualiza os dados completos do Motivo de recusa, com base no ID do banco de dados
+            </summary>
+            
+            <remarks>
+            
+            ## Atualizar todas as informações do Motivo de recusa no banco
+            
+            Use este endpoint se o objetivo for atualizar todos os campos do Motivo de recusa no cadastro. Se a atualização for parcial, utilize outro endpoint.
+            
+            ### Exemplo de requisição
+            
+            ```json
+                {   
+                    "id": "67d0b66edb7709d2ac4f7f74",
+                    "motivo": "Cliente não compareceu",
+                    "descricao": "O cliente não compareceu na consulta agendada sem aviso prévio."
+                }
+            ``` 
+            
+            ### Se preencher alguns campos e outros não, estes campos serão preenchidos com dados inválidos e valores default criados pelo sistema.
+            </remarks>
+            
+            <param name="id" type="string" example="67d0b66edb7709d2ac4f7f74">ID do Motivo de recusa no banco de dados.</param>
+            <param name="motivoRecusaDto">Dados do Motivo de recusa a serem atualizados.</param>
+            <response code="200">Motivo de recusa atualizado com sucesso</response>
+            <response code="400">Dados inválidos</response>
+            <response code="401">Motivo de recusa não autorizado</response>
+            <response code="404">Motivo de recusa não encontrado</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:MotivoRecusaController.AtualizarClinica(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+                Atualiza parcialmente os dados de uma Motivo de recusa existente
+            </summary>
+            
+            <param name="id" type="string" example="67d0b66edb7709d2ac4f7f74">ID do Motivo de recusa a ser atualizada</param>
+            
+            <remarks>
+            
+            ## Atualização Parcial de um Motivo de recusa
+            
+            Use este endpoint quando precisar atualizar apenas alguns campos específicos de um Motivo de recusa,
+            sem a necessidade de enviar todos os dados.
+            
+            ### Campos disponíveis para atualizar nos Motivos de recusa:
+            - **motivo** string : Descrição curta do Motivo de recusa (ex: "Cliente não compareceu").
+            - **descricao** string : Descrição detalhada do Motivo de recusa (ex: "O cliente não compareceu na consulta agendada sem aviso prévio").
+            
+            ### Exemplo de requisição:
+            
+            ```json
+                {   
+                    "id": "67d0b66edb7709d2ac4f7f74",
+                    "motivo": "Sem médicos disponíveis",
+                }
+            ``` 
+            
+            Somente os campos incluídos no corpo da requisição serão atualizados.
+            
+            ### Exemplo de resposta da requisição:
+            
+            ```json
+                {   
+                    "id": "67d0b66edb7709d2ac4f7f74",
+                    "motivo": "Sem médicos",
+                    "descricao": "Sem especilista para atendimento na clínica"
+                }
+            ``` 
+            </remarks>
+            
+            <response code="200">Motivo de recusa atualizada com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="404">Motivo de recusa não encontrada</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:MotivoRecusaController.ExcluirMotivo(System.String)">
+             <summary>
+                 Excluir os Motivo de recusa do banco de dados.
+             </summary>
+            
+             <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Motivo de recusa a ser excluído</param>
+             
+             <remarks>
+             
+             ## Excluir um Motivo de recusa do banco de dados e dos cadastros.
+             
+             ### Exemplo da requisição para excluir um Motivo de recusa:
+             
+             ```json
+                 {
+                     "id": "67cc95b32811515d372209ce",
+                 }
+             ```
+             
+             ### Exemplo da resposta para excluir um Motivo de recusa:
+             
+             ```json
+                 {
+                     "message": "Motivo de recusa excluído com sucesso."
+                 }
+             ``` 
+             
+             Uma vez excluida da base, não tem reversão desta ação.
+             </remarks>
+             
+             <response code="200">Motivo de recusa criado com sucesso</response>
+             <response code="400">Dados inválidos fornecidos</response>
+             <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:SugestaoConsultaClienteController.CadastrarSugestao(Project.Models.SugestaoConsultaCliente)">
+            <summary>
+                Cria uma novo Sugestão.
+            </summary>
+            
+            <remarks>
+            
+            ## Cadastrar uma nova Sugestão no banco de dados
+            
+            Use este endPoint para cadastrar um Sugestão. Somente Sugestãos cadastrados podem efetuar o Login na plataforma.
+            
+            ### Campos disponíveis para consultar as Sugestões:
+            - **id** : Id do registro da sugestão, gerado automaticamente.
+            - **IdClinica** : Identificador único da clínica associada à sugestão.
+            - **NomeClinica** : Nome da clínica associada à sugestão.
+            - **TelefoneClinica** : Número de telefone de contato da clínica.
+            - **EmailClinica** : Endereço de e-mail principal de contato da clínica.
+            - **IdUsuario** : Identificador único do usuário associado à sugestão.
+            - **NomeCliente** : Nome completo do cliente associado à sugestão.
+            - **TelefoneCliente** : Número de telefone de contato do cliente.
+            - **EmailCliente** : Endereço de e-mail principal de contato do cliente.
+            - **DiaPreferenciaCliente** : Dia de preferência do cliente para atendimento.
+            - **TurnoPreferenciaCliente** : Turno de preferência do cliente para atendimento (ex: manhã, tarde ou noite).
+            - **HorarioPreferenciaCliente** : Horário de preferência do cliente para atendimento.
+            - **Especialidade** : Especialidade desejada para o atendimento (ex: Ortodontia).
+            - **CEPPreferenciaCliente** : CEP de preferência do cliente para o atendimento.
+            - **EstadoPreferenciaCliente** : Estado de preferência do cliente para o atendimento.
+            - **CidadePreferenciaCliente** : Cidade de preferência do cliente para o atendimento.
+            - **BairroPreferenciaCliente** : Bairro de preferência do cliente para o atendimento.
+            - **RuaPreferenciaCliente** : Rua de preferência do cliente para o atendimento.
+            - **StatusSugestaoClinica** : Status da sugestão na clínica (ex: Aprovada, Aceita).
+            - **StatusSugestaoCliente** : Status da sugestão para o cliente (ex: Confirmada, Aceita).
+            - **DataAlteracao** : Data da última alteração realizada na sugestão.
+            
+            
+            ### Exemplo de body para requisição:
+            ```json
+               
+                {
+                    "idClinica": "63d234ab65f5b32d7a7c0011",
+                    "nomeClinica": "Clínica Odonto Bem",
+                    "telefoneClinica": "1123456789",
+                    "emailClinica": "contato@odontobem.com",
+                    "idUsuario": "987654321",
+                    "nomeCliente": "Carlos Oliveira",
+                    "telefoneCliente": "11987654321",
+                    "emailCliente": "carlos.oliveira@email.com",
+                    "diaPreferenciaCliente": "Sexta-feira",
+                    "turnoPreferenciaCliente": "Noite",
+                    "horarioPreferenciaCliente": "19:30",
+                    "especilidade": "Ortodontia",
+                    "cepClinica": "01452000",
+                    "estadoClinica": "SP",
+                    "cidadeClinica": "São Paulo",
+                    "bairroClinica": "Pinheiros",
+                    "ruaClinica": "Rua dos Três Irmãos",
+                    "statusSugestaoClinica": "Aprovada",
+                    "statusSugestaoCliente": "Confirmada",
+                    "dataAlteracao": "2025-03-11T15:00:00"
+                }
+            ```
+            
+            ### Exemplo de resposta quando o cadastro for efetuado:
+            
+            ```json
+                {
+                    "id": "67d0af03c335e74f3472265e",
+                    "idClinica": "63d234ab65f5b32d7a7c0011",
+                    "nomeClinica": "Clínica Odonto Bem",
+                    "telefoneClinica": "1123456789",
+                    "emailClinica": "contato@odontobem.com",
+                    "idUsuario": "987654321",
+                    "nomeCliente": "Carlos Oliveira",
+                    "telefoneCliente": "11987654321",
+                    "emailCliente": "carlos.oliveira@email.com",
+                    "diaPreferenciaCliente": "Sexta-feira",
+                    "turnoPreferenciaCliente": "Noite",
+                    "horarioPreferenciaCliente": "19:30",
+                    "especilidade": "Ortodontia",
+                    "cepClinica": "01452000",
+                    "estadoClinica": "SP",
+                    "cidadeClinica": "São Paulo",
+                    "bairroClinica": "Pinheiros",
+                    "ruaClinica": "Rua dos Três Irmãos",
+                    "statusSugestaoClinica": "Aprovada",
+                    "statusSugestaoCliente": "Confirmada",
+                    "dataAlteracao": "2025-03-11T15:00:00"
+                }
+            ```
+            </remarks>
+            
+            <response code="200">Requisição realizada com sucesso</response>
+            <response code="201">Sugestão criado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:SugestaoConsultaClienteController.ConsultarTudo">
+             <summary>
+                 Consultar a lista com todas as Sugestões.
+             </summary>
+             <remarks>
+             ## Consultar todos os registros de Sugestões do banco de dados
+             
+             Use este endpoint se seu objetivo for recuperar todos os registros de Sugestões do banco de dados.
+             
+             ### Campos disponíveis para consultar as Sugestões:
+             - **id** : Id do registro da sugestão, gerado automaticamente.
+             - **IdClinica** : Identificador único da clínica associada à sugestão.
+             - **NomeClinica** : Nome da clínica associada à sugestão.
+             - **TelefoneClinica** : Número de telefone de contato da clínica.
+             - **EmailClinica** : Endereço de e-mail principal de contato da clínica.
+             - **IdUsuario** : Identificador único do usuário associado à sugestão.
+             - **NomeCliente** : Nome completo do cliente associado à sugestão.
+             - **TelefoneCliente** : Número de telefone de contato do cliente.
+             - **EmailCliente** : Endereço de e-mail principal de contato do cliente.
+             - **DiaPreferenciaCliente** : Dia de preferência do cliente para atendimento.
+             - **TurnoPreferenciaCliente** : Turno de preferência do cliente para atendimento (ex: manhã, tarde ou noite).
+             - **HorarioPreferenciaCliente** : Horário de preferência do cliente para atendimento.
+             - **Especialidade** : Especialidade desejada para o atendimento (ex: Ortodontia).
+             - **CEPPreferenciaCliente** : CEP de preferência do cliente para o atendimento.
+             - **EstadoPreferenciaCliente** : Estado de preferência do cliente para o atendimento.
+             - **CidadePreferenciaCliente** : Cidade de preferência do cliente para o atendimento.
+             - **BairroPreferenciaCliente** : Bairro de preferência do cliente para o atendimento.
+             - **RuaPreferenciaCliente** : Rua de preferência do cliente para o atendimento.
+             - **StatusSugestaoClinica** : Status da sugestão na clínica (ex: Aprovada, Aceita).
+             - **StatusSugestaoCliente** : Status da sugestão para o cliente (ex: Confirmada, Aceita).
+             - **DataAlteracao** : Data da última alteração realizada na sugestão.
+            
+             Exemplo de corpo de resposta (body) com a lista de Sugestões:
+             ```json
+             [
+               {
+                 "id": "67d0af03c335e74f3472265e",
+                 "idClinica": "63d234ab65f5b32d7a7c0011",
+                 "nomeClinica": "Clínica Odonto Bem",
+                 "telefoneClinica": "1123456789",
+                 "emailClinica": "contato@odontobem.com",
+                 "idUsuario": "987654321",
+                 "nomeCliente": "Carlos Oliveira",
+                 "telefoneCliente": "11987654321",
+                 "emailCliente": "carlos.oliveira@email.com",
+                 "diaPreferenciaCliente": "Sexta-feira",
+                 "turnoPreferenciaCliente": "Noite",
+                 "horarioPreferenciaCliente": "19:30",
+                 "especilidade": "Ortodontia",
+                 "cepClinica": "01452000",
+                 "estadoClinica": "SP",
+                 "cidadeClinica": "São Paulo",
+                 "bairroClinica": "Pinheiros",
+                 "ruaClinica": "Rua dos Três Irmãos",
+                 "statusSugestaoClinica": "Aprovada",
+                 "statusSugestaoCliente": "Confirmada",
+                 "dataAlteracao": "2025-03-11T22:00:00Z"
+               },
+               {
+                 "id": "67d0afc5ac13f169dbf8af5b",
+                 "idClinica": "67ce4b3d61760e36f862dd59",
+                 "nomeClinica": "Delfos",
+                 "telefoneClinica": "1123456789",
+                 "emailClinica": "contato@odontobem.com",
+                 "idUsuario": "67cc95b32811515d372209ce",
+                 "nomeCliente": "Carlos Oliveira",
+                 "telefoneCliente": "11987654321",
+                 "emailCliente": "carlos.oliveira@email.com",
+                 "diaPreferenciaCliente": "Sexta-feira",
+                 "turnoPreferenciaCliente": "Noite",
+                 "horarioPreferenciaCliente": "19:30",
+                 "especilidade": "Ortodontia",
+                 "cepClinica": "01452000",
+                 "estadoClinica": "SP",
+                 "cidadeClinica": "São Paulo",
+                 "bairroClinica": "Pinheiros",
+                 "ruaClinica": "Rua dos Três Irmãos",
+                 "statusSugestaoClinica": "Aceita",
+                 "statusSugestaoCliente": "Aceita",
+                 "dataAlteracao": "2025-03-11T22:00:00Z"
+               }
+             ]
+             ```
+             </remarks>
+             <response code="200">Sugestões recuperadas com sucesso</response>
+             <response code="400">Dados inválidos fornecidos</response>
+             <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:SugestaoConsultaClienteController.ConsultarSugestaoId(System.String)">
+            
+            <response code="200">Sugestão consultada com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:SugestaoConsultaClienteController.AtualizarSugestao(System.String,Project.Models.SugestaoConsultaCliente)">
+            <summary>
+                Atualiza os dados completos existentes do Sugestão, com base no ID do banco de dados
+            </summary>
+            
+            <remarks>
+            
+            ## Atualizar todas as informações do Sugestão no banco
+            
+            Use este endpoint se o objetivo for atualizar todos os campos para o Sugestão no cadastro. Se for parcial, utilize outro endpoint.
+            
+            ### Campos disponíveis para consultar as Sugestões:
+            - **id** : Id do registro da sugestão, gerado automaticamente.
+            - **IdClinica** : Identificador único da clínica associada à sugestão.
+            - **NomeClinica** : Nome da clínica associada à sugestão.
+            - **TelefoneClinica** : Número de telefone de contato da clínica.
+            - **EmailClinica** : Endereço de e-mail principal de contato da clínica.
+            - **IdUsuario** : Identificador único do usuário associado à sugestão.
+            - **NomeCliente** : Nome completo do cliente associado à sugestão.
+            - **TelefoneCliente** : Número de telefone de contato do cliente.
+            - **EmailCliente** : Endereço de e-mail principal de contato do cliente.
+            - **DiaPreferenciaCliente** : Dia de preferência do cliente para atendimento.
+            - **TurnoPreferenciaCliente** : Turno de preferência do cliente para atendimento (ex: manhã, tarde ou noite).
+            - **HorarioPreferenciaCliente** : Horário de preferência do cliente para atendimento.
+            - **Especialidade** : Especialidade desejada para o atendimento (ex: Ortodontia).
+            - **CEPPreferenciaCliente** : CEP de preferência do cliente para o atendimento.
+            - **EstadoPreferenciaCliente** : Estado de preferência do cliente para o atendimento.
+            - **CidadePreferenciaCliente** : Cidade de preferência do cliente para o atendimento.
+            - **BairroPreferenciaCliente** : Bairro de preferência do cliente para o atendimento.
+            - **RuaPreferenciaCliente** : Rua de preferência do cliente para o atendimento.
+            - **StatusSugestaoClinica** : Status da sugestão na clínica (ex: Aprovada, Aceita).
+            - **StatusSugestaoCliente** : Status da sugestão para o cliente (ex: Confirmada, Aceita).
+            - **DataAlteracao** : Data da última alteração realizada na sugestão.
+            
+            ### Exemplo de requisição:
+            
+            ```json
+              {
+                "id": "67d0afc5ac13f169dbf8af5b",
+                "idClinica": "67ce4b3d61760e36f862dd59",
+                "nomeClinica": "Delfos",
+                "telefoneClinica": "1123456789",
+                "emailClinica": "contato@odontobem.com",
+                "idUsuario": "67cc95b32811515d372209ce",
+                "nomeCliente": "Carlos Oliveira",
+                "telefoneCliente": "11987654321",
+                "emailCliente": "carlos.oliveira@email.com",
+                "diaPreferenciaCliente": "Sexta-feira",
+                "turnoPreferenciaCliente": "Noite",
+                "horarioPreferenciaCliente": "19:30",
+                "especilidade": "Ortodontia",
+                "cepClinica": "01452000",
+                "estadoClinica": "SP",
+                "cidadeClinica": "São Paulo",
+                "bairroClinica": "Pinheiros",
+                "ruaClinica": "Rua dos Três Irmãos",
+                "statusSugestaoClinica": "Aceita",
+                "statusSugestaoCliente": "Aceita",
+                "dataAlteracao": "2025-03-11T22:00:00Z"
+              }
+            ``` 
+            
+            ### Se preencher alguns campos e outros não, estes campos serão preenchidos com dados inválidos e default criado pelo sistema.
+            </remarks>
+            
+            <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Sugestão no banco de dados.</param>
+            <param name="SugestaoConsultaClinicaDTO">Dados do Sugestão a serem atualizados.</param>
+            <response code="200">Sugestão atualizado com sucesso</response>
+            <response code="400">Dados inválidos</response>
+            <response code="401">Sugestão não autorizado</response>
+            <response code="404">Sugestão não encontrado</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:SugestaoConsultaClienteController.AtualizarClinica(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            Rota de API para atualizar parcialmente um Sugestão
+            <summary>
+                Atualiza parcialmente os dados de uma Sugestão existente
+            </summary>
+            
+            <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Sugestão a ser atualizada</param>
+            
+            <remarks>
+            
+            ## Atualização Parcial de um Sugestão
+            
+            Use este endpoint quando precisar atualizar apenas alguns campos específicos de um Sugestão,
+            sem a necessidade de enviar todos os dados.
+            
+            ### Campos que podem ser atualizados:
+            - **NomeClinica** : Nome da clínica associada à sugestão.
+            - **TelefoneClinica** : Número de telefone de contato da clínica.
+            - **EmailClinica** : Endereço de e-mail principal de contato da clínica.
+            - **NomeCliente** : Nome completo do cliente associado à sugestão.
+            - **TelefoneCliente** : Número de telefone de contato do cliente.
+            - **EmailCliente** : Endereço de e-mail principal de contato do cliente.
+            - **DiaPreferenciaCliente** : Dia de preferência do cliente para atendimento.
+            - **TurnoPreferenciaCliente** : Turno de preferência do cliente para atendimento (ex: manhã, tarde ou noite).
+            - **HorarioPreferenciaCliente** : Horário de preferência do cliente para atendimento.
+            - **Especialidade** : Especialidade desejada para o atendimento (ex: Ortodontia).
+            - **CEPPreferenciaCliente** : CEP de preferência do cliente para o atendimento.
+            - **EstadoPreferenciaCliente** : Estado de preferência do cliente para o atendimento.
+            - **CidadePreferenciaCliente** : Cidade de preferência do cliente para o atendimento.
+            - **BairroPreferenciaCliente** : Bairro de preferência do cliente para o atendimento.
+            - **RuaPreferenciaCliente** : Rua de preferência do cliente para o atendimento.
+            - **StatusSugestaoClinica** : Status da sugestão na clínica (ex: Aprovada, Aceita).
+            - **StatusSugestaoCliente** : Status da sugestão para o cliente (ex: Confirmada, Aceita).
+            - **DataAlteracao** : Data da última alteração realizada na sugestão.
+            
+            ### Campos que não podem ser atualizados:
+            - **id** : Id do registro da sugestão, gerado automaticamente.
+            - **IdClinica** : Identificador único da clínica associada à sugestão.
+            - **IdUsuario** : Identificador único do usuário associado à sugestão.
+            
+            ### Exemplo de requisição:
+            
+            ```json
+            {
+                "id": "67cc95b32811515d372209ce",
+                "email": "novo.email@clinica.com.br",
+                "telefone": "11988887777"
+            }
+            ```
+            
+            Apenas os campos informados no corpo da requisição serão atualizados.
+            
+            ### Exemplo de resposta:
+            
+            ```json
+              {
+                "id": "67d0afc5ac13f169dbf8af5b",
+                "idClinica": "67ce4b3d61760e36f862dd59",
+                "nomeClinica": "Delfos",
+                "telefoneClinica": "1123456789",
+                "emailClinica": "contato@odontobem.com",
+                "idUsuario": "67cc95b32811515d372209ce",
+                "nomeCliente": "Carlos Oliveira",
+                "telefoneCliente": "11987654321",
+                "emailCliente": "carlos.oliveira@email.com",
+                "diaPreferenciaCliente": "Sexta-feira",
+                "turnoPreferenciaCliente": "Noite",
+                "horarioPreferenciaCliente": "19:30",
+                "especilidade": "Ortodontia",
+                "cepClinica": "01452000",
+                "estadoClinica": "SP",
+                "cidadeClinica": "São Paulo",
+                "bairroClinica": "Pinheiros",
+                "ruaClinica": "Rua dos Três Irmãos",
+                "statusSugestaoClinica": "Aceita",
+                "statusSugestaoCliente": "Aceita",
+                "dataAlteracao": "2025-03-11T22:00:00Z"
+              }
+            ```
+            </remarks>
+            
+            <response code="200">Sugestão atualizada com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="404">Sugestão não encontrada</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:SugestaoConsultaClienteController.ExcluirSugestao(System.String)">
+             <summary>
+                 Excluir os Sugestão do banco de dados.
+             </summary>
+            
+             <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Sugestão a ser excluído</param>
+             
+             <remarks>
+             
+             ## Excluir um Sugestão do banco de dados e dos cadastros.
+             
+             ### Exemplo da requisição para excluir um Sugestão:
+             
+             ```json
+                 {
+                     "id": "67cc95b32811515d372209ce",
+                 }
+             ```
+             
+             ### Exemplo da resposta para excluir um Sugestão:
+             
+             ```json
+                 {
+                     "message": "Sugestão excluído com sucesso."
+                 }
+             ``` 
+             
+             Uma vez excluida da base, não tem reversão desta ação.
+             </remarks>
+             
+             <response code="200">Sugestão criado com sucesso</response>
+             <response code="400">Dados inválidos fornecidos</response>
+             <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:SugestaoConsultaClinicaController.CadastrarSugestao(Project.Models.SugestaoConsultaClinica)">
+            <summary>
+                Cria uma novo Sugestão.
+            </summary>
+            
+            <remarks>
+            
+            ## Cadastrar uma nova Sugestão no banco de dados
+            
+            Use este endPoint para cadastrar um Sugestão. Somente Sugestãos cadastrados podem efetuar o Login na plataforma.
+            
+            - **id** : Id do registro da sugestão, gerado automaticamente.
+            - **IdUsuario** : Identificador único do usuário associado à sugestão.
+            - **NomeCliente** : Nome do cliente associado à sugestão.
+            - **TelefoneCliente** : Número de telefone de contato do cliente.
+            - **EmailCliente** : Endereço de e-mail principal de contato do cliente.
+            - **DiaPreferenciaCliente** : Dia de preferência para atendimento.
+            - **TurnoPreferenciaCliente** : Turno de preferência para atendimento (ex: manhã, tarde ou noite).
+            - **HorarioPreferenciaCliente** : Horário de preferência para atendimento.
+            - **Especialidade** : Especialidade do serviço ou atendimento preferido.
+            - **CEPPreferenciaCliente** : CEP de preferência do cliente para o atendimento.
+            - **EstadoPreferenciaCliente** : Estado de preferência do cliente para o atendimento.
+            - **CidadePreferenciaCliente** : Cidade de preferência do cliente para o atendimento.
+            - **BairroPreferenciaCliente** : Bairro de preferência do cliente para o atendimento.
+            - **RuaPreferenciaCliente** : Rua de preferência do cliente para o atendimento.
+            - **StatusSugestaoClinica** : Status da sugestão na clínica.
+            - **StatusSugestaoCliente** : Status da sugestão para o cliente. Na primeira fase que é avaliação da clínica, este campo nunca será preenchido.
+            - **DataAlteracao** : Data da última alteração realizada na sugestão.
+            
+            ### Campos que não devem ser utilizados para criar uma nova sugestão:
+            - **id** : Id do dia que será gerado automaticamente
+            - **dataAlteracao** : Data da última atualização dos dados 
+            
+            
+            ### Exemplo de body para requisição:
+            ```json
+                { 
+                    "IdUsuario": "123456789",
+                    "NomeCliente": "Cláudio",
+                    "TelefoneCliente": "11958757740",
+                    "EmailCliente": "claudio_cssp@hotmail.com",
+                    "DiaPreferenciaCliente": "Segunda-feira",
+                    "TurnoPreferenciaCliente": "Manhã",
+                    "HorarioPreferenciaCliente": "08:00",
+                    "Especilidade": "Odontologia",
+                    "CEPPreferenciaCliente": "01001000",
+                    "EstadoPreferenciaCliente": "SP",
+                    "CidadePreferenciaCliente": "São Paulo",
+                    "BairroPreferenciaCliente": "Centro",
+                    "RuaPreferenciaCliente": "Rua da Saúde",
+                    "StatusSugestaoClinica": "Aprovada",
+                    "StatusSugestaoCliente": "Confirmada",
+                    "DataAlteracao": "2025-03-11T12:00:00"
+                }
+            ```
+            
+            ### Exemplo de resposta quando o cadastro for efetuado:
+            
+            ```json
+                { 
+                    "id": "67d0ac40c335e74f3472265c",
+                    "IdUsuario": "123456789",
+                    "NomeCliente": "Cláudio",
+                    "TelefoneCliente": "11958757740",
+                    "EmailCliente": "claudio_cssp@hotmail.com",
+                    "DiaPreferenciaCliente": "Segunda-feira",
+                    "TurnoPreferenciaCliente": "Manhã",
+                    "HorarioPreferenciaCliente": "08:00",
+                    "Especilidade": "Odontologia",
+                    "CEPPreferenciaCliente": "01001000",
+                    "EstadoPreferenciaCliente": "SP",
+                    "CidadePreferenciaCliente": "São Paulo",
+                    "BairroPreferenciaCliente": "Centro",
+                    "RuaPreferenciaCliente": "Rua da Saúde",
+                    "StatusSugestaoClinica": "Aprovada",
+                    "StatusSugestaoCliente": "Confirmada",
+                    "DataAlteracao": "2025-03-11T12:00:00"
+                }
+            ```
+            </remarks>
+            
+            <response code="200">Requisição realizada com sucesso</response>
+            <response code="201">Sugestão criado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:SugestaoConsultaClinicaController.ConsultarTudo">
+            Rota de API
+            <summary>
+                Consultar a lista com todas as Sugestões.
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar todos os registros de Sugestões do banco de dados
+            
+            Use este endpoint se seu objetivo for recuperar todos os registros de Sugestões do banco de dados.
+            
+            ### Campos disponíveis para consultar as Sugestões:
+            - **id** : Id do registro da sugestão, gerado automaticamente.
+            - **IdUsuario** : Identificador único do usuário associado à sugestão.
+            - **NomeCliente** : Nome do cliente associado à sugestão.
+            - **TelefoneCliente** : Número de telefone de contato do cliente.
+            - **EmailCliente** : Endereço de e-mail principal de contato do cliente.
+            - **DiaPreferenciaCliente** : Dia de preferência para atendimento.
+            - **TurnoPreferenciaCliente** : Turno de preferência para atendimento (ex: manhã, tarde ou noite).
+            - **HorarioPreferenciaCliente** : Horário de preferência para atendimento.
+            - **Especialidade** : Especialidade do serviço ou atendimento preferido.
+            - **CEPPreferenciaCliente** : CEP de preferência do cliente para o atendimento.
+            - **EstadoPreferenciaCliente** : Estado de preferência do cliente para o atendimento.
+            - **CidadePreferenciaCliente** : Cidade de preferência do cliente para o atendimento.
+            - **BairroPreferenciaCliente** : Bairro de preferência do cliente para o atendimento.
+            - **RuaPreferenciaCliente** : Rua de preferência do cliente para o atendimento.
+            - **StatusSugestaoClinica** : Status da sugestão na clínica.
+            - **StatusSugestaoCliente** : Status da sugestão para o cliente.
+            - **DataAlteracao** : Data da última alteração realizada na sugestão.
+            
+            Exemplo de corpo de resposta (body) com a lista de Sugestões:
+            ```json
+                [
+                    {
+                        "id": "67d0ac40c335e74f3472265c",
+                         "idUsuario": "123456789",
+                         "nomeCliente": "Cláudio",
+                         "telefoneCliente": "11958757740",
+                         "emailCliente": "claudio_cssp@hotmail.com",
+                         "diaPreferenciaCliente": "Segunda-feira",
+                         "turnoPreferenciaCliente": "Manhã",
+                         "horarioPreferenciaCliente": "08:00",
+                         "especilidade": "Odontologia",
+                         "cepPreferenciaCliente": "01001000",
+                         "estadoPreferenciaCliente": "SP",
+                         "cidadePreferenciaCliente": "São Paulo",
+                         "bairroPreferenciaCliente": "Centro",
+                         "ruaPreferenciaCliente": "Rua da Saúde",
+                         "statusSugestaoClinica": "Aprovada",
+                         "statusSugestaoCliente": "Confirmada",
+                         "dataAlteracao": "2025-03-11T19:00:00Z"
+                        },
+                    {
+                         "id": "67d0ad99c335e74f3472265d",
+                         "idUsuario": "67ce287f98294f7ba3edb1e6",
+                         "nomeCliente": "Ana Souza",
+                         "telefoneCliente": "11987654321",
+                         "emailCliente": "ana.souza@email.com",
+                         "diaPreferenciaCliente": "Quarta-feira",
+                         "turnoPreferenciaCliente": "Tarde",
+                         "horarioPreferenciaCliente": "14:30",
+                         "especilidade": "Odontopediatria",
+                         "cepPreferenciaCliente": "03012000",
+                         "estadoPreferenciaCliente": "SP",
+                         "cidadePreferenciaCliente": "São Paulo",
+                         "bairroPreferenciaCliente": "Liberdade",
+                         "ruaPreferenciaCliente": "Rua do Oriente",
+                         "statusSugestaoClinica": "Pendente",
+                         "statusSugestaoCliente": "Sem resposta",
+                         "dataAlteracao": "2025-03-11T21:00:00Z"
+                       }
+                   ]
+            ```
+            </remarks>
+            
+            <response code="200">Sugestões recuperadas com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:SugestaoConsultaClinicaController.ConsultarSugestaoId(System.String)">
+            
+            <response code="200">Sugestão consultada com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:SugestaoConsultaClinicaController.AtualizarSugestao(System.String,Project.Models.SugestaoConsultaClinica)">
+            <summary>
+                Atualiza os dados completos existentes do Sugestão, com base no ID do banco de dados
+            </summary>
+            
+            <remarks>
+            
+            ## Atualizar todas as informações do Sugestão no banco
+            
+            Use este endpoint se o objetivo for atualizar todos os campos para o Sugestão no cadastro. Se for parcial, utilize outro endpoint.
+            
+            ### Campos disponíveis para atualização:
+            - **id**: ID do Sugestão no banco de dados.
+            - **IdUsuario**: ID do usuário associado ao Sugestão (opcional).
+            - **NomeCliente**: Nome completo do cliente.
+            - **TelefoneCliente**: Telefone de contato do cliente.
+            - **EmailCliente**: Email principal de contato do cliente.
+            - **DiaPreferenciaCliente**: Dia preferido para atendimento (exemplo: "Segunda-feira").
+            - **TurnoPreferenciaCliente**: Turno preferido para atendimento (exemplo: "Manhã", "Tarde", "Noite").
+            - **HorarioPreferenciaCliente**: Horário preferido para atendimento.
+            - **Especialidade**: Especialidade do serviço desejado (exemplo: "Odontologia").
+            - **CEPPreferenciaCliente**: CEP do local preferido para atendimento.
+            - **EstadoPreferenciaCliente**: Estado do local preferido para atendimento.
+            - **CidadePreferenciaCliente**: Cidade do local preferido para atendimento.
+            - **BairroPreferenciaCliente**: Bairro do local preferido para atendimento.
+            - **RuaPreferenciaCliente**: Rua do local preferido para atendimento.
+            - **StatusSugestaoClinica**: Status da sugestão na clínica (exemplo: "Aprovada", "Rejeitada").
+            - **StatusSugestaoCliente**: Status da sugestão do cliente (exemplo: "Confirmada", "Cancelada").
+            - **DataAlteracao**: Data da última alteração dos dados.
+            
+            ### Exemplo de requisição:
+            
+            ```json
+                { 
+                    "IdUsuario": "123456789",
+                    "NomeCliente": "Cláudio",
+                    "TelefoneCliente": "11958757740",
+                    "EmailCliente": "claudio_cssp@hotmail.com",
+                    "DiaPreferenciaCliente": "Segunda-feira",
+                    "TurnoPreferenciaCliente": "Manhã",
+                    "HorarioPreferenciaCliente": "08:00",
+                    "Especilidade": "Odontologia",
+                    "CEPPreferenciaCliente": "01001000",
+                    "EstadoPreferenciaCliente": "SP",
+                    "CidadePreferenciaCliente": "São Paulo",
+                    "BairroPreferenciaCliente": "Centro",
+                    "RuaPreferenciaCliente": "Rua da Saúde",
+                    "StatusSugestaoClinica": "Aprovada",
+                    "StatusSugestaoCliente": "Confirmada",
+                    "DataAlteracao": "2025-03-11T12:00:00"
+                }
+            ```
+            
+            ### Se preencher alguns campos e outros não, estes campos serão preenchidos com dados inválidos e default criado pelo sistema.
+            </remarks>
+            
+            <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Sugestão no banco de dados.</param>
+            <param name="SugestaoConsultaClinicaDTO">Dados do Sugestão a serem atualizados.</param>
+            <response code="200">Sugestão atualizado com sucesso</response>
+            <response code="400">Dados inválidos</response>
+            <response code="401">Sugestão não autorizado</response>
+            <response code="404">Sugestão não encontrado</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:SugestaoConsultaClinicaController.AtualizarClinica(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            Rota de API para atualizar parcialmente um Sugestão
+            <summary>
+                Atualiza parcialmente os dados de uma Sugestão existente
+            </summary>
+            
+            <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Sugestão a ser atualizada</param>
+            
+            <remarks>
+            
+            ## Atualização Parcial de um Sugestão
+            
+            Use este endpoint quando precisar atualizar apenas alguns campos específicos de um Sugestão,
+            sem a necessidade de enviar todos os dados.
+            
+            ### Campos que podem ser atualizados:
+            - **nome**: Nome do Sugestão
+            - **cpf**: CPF oficial do Sugestão com 11 dígitos
+            - **telefone**: Número de telefone para contato
+            - **email**: Endereço de email para contato
+            - **diaPreferenciaCliente**: Dia de preferência do cliente para o agendamento
+            - **turnoPreferenciaCliente**: Turno de preferência do cliente (Manhã, Tarde, Noite)
+            - **horarioPreferenciaCliente**: Horário específico de preferência do cliente
+            - **especialidade**: Especialidade de preferência para o atendimento
+            - **cepPreferenciaCliente**: CEP de preferência do cliente
+            - **estadoPreferenciaCliente**: Estado de preferência do cliente
+            - **cidadePreferenciaCliente**: Cidade de preferência do cliente
+            - **bairroPreferenciaCliente**: Bairro de preferência do cliente
+            - **ruaPreferenciaCliente**: Rua de preferência do cliente
+            - **statusSugestaoClinica**: Status da sugestão da clínica (exemplo: "Aprovado", "Pendente")
+            - **statusSugestaoCliente**: Status da sugestão do cliente (exemplo: "Aceito", "Aguardando")
+            - **dataAlteracao**: Data da última alteração
+            
+            ### Campos que não podem ser atualizados:
+            - **Perfil**: O perfil será sempre "Comum" para clientes, não podendo ser alterado.
+            
+            ### Exemplo de requisição:
+            
+            ```json
+            {
+                "id": "67cc95b32811515d372209ce",
+                "email": "novo.email@clinica.com.br",
+                "telefone": "11988887777"
+            }
+            ```
+            
+            Apenas os campos informados no corpo da requisição serão atualizados.
+            
+            ### Exemplo de resposta:
+            
+            ```json
+                {   
+                    "id": "67d0ac40c335e74f3472265c",
+                    "IdUsuario": "123456789",
+                    "NomeCliente": "Cláudio",
+                    "TelefoneCliente": "11958757740",
+                    "EmailCliente": "claudio_cssp@hotmail.com",
+                    "DiaPreferenciaCliente": "Segunda-feira",
+                    "TurnoPreferenciaCliente": "Manhã",
+                    "HorarioPreferenciaCliente": "08:00",
+                    "Especilidade": "Odontologia",
+                    "CEPPreferenciaCliente": "01001000",
+                    "EstadoPreferenciaCliente": "SP",
+                    "CidadePreferenciaCliente": "São Paulo",
+                    "BairroPreferenciaCliente": "Centro",
+                    "RuaPreferenciaCliente": "Rua da Saúde",
+                    "StatusSugestaoClinica": "Aprovada",
+                    "StatusSugestaoCliente": "Confirmada",
+                    "DataAlteracao": "2025-03-11T12:00:00"
+                }
+            ```
+            </remarks>
+            
+            <response code="200">Sugestão atualizada com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="404">Sugestão não encontrada</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:SugestaoConsultaClinicaController.ExcluirSugestao(System.String)">
+             <summary>
+                 Excluir os Sugestão do banco de dados.
+             </summary>
+            
+             <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Sugestão a ser excluído</param>
+             
+             <remarks>
+             
+             ## Excluir um Sugestão do banco de dados e dos cadastros.
+             
+             ### Exemplo da requisição para excluir um Sugestão:
+             
+             ```json
+                 {
+                     "id": "67cc95b32811515d372209ce",
+                 }
+             ```
+             
+             ### Exemplo da resposta para excluir um Sugestão:
+             
+             ```json
+                 {
+                     "message": "Sugestão excluído com sucesso."
+                 }
+             ``` 
+             
+             Uma vez excluida da base, não tem reversão desta ação.
+             </remarks>
+             
+             <response code="200">Sugestão criado com sucesso</response>
+             <response code="400">Dados inválidos fornecidos</response>
+             <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:TurnoController.CadastrarTurno(Project.Models.TurnoDTO)">
+             <summary>
+                 Cadastra um novo Turno de preferência para o usuário.
+             </summary>
+             
+             <remarks>
+             
+             ## Cadastrar um novo Turno de preferência para um usuário
+             
+             Use este endPoint se o objetivo e cadastrar um novo Turno de preferência, lembrando que o usuário pode ter vários em seu cadastro.
+             
+             ### Campos que devem ser utilizados para cadastrar um Turno de preferência:
+             - **idUsuario**: ID do banco e não o idUsuario
+             - **TurnoPreferencia**: Informe o Turno como string e no formato "08:00"
+             
+             ### Campos que não devem ser utilizados para cadastrar um Turno de preferência:
+             - **Id**: Não é necessário informar o id, pois ele será gerado automaticamente pelo
+             
+             ### Exemplo de body da requisição:
+             ```json
+                 {   
+                     "idUsuario": "67cc95b32811515d372209ce",
+                     "TurnoPreferencia": "Manhã"
+                 }
+             ``` 
+             
+             ### Exemplo de body da resposto quando o cadastro é bem sucedido
+             ```json
+                 {
+                     "id": "67cf6c2a446498c2b6eb0a90",
+                     "idUsuario": "67cc95b32811515d372209ce",
+                     "TurnoPreferencia": "Noite"
+                 }
+            ```
+             </remarks>
+             <response code="201">Horário criado com sucesso</response>
+             <response code="400">Dados inválidos</response>
+             <response code="500">Erro interno</response>
+        </member>
+        <member name="M:TurnoController.ConsultarTurno">
+             <summary>
+                 Consultar todos os registros de Turnos de preferência no banco de dados.
+             </summary>
+             
+             <remarks>
+             
+             ## Consultar todos os registros de Turnos do banco de dados
+             
+             Use este endPoint se seu objetivo é recuperar todos os registros de Turnos do banco de dados
+             
+             ### Campos que disponíveis na requisição:
+             - **id** : Id do banco de dados, que foi gerado automaticamente.
+             - **idUsuario** : IdUsuario que deseja registrar o endereço
+             - **TurnoPreferencia** string : Turno de preferência, podem ser vários.
+             
+             ### Exemplo de body que virá de resposta:
+             
+             ```json
+            [
+                {
+                    "id": "67cdee51b304fd2aaac177c9",
+                    "idUsuario": "67cc95b32811515d372209ce",
+                    "TurnoPreferencia": "Tarde",
+                },
+                {
+                    "id": "67cdee91b304fd2aaac177ca",
+                    "idUsuario": "67cc95b32811515d372209ce",
+                    "TurnoPreferencia": "Manhã",
+                }
+            ]
+             ```
+             </remarks>
+             
+             <response code="200">Turnos consultado com sucesso</response>
+             <response code="400">Dados inválidos fornecidos</response>
+             <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:TurnoController.ConsultarTurnoId(System.String)">
+            <summary>
+                Consultar um único registro de preferência de Turno que o usuário cadastrou.
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar um único Turno de preferência registrado, sendo consultado pelo ID do banco de dados
+            
+            Use este endpoint quando precisar consultar somente um registro com todos campos específicos.
+            
+            ### Campos que devem ser utilizados para consultar um Turno de preferência:
+            
+            - **id**: ID do banco e não o idUsuario
+            
+             ### Exemplo de body para requisição:
+             
+            ```json
+                "id": "67ce3bb1c9562c029b01d3fe"
+            ```
+            
+            ### Exemplo de body que receberemos como resposta:
+            
+            ```json
+               {
+                    "id": "67ce3bb1c9562c029b01d3fe",
+                    "idUsuario": "67cc95b32811515d372209ce",
+                    "TurnoPreferencia": "Tarde"
+                }
+            ```
+            </remarks>
+            
+            <response code="200">Dia consultado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:TurnoController.AtualizarTurno(System.String,Project.Models.TurnoDTO)">
+            <summary>
+                Atualiza as preferências de turnos de um usuário autenticado.
+            </summary>
+            
+            <remarks>
+            
+            ## Atualizar a preferência de turnos cadastrado pelo usuário
+            
+            Use este endpoint se o objetivo for alterar no cadastro um ou mais turnos de preferência que o usuário deseja ser atendido.
+            
+            ### Campos que devem ser utilizados para consultar um Turno de preferência:
+            - **id**: ID do banco e não o idUsuario
+            - **idUsuario**: IdUsuario gerado pelo banco de dados
+            - **turnoPreferencia**: Campo em string com o Turno de preferência neste exemplo "Manhã"
+            
+            ### Exemplo de requisição
+            
+            ```json
+                {   
+                    "id": "67ce3d45c9562c029b01d3ff",
+                    "idUsuario": "67cc95b32811515d372209ce",
+                    "turnoPreferencia": "Tarde"
+                }
+            
+            ``` 
+            
+            ### Exemplo do modelo de resposta quando ocorre sucesso na alteração
+            
+            ```json
+                {
+                    "id": "67ce3d45c9562c029b01d3ff",
+                    "idUsuario": "67cc95b32811515d372209ce",
+                    "turnoPreferencia": "Noite"
+                    "mensagem": "Horário atualizado com sucesso!"
+               }
+            ```
+            
+            </remarks>
+            
+            <returns>Retorna 204 No Content se a atualização for bem-sucedida.</returns>
+            <response code="204">Dados atualizados com sucesso.</response>
+            <response code="400">Erro na requisição (dados inválidos).</response>
+            <response code="401">Usuário não autenticado.</response>
+            <response code="404">Nenhum registro encontrado para o usuário.</response>
+        </member>
+        <member name="M:TurnoController.ExcluirTurno(System.String)">
+            <summary>
+                Exclui um turno de preferência do usuário.
+            </summary>
+            
+            <remarks>
+            
+            ## Excluir um turno de preferência do usuário do cadastro feito no banco.
+            
+            Use este endoPoint se seu objetivo é excluir um cadastro contendo o dia de preferência cadastrado errado. 
+            
+            ### Exemplo da requisição para excluir:
+            
+            ```json
+                {
+                    "id": "67cf3f8f8d3a256253f2dab5",
+                }
+            ```
+            
+            ### Exemplo da resposta para excluir uma clínica:
+            
+            ```json
+                {
+                    "message": "Turno de preferência excluído com sucesso."
+                }
+            ``` 
+            
+            Uma vez excluida da base, não tem reversão desta ação.
+            
+            </remarks>
+            
+            <param name="id" type="string" example="67cdee51b304fd2aaac177c9">ID do dia a ser excluído.</param>
+            <response code="200">Dia excluído com sucesso</response>
+            <response code="401">Usuário não autorizado</response>
+            <response code="404">Dia não encontrado</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:UsuarioController.CadastrarUsuario(Project.Models.Usuario)">
+            <summary>
+                Cria um novo usuário.
+            </summary>
+            
+            <remarks>
+            
+            ## Cadastrar novo usuário no banco de dados
+            
+            Use este endPoint para cadastrar um usuário. Somente usuários cadastrados podem efetuar o Login na plataforma.
+            
+            ### Campos que devem ser utilizados para criar um novo dia:
+            - **nome** string : Nome completo do usuário
+            - **cpf** string : CPF oficial do usuário com 11 digitos
+            - **telefone** string : Telefone de contato
+            - **email** string : Email principal de contato
+            - **senha** string : Senha de acesso (teremos hash para proteger a senha)
+            - **perfil** string : Todos os usuários cadastrados nesta rota, nasceram com perfil padrão = "Comum"
+            
+            ### Campos que não devem ser utilizados para criar um novo dia:
+            - **id** : Id do dia que será gerado automaticamente
+            - **idUsuario** : IdUsuario será uma cópia do Id e utilizado nas demais tabelas. Será gerado de forma automática.   
+            
+            
+            ### Exemplo de body para requisição:
+            ```json
+                {
+                    "nome": "João",
+                    "cpf": "12345678910",
+                    "sobrenome": "Silva",
+                    "email": "joao@exemplo.com",
+                    "senha": "senha123",
+                    "perfil": "Comum"
+                }
+            ```
+            
+            ### Exemplo de resposta quando o cadastro for efetuado:
+            
+            ```json
+                {   
+                    "id": "67cc95b32811515d37220000", -- gerado pelo banco de dados
+                    "nome": "Delfos Machine",
+                    "cpf": "12345678910",
+                    "telefone": "11975776758",
+                    "email": "delfos@delfos.com",
+                    "senha": "123456",
+                    "perfil": "Comum"
+                }
+            ```
+            </remarks>
+            
+            <response code="200">Requisição realizada com sucesso</response>
+            <response code="201">Usuário criado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:UsuarioController.ConsultarTodosUsuarios">
+            <summary>
+                Consultar a lista com todo os usuários.
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar todos os registros de usuários do banco de dados
+            
+            Use este endPoint se seu objetivo é recuperar todos os registros de usuários do banco de dados
+            
+            ### Campos disponiveis para consultar os usuários:
+            - **id** : Id do dia que será gerado automaticamente
+            - **nome** string : Nome completo do usuário
+            - **cpf** string : CPF oficial do usuário com 11 digitos
+            - **telefone** string : Telefone de contato
+            - **email** string : Email principal de contato
+            - **senha** string : Senha de acesso (teremos hash para proteger a senha)
+            - **perfil** string : Todos os usuários cadastrados nesta rota, nasceram com perfil padrão = "Comum"
+            
+            Exemplo de body de resposta, sempre será uma lista com todos os usuários no banco:
+            ```json
+                [
+                    { 
+                        "id": "67cc95b32811515d372209ce",
+                        "nome": "claudio",
+                        "cpf": "12345678910",
+                        "telefone": "11958757740",
+                        "email": "claudio_cssp@hotmail.com",
+                        "senha": "123456"
+                    },
+                    {
+                        "id": "67cca0540924d08d2c4b7819",
+                        "nome": "Caio",
+                        "cpf": "12345678910",
+                        "telefone": "11958757740",
+                        "email": "caio@delfos.com",
+                        "senha": "123456"
+                    }
+                ]
+            ```
+            </remarks>
+            
+            <response code="200">Usuário criado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:UsuarioController.ConsultarUsuarioId(System.String)">
+            <summary>
+                Consultar um único registro de usuário
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar um único usuário no banco, sendo consultado pelo ID do banco de dados
+            
+            Use este endpoint quando precisar consultar somente um registro com todos campos específicos.
+            
+            ### Campos que devem ser utilizados para consultar um usuário:
+            
+            - **id**: ID do banco
+            
+             ### Exemplo de body para requisição:
+             
+            ```json
+                "id": "67cc95b32811515d372209ce"
+            ```
+            
+            ### Exemplo de body que receberemos como resposta:
+            
+            ```json
+               {
+                    "id": "67cc95b32811515d372209ce",
+                    "nome": "Claudio",
+                    "cpf": "12345678910",
+                    "telefone": "11958755567",
+                    "email": "delfos@delfosmachine.com",
+                    "senha": "123456",
+                    "perfil": "Comum"
+                }
+            ```
+            </remarks>
+            
+            <response code="200">Usuário consultado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:UsuarioController.AtualizarUsuario(System.String,Project.Models.Usuario)">
+            <summary>
+                Atualiza os dados completos existente do usuário, com base no ID do banco de dados
+            </summary>
+            
+            <remarks>
+            
+            ## Atualizar todas as informações do usuário no banco
+            
+            Use este endpoint se o objetivo for atualizar todos os campos para o usuário no cadastro. Se for parcial, utilize outro endPoint.
+            
+            ### Exemplo de requisição
+            
+            ```json
+                {   
+                    "id": "67ce4b3d61760e36f862dd59",
+                    "nome": "Patricia Delfos",
+                    "cpf": "12345678910",
+                    "telefone": "1155122066",
+                    "email": "patricia@delfos.com", 
+                    "senha": "123456",
+                    "perfil": "Comum"
+                }
+            ``` 
+            
+            ### Se preencher alguns campos e outros não, estes campos serão preenchidos com dados inválidos e default criado pelo sistema.
+            </remarks>
+            
+            
+            <param name="id" type="string" example="67cc95b32811515d372209ce">ID do usuário no banco de dados.</param>
+            <param name="usuarioDto">Dados do usuário a serem atualizados.</param>
+            <response code="200">Usuário atualizado com sucesso</response>
+            <response code="400">Dados inválidos</response>
+            <response code="401">Usuário não autorizado</response>
+            <response code="404">Usuário não encontrado</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:UsuarioController.AtualizarClinica(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+                Atualiza parcialmente os dados de uma usuário existente
+            </summary>
+            
+            <param name="id" type="string" example="67cc95b32811515d372209ce">ID do usuário a ser atualizada</param>
+            
+            <remarks>
+            
+            ## Atualização Parcial de um Usuário
+            
+            Use este endpoint quando precisar atualizar apenas alguns campos específicos de um usuário,
+            sem a necessidade de enviar todos os dados.
+            
+            ### Campos que podem ser atualizados:
+            - **nome**: Nome do usuário
+            - **cpf** string : CPF oficial do usuário com 11 digitos
+            - **telefone**: Número de telefone para contato
+            - **email**: Endereço de email para contato
+            - **senha**: Senha de acesso (será criptografada)
+            
+            ### Campos que não podem ser atualizados:
+            - **Perfil**: Perfil = Comum pois a rota utilizada foi a de clientes e não de parceiros
+            
+            ### Exemplo de requisição:
+            
+            ```json
+            {
+                "id": "67cc95b32811515d372209ce",
+                "email": "novo.email@clinica.com.br"
+            }
+            ```
+            
+            Somente os campos incluídos no corpo da requisição serão atualizados.
+            
+            ### Exemplo de resposta da requisição:
+            
+            ```json
+            {
+                "id": "67ce4b3d61760e36f862dd59",
+                "nome": "Delfos",
+                "cpf": "12345678910",
+                "telefone": "string",
+                "email": "delfos@delfos.com", -- Validação pode ser feita pelo campo informado!
+                "senha": "string",
+                "perfil": "Comum"
+            }
+            ```
+            </remarks>
+            
+            <response code="200">Usuário atualizada com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="404">Usuário não encontrada</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:UsuarioController.ExcluirUsuario(System.String)">
+             <summary>
+                 Excluir os Usuário do banco de dados.
+             </summary>
+            
+             <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Usuário a ser excluído</param>
+             
+             <remarks>
+             
+             ## Excluir um Usuário do banco de dados e dos cadastros.
+             
+             ### Exemplo da requisição para excluir um Usuário:
+             
+             ```json
+                 {
+                     "id": "67cc95b32811515d372209ce",
+                 }
+             ```
+             
+             ### Exemplo da resposta para excluir um Usuário:
+             
+             ```json
+                 {
+                     "message": "Usuário excluído com sucesso."
+                 }
+             ``` 
+             
+             Uma vez excluida da base, não tem reversão desta ação.
+             </remarks>
+             
+             <response code="200">Usuário criado com sucesso</response>
+             <response code="400">Dados inválidos fornecidos</response>
+             <response code="500">Erro interno do servidor</response>
+        </member>
+    </members>
+</doc>

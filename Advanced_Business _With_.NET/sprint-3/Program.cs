@@ -53,6 +53,23 @@ builder.Services.AddTransient<IHorariosRepository, HorariosRepository>();
 builder.Services.AddTransient<IClinicaService, ClinicaService>();
 builder.Services.AddTransient<IClinicaRepository, ClinicaRepository>();
 
+// Médicos
+builder.Services.AddTransient<IMedicoService, MedicoService>();
+builder.Services.AddTransient<IMedicoRepository, MedicoRepository>();
+
+// Sugestão de consultas para clínicas
+builder.Services.AddTransient<ISugestaoConsultaClinicaService, SugestaoConsultaClinicaService>();
+builder.Services.AddTransient<ISugestaoConsultaClinicaRepository, SugestaoConsultaClinicaRepository>();
+
+// Sugestão de consultas para clientes
+builder.Services.AddTransient<ISugestaoConsultaClienteService, SugestaoConsultaClienteService>();
+builder.Services.AddTransient<ISugestaoConsultaClienteRepository, SugestaoConsultaClienteRepository>();
+
+// Motivos de recusas
+builder.Services.AddTransient<IMotivoRecusaService, MotivoRecusaService>();
+builder.Services.AddTransient<IMotivoRecusaRepository, MotivoRecusaRepository>();
+
+
 
 // Configurar autenticação com cookies
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

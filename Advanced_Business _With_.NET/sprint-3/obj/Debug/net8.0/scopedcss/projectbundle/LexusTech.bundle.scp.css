@@ -1,0 +1,33 @@
+/* _content/LexusTech/Views/Shared/_Layout.cshtml.rz.scp.css */
+
+a.navbar-brand[b-mp7x2r9llk] {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+a[b-mp7x2r9llk] {
+  color: #0077cc;
+}
+
+.nav-pills .nav-link.active[b-mp7x2r9llk], .nav-pills .show > .nav-link[b-mp7x2r9llk] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.border-top[b-mp7x2r9llk] {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom[b-mp7x2r9llk] {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-mp7x2r9llk] {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-mp7x2r9llk] {
+  font-size: 1rem;
+  line-height: inherit;
+}

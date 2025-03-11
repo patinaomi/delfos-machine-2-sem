@@ -1,0 +1,32 @@
+/* _content/Project/Views/Shared/_Layout.cshtml.rz.scp.css */
+
+a.navbar-brand[b-r07nuq4tb0] {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+  color: #bc885d;
+}
+
+a[b-r07nuq4tb0] {
+  color: #0077cc;
+}
+
+.nav-pills .nav-link.active[b-r07nuq4tb0], .nav-pills .show > .nav-link[b-r07nuq4tb0] {
+  color: #bc885d;
+}
+
+.border-top[b-r07nuq4tb0] {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom[b-r07nuq4tb0] {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-r07nuq4tb0] {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-r07nuq4tb0] {
+  font-size: 1rem;
+  line-height: inherit;
+}
