@@ -1,0 +1,51 @@
+@model IEnumerable<Project.Models.Turno>
+
+<section class="p-5">
+
+    <h2>Turnos de preferência</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>IdUsuario</th>
+                <th>Turno</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var turno in Model)
+            {
+                <tr>
+                    <td>@turno.Id</td>
+                    <td>@turno.IdUsuario</td>
+                    <td>@turno.TurnoPreferencia</td>
+
+                    <td>
+                        <!-- Formulário para excluir diretamente -->
+                       <form method="post" asp-controller="Turno" asp-action="Excluir" asp-route-idDia="@turno.Id" onsubmit="return confirm('Tem certeza que deseja excluir?');">
+                            <button type="submit" class="btn" style="background-color: #9B4819; color: #fdf5e6;">Excluir</button>
+                        </form>
+
+                    </td>
+                    
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+    <!-- Exibir alerta de sucesso, se houver -->
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success mt-3">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+    <div class="form-group pt-3">
+        <a asp-controller="Turno" asp-action="Criar" class="btn" style="background-color: #F4E1C1; color: #9B4819;">Voltar</a>
+        <a asp-controller="Home" asp-action="Index" class="btn" style="background-color: #bc885d; color: #fdf5e6;">Home</a>
+        <a asp-controller="Turno" asp-action="Atualizar" class="btn" style="background-color: #9B4819; color: #fdf5e6;">Atualizar</a>
+    </div>
+
+</section>
