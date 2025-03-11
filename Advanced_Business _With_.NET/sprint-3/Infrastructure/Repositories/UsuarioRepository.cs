@@ -40,6 +40,7 @@ namespace Project.Repositories
 
             var update = Builders<Usuario>.Update
                 .Set(u => u.Nome, usuario.Nome)
+                .Set(u => u.CPF, usuario.CPF)
                 .Set(u => u.Telefone, usuario.Telefone)
                 .Set(u => u.Email, usuario.Email)
                 .Set(u => u.Senha, usuario.Senha);
@@ -71,6 +72,9 @@ namespace Project.Repositories
                 {
                     case "nome":
                         updateDefinitions.Add(updateDefinitionBuilder.Set(c => c.Nome, campo.Value.ToString()));
+                        break;
+                    case "cpf":
+                        updateDefinitions.Add(updateDefinitionBuilder.Set(c => c.CPF, campo.Value.ToString()));
                         break;
                     case "telefone":
                         updateDefinitions.Add(updateDefinitionBuilder.Set(c => c.Telefone, campo.Value.ToString()));
