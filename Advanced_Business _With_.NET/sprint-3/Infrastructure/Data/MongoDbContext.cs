@@ -21,5 +21,6 @@ namespace Project.Infrastructure
         public IMongoCollection<Turno> Turno => _database.GetCollection<Turno>("t_turno");
         public IMongoCollection<Horarios> Horarios => _database.GetCollection<Horarios>("t_horario_preferencia");
         public IMongoCollection<Clinica> Clinica => _database.GetCollection<Clinica>("t_clinica");
+        public IMongoCollection<Medico> Medico => _database.GetCollection<Medico>("t_medico");
     }
 }
