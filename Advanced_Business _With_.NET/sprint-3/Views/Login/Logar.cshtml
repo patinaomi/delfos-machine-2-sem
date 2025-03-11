@@ -1,0 +1,57 @@
+@model Project.Models.LoginDTO
+
+@{
+    ViewData["Title"] = "Realizar Login";
+}
+
+<section class="d-flex justify-content-center align-items-center mt-5 p-3   " style="height: 70vh">
+    <div class="w-20 d-flex align-items-center justify-content-center pt-5" style="height: 100vh; padding-right: 10px;;">
+        <div class="container-fluid p-4 bg-white border" style="min-height: 80vh; width: 60vh; border-color: #bc885d !important;">
+            <h2 class="radley-regular">Login</h2>
+            <p class="carlito-regular">Se você é cadastrado, faça o login para ter acesso a todos os conteúdos.</p>
+            <form class="form-horizontal" asp-action="Logar" method="post">
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label radley-regular"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Senha" class="control-label radley-regular"></label>
+                    <input asp-for="Senha" class="form-control" type="password" placeholder="Exemplo 123456"/>
+                    <span asp-validation-for="Senha" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3 mb-3">
+                    <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" class="radley-regular"> Lembrar
+                        </label>
+                    </div>
+                    </div>
+                </div>
+                <div class="form-group w-100">
+                    <input type="submit" value="login" class="btn w-100 radley-regular" style="background-color: #fdf5e6; color: #9B4819;" />
+                </div>
+
+                <div class="form-group w-100 pt-3">
+                    <a asp-controller="Login" asp-action="Consultar"  class="btn w-100 radley-regular" style="background-color: #bc885d; color: #fdf5e6; border-color: #bc885d;">consultar</a>
+                </div>
+            </form>
+
+            <h2 class="radley-regular mt-3">Cadastre-se</h2>
+            <p class="carlito-regular">Se ainda não possui uma conta, realize o cadastro e conheça nossos produtos e serviços.</p>
+
+            <div class="nav-item text-center">
+                <a class="nav-link rounded" asp-area="" asp-controller="Usuario" asp-action="Criar" style="background-color: #fdf5e6; color: #9B4819;">cadastro</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-80 mt-5" style="height: 80vh">
+        <img src="~/assets/Login/imagem3.jpg" alt="Imagem de fundo para área de cadastro cliente" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
