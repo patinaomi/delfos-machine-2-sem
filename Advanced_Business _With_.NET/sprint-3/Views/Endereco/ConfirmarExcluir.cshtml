@@ -1,0 +1,18 @@
+@model Project.Models.Usuario
+
+<section class="energy-section">
+    <h2>Tem certeza que deseja excluir sua conta?</h2>
+
+    <div>
+        <h4>Usuário: @Model.Nome</h4>
+        <p>Email: @Model.Email</p>
+        <p>Telefone: @Model.Telefone</p>
+
+        <form asp-action="Excluir" method="post">
+            <input type="hidden" asp-for="Id" value="@Model.Id" />
+            <button type="submit" class="btn btn-danger">Excluir</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+
+</section>

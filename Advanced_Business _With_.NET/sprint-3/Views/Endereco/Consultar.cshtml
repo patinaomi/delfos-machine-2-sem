@@ -1,0 +1,40 @@
+@model IEnumerable<Project.Models.Endereco>
+
+<section class="p-5">
+
+    <h2>endereco de preferencia</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>IdUsuario</th>
+                <th>CEP</th>
+                <th>Estado</th>
+                <th>Cidade</th>
+                <th>Bairro</th>
+                <th>Rua</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var endereco in Model)
+            {
+                <tr>
+                    <td>@endereco.Id</td>
+                    <td>@endereco.IdUsuario</td>
+                    <td>@endereco.CEP</td>
+                    <td>@endereco.Estado</td>
+                    <td>@endereco.Cidade</td>
+                    <td>@endereco.Bairro</td>
+                    <td>@endereco.Rua</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="form-group pt-3">
+        <a asp-controller="Endereco" asp-action="Criar" class="btn" style="background-color: #9B4819; color: #fdf5e6;">voltar</a>
+        <a asp-controller="Home" asp-action="Inicio" class="btn" style="background-color: #bc885d; color: #fdf5e6;">Home</a>
+        <a asp-controller="Endereco" asp-action="Atualizar" class="btn" style="background-color: #F4E1C1; color: #9B4819;">atualizar endereço cadastrado</a>
+    </div>
+
+</section>
