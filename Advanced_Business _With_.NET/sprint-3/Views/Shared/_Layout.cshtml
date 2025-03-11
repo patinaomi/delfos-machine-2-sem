@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Project</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Project.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm; border-bottom box-shadow" style="color: #9B4819; background-color: #fdf5e6;">
+            <div class="container-fluid" style="color: #fdf5e6;">
+                <a class="navbar-brand radley-regular" asp-area="" asp-controller="Home" asp-action="Inicio" >Project</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation" style="color: #9B4819;">
+                    <span class="navbar-toggler-icon" style="color: #9B4819;"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between text-center">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link radley-regular" style="color: #9B4819;" asp-area="" asp-controller="Home" asp-action="Inicio">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link radley-regular" style="color: #9B4819;"  href="/swagger">Documentação API</a>
+                        </li>
+                     
+                
+                    </ul>
+                    <ul class="navbar-nav flex gap-2">
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark radley-regular" asp-area="" asp-controller="Login" asp-action="Logout">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark border rounded radley-regular" asp-area="" asp-controller="Login" asp-action="Logar">Login</a>
+                            </li>
+                            
+                            <li class="nav-item">
+                                <a class="nav-link text-dark border rounded radley-regular" asp-area="" asp-controller="Usuario" asp-action="Criar">Cadastre-se</a>
+                            </li>
+                        }
+
+                       
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer style="background-color: #fdf5e6; margin-top: auto;">
+        <div class="container text-center">
+            © 2024 - Delfos Machine Project - <a asp-area="" asp-controller="Home" asp-action="Privacy">Todos os direitos reservados.</a>
+        </div>
+    </footer>
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
