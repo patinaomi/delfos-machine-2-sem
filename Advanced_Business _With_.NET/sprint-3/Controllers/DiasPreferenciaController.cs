@@ -352,8 +352,6 @@ public class DiasPreferenciaController : Controller
         
         await _diasPreferenciaService.Atualizar(diaExistente);
 
-        //return NoContent();
-        //return Ok(new { message = "Dados atualizados com sucesso!" });
         return Ok(diaExistente);
     }
 

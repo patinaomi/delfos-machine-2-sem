@@ -372,7 +372,7 @@ public class EnderecoController : Controller
     /// <param name="enderecoDTO">Dados do endereço a serem atualizados.</param>
     /// <response code="200">Endereço atualizado com sucesso</response>
     /// <response code="400">Dados inválidos</response>
-    /// <response code="401">Usuário não autorizado</response>
+    /// <response code="401">Endereço não autorizado</response>
     /// <response code="404">Endereço não encontrado</response>
     /// <response code="500">Erro interno do servidor</response>
     [HttpPut("AtualizarEndereco/{id}")]
@@ -384,16 +384,17 @@ public class EnderecoController : Controller
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> AtualizarEndereco(string id, [FromBody] EnderecoDTO enderecoDTO)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
+        if (string.IsNullOrEmpty(id) || enderecoDTO == null || id != enderecoDTO.Id)
+        {
+            return BadRequest("Id do Clinica não corresponde ao fornecido.");
+        }
 
-        var idUsuario = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
-        if (string.IsNullOrEmpty(idUsuario))
-            return Unauthorized("Usuário não logado.");
+        var enderecoExistente = await _enderecoService.ConsultarId(id);
 
-        var enderecoExistente = await _enderecoService.ConsultarPorUsuarioId(id);
-        if (enderecoExistente == null || enderecoExistente.IdUsuario != idUsuario)
-            return NotFound("Endereço não encontrado ou não pertence ao usuário.");
+        if (enderecoExistente == null)
+        {
+            return NotFound();
+        }
 
         enderecoExistente.CEP = enderecoDTO.CEP;
         enderecoExistente.Estado = enderecoDTO.Estado;
@@ -403,7 +404,7 @@ public class EnderecoController : Controller
 
         await _enderecoService.Atualizar(enderecoExistente);
 
-        return Ok(new { message = "Endereço atualizado com sucesso!" });
+        return Ok(enderecoExistente);
     }
 
     [HttpGet("ConfirmarExcluir/{id}")]

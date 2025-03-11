@@ -5,14 +5,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-[Route("Usuario")] 
-public class UsuarioController : Controller
+[Route("Medico")] 
+public class MedicoController : Controller
 {
-    private readonly IUsuarioService _usuarioService;
+    private readonly IMedicoService _medicoService;
 
-    public UsuarioController(IUsuarioService usuarioService)
+    public MedicoController(IMedicoService medicoService)
     {
-        _usuarioService = usuarioService;
+        _medicoService = medicoService;
     }
 
     // usar essaa tag para permitir que todos possam fazer cadastrado, mas quem não estiver logado, não vai conseguir acessar nada.
@@ -28,15 +28,15 @@ public class UsuarioController : Controller
     [HttpPost("Criar")]
     [ValidateAntiForgeryToken]
     [ApiExplorerSettings(IgnoreApi = true)]
-    public async Task<IActionResult> Criar([Bind("Id,Nome,CPF,Sobrenome,Telefone,Email,Senha,Perfil")] Usuario usuario)
+    public async Task<IActionResult> Criar([Bind("Id,Nome,CPF,Sobrenome,Telefone,Email,Senha,Perfil")] Medico medico)
     {
         if (ModelState.IsValid)
         {
-            await _usuarioService.Criar(usuario);
-            TempData["SuccessMessage"] = "Usuário cadastrado com sucesso!";
+            await _medicoService.Criar(medico);
+            TempData["SuccessMessage"] = "Médico cadastrado com sucesso!";
             return RedirectToAction("Mensagem");
         }
-        return View(usuario);
+        return View(medico);
     }
 
     [HttpGet("Mensagem")]
@@ -46,24 +46,25 @@ public class UsuarioController : Controller
         return View();
     }
 
-    // Rota da API para criar um usuário
+    // Rota da API para criar um Médico
     /// <summary>
-    ///     Cria um novo usuário.
+    ///     Cria um novo Médico.
     /// </summary>
     /// 
     /// <remarks>
     /// 
-    /// ## Cadastrar novo usuário no banco de dados
+    /// ## Cadastrar novo Médico no banco de dados
     /// 
-    /// Use este endPoint para cadastrar um usuário. Somente usuários cadastrados podem efetuar o Login na plataforma.
+    /// Use este endPoint para cadastrar um Médico. Somente Médicos cadastrados podem efetuar o Login na plataforma.
     /// 
     /// ### Campos que devem ser utilizados para criar um novo dia:
-    /// - **nome** string : Nome completo do usuário
-    /// - **cpf** string : CPF oficial do usuário com 11 digitos
+    /// - **nome** string : Nome completo do Médico
+    /// - **cpf** string : CPF oficial do Médico com 11 digitos
     /// - **telefone** string : Telefone de contato
     /// - **email** string : Email principal de contato
     /// - **senha** string : Senha de acesso (teremos hash para proteger a senha)
-    /// - **perfil** string : Todos os usuários cadastrados nesta rota, nasceram com perfil padrão = "Comum"
+    /// - **perfil** string : Todos os Médicos cadastrados nesta rota, nasceram com perfil padrão = "Medico"
+    /// - **especilidade** string : Especilidade principal de contato
     /// 
     /// ### Campos que não devem ser utilizados para criar um novo dia:
     /// - **id** : Id do dia que será gerado automaticamente
@@ -78,7 +79,8 @@ public class UsuarioController : Controller
     ///         "sobrenome": "Silva",
     ///         "email": "joao@exemplo.com",
     ///         "senha": "senha123",
-    ///         "perfil": "Comum"
+    ///         "perfil": "Comum",
+    ///         "especilidade" : "Clinica Geral"
     ///     }
     /// ```
     /// 
@@ -92,28 +94,29 @@ public class UsuarioController : Controller
     ///         "telefone": "11975776758",
     ///         "email": "delfos@delfos.com",
     ///         "senha": "123456",
-    ///         "perfil": "Comum"
+    ///         "perfil": "Comum",
+    ///         "especilidade" : "Clinica Geral"
     ///     }
     /// ```
     /// </remarks>
     /// 
     /// <response code="200">Requisição realizada com sucesso</response>
-    /// <response code="201">Usuário criado com sucesso</response>
+    /// <response code="201">Médico criado com sucesso</response>
     /// <response code="400">Dados inválidos fornecidos</response>
     /// <response code="500">Erro interno do servidor</response>
-    [HttpPost("CadastrarUsuario")]
+    [HttpPost("CadastrarMedico")]
     [Produces("application/json")]
     [ApiExplorerSettings(IgnoreApi = false)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(400)]
     [ProducesResponseType(500)]
-    public async Task<IActionResult> CadastrarUsuario([FromBody] Usuario usuario)
+    public async Task<IActionResult> CadastrarMedico([FromBody] Medico medico)
     {
         if (ModelState.IsValid)
         {
-            await _usuarioService.Criar(usuario);
-            return CreatedAtAction(nameof(ConsultarTodosUsuarios), new { id = usuario.Id }, usuario); 
+            await _medicoService.Criar(medico);
+            return CreatedAtAction(nameof(ConsultarTodosMedicos), new { id = medico.Id }, medico); 
         }
         return BadRequest(ModelState); 
     }
@@ -124,31 +127,32 @@ public class UsuarioController : Controller
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Consultar()
     {
-        var usuarios = await _usuarioService.ConsultarTodos(); 
-        return View(usuarios); 
+        var medicos = await _medicoService.ConsultarTodos(); 
+        return View(medicos); 
     }
 
     // Rota de API
     /// <summary>
-    ///     Consultar a lista com todo os usuários.
+    ///     Consultar a lista com todo os Médicos.
     /// </summary>
     /// 
     /// <remarks>
     /// 
-    /// ## Consultar todos os registros de usuários do banco de dados
+    /// ## Consultar todos os registros de Médicos do banco de dados
     /// 
-    /// Use este endPoint se seu objetivo é recuperar todos os registros de usuários do banco de dados
+    /// Use este endPoint se seu objetivo é recuperar todos os registros de Médicos do banco de dados
     /// 
-    /// ### Campos disponiveis para consultar os usuários:
+    /// ### Campos disponiveis para consultar os Médicos:
     /// - **id** : Id do dia que será gerado automaticamente
-    /// - **nome** string : Nome completo do usuário
-    /// - **cpf** string : CPF oficial do usuário com 11 digitos
+    /// - **nome** string : Nome completo do Médico
+    /// - **cpf** string : CPF oficial do Médico com 11 digitos
     /// - **telefone** string : Telefone de contato
     /// - **email** string : Email principal de contato
     /// - **senha** string : Senha de acesso (teremos hash para proteger a senha)
-    /// - **perfil** string : Todos os usuários cadastrados nesta rota, nasceram com perfil padrão = "Comum"
+    /// - **perfil** string : Todos os Médicos cadastrados nesta rota, nasceram com perfil padrão = "Comum"
+    /// - **especilidade** string : Especilidade principal de contato
     /// 
-    /// Exemplo de body de resposta, sempre será uma lista com todos os usuários no banco:
+    /// Exemplo de body de resposta, sempre será uma lista com todos os Médicos no banco:
     /// ```json
     ///     [
     ///         { 
@@ -157,7 +161,8 @@ public class UsuarioController : Controller
     ///             "cpf": "12345678910",
     ///             "telefone": "11958757740",
     ///             "email": "claudio_cssp@hotmail.com",
-    ///             "senha": "123456"
+    ///             "senha": "123456",
+    ///             "especilidade" : "Clinica Geral"
     ///         },
     ///         {
     ///             "id": "67cca0540924d08d2c4b7819",
@@ -165,34 +170,35 @@ public class UsuarioController : Controller
     ///             "cpf": "12345678910",
     ///             "telefone": "11958757740",
     ///             "email": "caio@delfos.com",
-    ///             "senha": "123456"
+    ///             "senha": "123456",
+    ///             "especilidade" : "Clinica Geral"
     ///         }
     ///     ]
     /// ```
     /// </remarks>
     /// 
-    /// <response code="200">Usuário criado com sucesso</response>
+    /// <response code="200">Médico criado com sucesso</response>
     /// <response code="400">Dados inválidos fornecidos</response>
     /// <response code="500">Erro interno do servidor</response>
-    [HttpGet("ConsultarTodosUsuarios")]
+    [HttpGet("ConsultarTodosMedicos")]
     [Produces("application/json")]
-    public async Task<IActionResult> ConsultarTodosUsuarios()
+    public async Task<IActionResult> ConsultarTodosMedicos()
     {
-        var usuarios = await _usuarioService.ConsultarTodos();
-        return Ok(usuarios);
+        var medicos = await _medicoService.ConsultarTodos();
+        return Ok(medicos);
     }
 
     /// <summary>
-    ///     Consultar um único registro de usuário
+    ///     Consultar um único registro de Médico
     /// </summary>
     /// 
     /// <remarks>
     /// 
-    /// ## Consultar um único usuário no banco, sendo consultado pelo ID do banco de dados
+    /// ## Consultar um único Médico no banco, sendo consultado pelo ID do banco de dados
     /// 
     /// Use este endpoint quando precisar consultar somente um registro com todos campos específicos.
     /// 
-    /// ### Campos que devem ser utilizados para consultar um usuário:
+    /// ### Campos que devem ser utilizados para consultar um Médico:
     /// 
     /// - **id**: ID do banco
     /// 
@@ -212,32 +218,33 @@ public class UsuarioController : Controller
     ///         "telefone": "11958755567",
     ///         "email": "delfos@delfosmachine.com",
     ///         "senha": "123456",
-    ///         "perfil": "Comum"
+    ///         "perfil": "Comum",
+    ///         "especilidade" : "Clinica Geral"
     ///     }
     /// ```
     /// </remarks>
     /// 
-    /// <response code="200">Usuário consultado com sucesso</response>
+    /// <response code="200">Médico consultado com sucesso</response>
     /// <response code="400">Dados inválidos fornecidos</response>
     /// <response code="500">Erro interno do servidor</response>
-    [HttpGet("ConsultarUsuarioId/{id}")]
+    [HttpGet("ConsultarMedicoId/{id}")]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> ConsultarUsuarioId(string id)
+    public async Task<IActionResult> ConsultarMedicoId(string id)
     {
-        var usuario = await _usuarioService.ConsultarId(id);
+        var medico = await _medicoService.ConsultarId(id);
 
-        if (usuario == null)
+        if (medico == null)
         {
-            return NotFound(new { message = "Usuário não encontrado." });
+            return NotFound(new { message = "Médico não encontrado." });
         }
 
-        return Ok(usuario);
+        return Ok(medico);
     }
 
-    // View para atualizar um usuário
+    // View para atualizar um Médico
     [HttpGet("Atualizar")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Atualizar()
@@ -250,22 +257,22 @@ public class UsuarioController : Controller
             return RedirectToAction("Error");
         }
 
-        var usuario = await _usuarioService.ConsultarId(userIdString);
-        if (usuario == null)
+        var medico = await _medicoService.ConsultarId(userIdString);
+        if (medico == null)
         {
             return NotFound();
         }
 
-        return View(usuario);
+        return View(medico);
     }
 
     [HttpPost("Atualizar")]
     [ApiExplorerSettings(IgnoreApi = true)]
-    public async Task<IActionResult> Atualizar(Usuario usuario)
+    public async Task<IActionResult> Atualizar(Medico medico)
     {
         if (!ModelState.IsValid)
         {
-            return View(usuario);
+            return View(medico);
         }
 
         //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -276,22 +283,22 @@ public class UsuarioController : Controller
             return RedirectToAction("Error");
         }
 
-        var usuarioExistente = await _usuarioService.ConsultarId(userIdString);
+        var medicoExistente = await _medicoService.ConsultarId(userIdString);
 
-        if (usuarioExistente == null)
+        if (medicoExistente == null)
         {
             return NotFound();
         }
 
-        usuarioExistente.Nome = usuario.Nome;
-        usuarioExistente.CPF = usuario.CPF;
-        usuarioExistente.Telefone = usuario.Telefone;
-        usuarioExistente.Email = usuario.Email;
-        usuarioExistente.Senha = usuario.Senha;
+        medicoExistente.Nome = medico.Nome;
+        medicoExistente.CPF = medico.CPF;
+        medicoExistente.Telefone = medico.Telefone;
+        medicoExistente.Email = medico.Email;
+        medicoExistente.Senha = medico.Senha;
 
-        await _usuarioService.Atualizar(usuarioExistente);
+        await _medicoService.Atualizar(medicoExistente);
 
-        TempData["SuccessMessage"] = "Usuário atualizado com sucesso!";
+        TempData["SuccessMessage"] = "Médico atualizado com sucesso!";
         return RedirectToAction("MensagemAtualizacao");
     }
 
@@ -303,14 +310,14 @@ public class UsuarioController : Controller
     }
 
     /// <summary>
-    ///     Atualiza os dados completos existente do usuário, com base no ID do banco de dados
+    ///     Atualiza os dados completos existente do Médico, com base no ID do banco de dados
     /// </summary>
     /// 
     /// <remarks>
     /// 
-    /// ## Atualizar todas as informações do usuário no banco
+    /// ## Atualizar todas as informações do Médico no banco
     /// 
-    /// Use este endpoint se o objetivo for atualizar todos os campos para o usuário no cadastro. Se for parcial, utilize outro endPoint.
+    /// Use este endpoint se o objetivo for atualizar todos os campos para o Médico no cadastro. Se for parcial, utilize outro endPoint.
     /// 
     /// ### Exemplo de requisição
     /// 
@@ -322,7 +329,8 @@ public class UsuarioController : Controller
     ///         "telefone": "1155122066",
     ///         "email": "patricia@delfos.com", 
     ///         "senha": "123456",
-    ///         "perfil": "Comum"
+    ///         "perfil": "Comum",
+    ///         "especilidade" : "Clinica Geral"
     ///     }
     /// ``` 
     /// 
@@ -330,39 +338,39 @@ public class UsuarioController : Controller
     /// </remarks>
     /// 
     /// 
-    /// <param name="id" type="string" example="67cc95b32811515d372209ce">ID do usuário no banco de dados.</param>
-    /// <param name="usuarioDto">Dados do usuário a serem atualizados.</param>
-    /// <response code="200">Usuário atualizado com sucesso</response>
+    /// <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Médico no banco de dados.</param>
+    /// <param name="medicoDto">Dados do Médico a serem atualizados.</param>
+    /// <response code="200">Médico atualizado com sucesso</response>
     /// <response code="400">Dados inválidos</response>
-    /// <response code="401">Usuário não autorizado</response>
-    /// <response code="404">Usuário não encontrado</response>
+    /// <response code="401">Médico não autorizado</response>
+    /// <response code="404">Médico não encontrado</response>
     /// <response code="500">Erro interno do servidor</response>
-    [HttpPut("AtualizarUsuario/{id}")]
+    [HttpPut("AtualizarMedico/{id}")]
     [Produces("application/json")]
-    public async Task<IActionResult> AtualizarUsuario(string id, [FromBody] Usuario usuario)
+    public async Task<IActionResult> AtualizarMedico(string id, [FromBody] Medico medico)
     {
-        if (string.IsNullOrEmpty(id) || usuario == null || id != usuario.Id)
+        if (string.IsNullOrEmpty(id) || medico == null || id != medico.Id)
         {
-            return BadRequest("Id do Clinica não corresponde ao fornecido.");
+            return BadRequest("Id do Médico não corresponde ao fornecido.");
         }
 
-        var usuarioExistente = await _usuarioService.ConsultarId(id);
+        var medicoExistente = await _medicoService.ConsultarId(id);
 
-        if (usuarioExistente == null)
+        if (medicoExistente == null)
         {
             return NotFound();
         }
 
 
-        usuarioExistente.Nome = usuario.Nome;
-        usuarioExistente.CPF = usuario.CPF;
-        usuarioExistente.Telefone = usuario.Telefone;
-        usuarioExistente.Email = usuario.Email;
-        usuarioExistente.Senha = usuario.Senha;
+        medicoExistente.Nome = medico.Nome;
+        medicoExistente.CPF = medico.CPF;
+        medicoExistente.Telefone = medico.Telefone;
+        medicoExistente.Email = medico.Email;
+        medicoExistente.Senha = medico.Senha;
 
-        await _usuarioService.Atualizar(usuarioExistente);
+        await _medicoService.Atualizar(medicoExistente);
 
-        return Ok(usuarioExistente); 
+        return Ok(medicoExistente); 
     }
 
 
@@ -370,36 +378,37 @@ public class UsuarioController : Controller
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> ConfirmarExcluir(string id)
     {
-        var usuario = await _usuarioService.ConsultarId(id);
+        var medico = await _medicoService.ConsultarId(id);
         
-        if (usuario == null)
+        if (medico == null)
         {
             return NotFound();
         }
 
-        return View(usuario);
+        return View(medico);
     }
 
-    // Rota de API para atualizar parcialmente um Usuário
+    // Rota de API para atualizar parcialmente um Médico
     /// <summary>
-    ///     Atualiza parcialmente os dados de uma usuário existente
+    ///     Atualiza parcialmente os dados de uma Médico existente
     /// </summary>
     /// 
-    /// <param name="id" type="string" example="67cc95b32811515d372209ce">ID do usuário a ser atualizada</param>
+    /// <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Médico a ser atualizada</param>
     /// 
     /// <remarks>
     /// 
-    /// ## Atualização Parcial de um Usuário
+    /// ## Atualização Parcial de um Médico
     /// 
-    /// Use este endpoint quando precisar atualizar apenas alguns campos específicos de um usuário,
+    /// Use este endpoint quando precisar atualizar apenas alguns campos específicos de um Médico,
     /// sem a necessidade de enviar todos os dados.
     /// 
     /// ### Campos que podem ser atualizados:
-    /// - **nome**: Nome do usuário
-    /// - **cpf** string : CPF oficial do usuário com 11 digitos
+    /// - **nome**: Nome do Médico
+    /// - **cpf** string : CPF oficial do Médico com 11 digitos
     /// - **telefone**: Número de telefone para contato
     /// - **email**: Endereço de email para contato
     /// - **senha**: Senha de acesso (será criptografada)
+    /// - **especilidade** string : Especilidade principal de contato
     /// 
     /// ### Campos que não podem ser atualizados:
     /// - **Perfil**: Perfil = Comum pois a rota utilizada foi a de clientes e não de parceiros
@@ -425,14 +434,15 @@ public class UsuarioController : Controller
     ///     "telefone": "string",
     ///     "email": "delfos@delfos.com", -- Validação pode ser feita pelo campo informado!
     ///     "senha": "string",
-    ///     "perfil": "Comum"
+    ///     "perfil": "Comum",
+    ///     "especilidade" : "Clinica Geral"
     /// }
     /// ```
     /// </remarks>
     /// 
-    /// <response code="200">Usuário atualizada com sucesso</response>
+    /// <response code="200">Médico atualizada com sucesso</response>
     /// <response code="400">Dados inválidos fornecidos</response>
-    /// <response code="404">Usuário não encontrada</response>
+    /// <response code="404">Médico não encontrada</response>
     /// <response code="500">Erro interno do servidor</response>
     [HttpPatch("AtualizarParcial/{id}")]
     [Produces("application/json")]
@@ -447,14 +457,14 @@ public class UsuarioController : Controller
             return BadRequest("Id da Clinica e/ou campos para atualização são necessários.");
         }
 
-        var usuarioAtualizado = await _usuarioService.AtualizarParcial(id, camposParaAtualizar);
+        var medicoAtualizado = await _medicoService.AtualizarParcial(id, camposParaAtualizar);
 
-        if (usuarioAtualizado == null)
+        if (medicoAtualizado == null)
         {
-            return NotFound("Usuário não encontrada.");
+            return NotFound("Médico não encontrada.");
         }
 
-        return Ok(usuarioAtualizado);
+        return Ok(medicoAtualizado);
     }
 
 
@@ -463,23 +473,23 @@ public class UsuarioController : Controller
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Excluir(string id)
     {
-        var usuario = await _usuarioService.ConsultarId(id);
+        var medico = await _medicoService.ConsultarId(id);
         
-        if (usuario != null)
+        if (medico != null)
         {
-            // Exclui o usuário do banco de dados
-            await _usuarioService.Excluir(id);
+            // Exclui o Médico do banco de dados
+            await _medicoService.Excluir(id);
 
-            // Desloga o usuário
+            // Desloga o Médico
             //await _context.SaveChangesAsync();
             await HttpContext.SignOutAsync();
             
             // Redireciona para a página de login ou para onde você preferir
-            TempData["SuccessMessage"] = "Usuário excluído com sucesso.";
-            return RedirectToAction("MensagemExclusao", "Usuario"); 
+            TempData["SuccessMessage"] = "Médico excluído com sucesso.";
+            return RedirectToAction("MensagemExclusao", "Medico"); 
         }
 
-        TempData["ErrorMessage"] = "Usuário não encontrado.";
+        TempData["ErrorMessage"] = "Médico não encontrado.";
         return RedirectToAction(nameof(Index));
     }
 
@@ -490,18 +500,18 @@ public class UsuarioController : Controller
         return View();
     }
 
-    // Rota de API para excluir um Usuário
+    // Rota de API para excluir um Médico
     /// <summary>
-    ///     Excluir os Usuário do banco de dados.
+    ///     Excluir os Médico do banco de dados.
     /// </summary>
     ///
-    /// <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Usuário a ser excluído</param>
+    /// <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Médico a ser excluído</param>
     /// 
     /// <remarks>
     /// 
-    /// ## Excluir um Usuário do banco de dados e dos cadastros.
+    /// ## Excluir um Médico do banco de dados e dos cadastros.
     /// 
-    /// ### Exemplo da requisição para excluir um Usuário:
+    /// ### Exemplo da requisição para excluir um Médico:
     /// 
     /// ```json
     ///     {
@@ -509,34 +519,34 @@ public class UsuarioController : Controller
     ///     }
     /// ```
     /// 
-    /// ### Exemplo da resposta para excluir um Usuário:
+    /// ### Exemplo da resposta para excluir um Médico:
     /// 
     /// ```json
     ///     {
-    ///         "message": "Usuário excluído com sucesso."
+    ///         "message": "Médico excluído com sucesso."
     ///     }
     /// ``` 
     /// 
     /// Uma vez excluida da base, não tem reversão desta ação.
     /// </remarks>
     /// 
-    /// <response code="200">Usuário criado com sucesso</response>
+    /// <response code="200">Médico criado com sucesso</response>
     /// <response code="400">Dados inválidos fornecidos</response>
     /// <response code="500">Erro interno do servidor</response>
-    [HttpDelete("ExcluirUsuario/{id}")]
+    [HttpDelete("ExcluirMedico/{id}")]
     [Produces("application/json")]
-    public async Task<IActionResult> ExcluirUsuario(string id)
+    public async Task<IActionResult> ExcluirMedico(string id)
     {
-        var usuario = await _usuarioService.ConsultarId(id);
+        var medico = await _medicoService.ConsultarId(id);
         
-        if (usuario == null)
+        if (medico == null)
         {
             return NotFound();
         }
 
-        await _usuarioService.Excluir(id);
+        await _medicoService.Excluir(id);
 
-        return Ok(new { message = "Usuário excluído com sucesso." });  
+        return Ok(new { message = "Médico excluído com sucesso." });  
     }
 
 
