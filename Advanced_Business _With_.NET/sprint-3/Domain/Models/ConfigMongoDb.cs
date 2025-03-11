@@ -11,5 +11,6 @@
             public string TurnoCollectionName { get; set; } = null!;
             public string HorariosCollectionName { get; set; } = null!;
             public string ClinicaCollectionName { get; set; } = null!;
+            public string MedicoCollectionName { get; set; } = null!;
         }
     }
