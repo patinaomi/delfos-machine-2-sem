@@ -24,7 +24,7 @@ namespace Project.Models;
         public string? BairroPreferenciaCliente { get; set; }
         public string? RuaPreferenciaCliente { get; set; }
         public string? StatusSugestaoClinica { get; set; } = "Sem resposta";
-        public string? StatusSugestaoCliente { get; set; } = "Sem resposta";
+        //public string? StatusSugestaoCliente { get; set; } = "Sem resposta";
         public DateTime DataAlteracao { get; set; } // Precisa ser com base no horario e formato de são paulo exemplo 11/03/2025. Com mesmo horário de aceite pois não pode ter as três horas de diferença.
 
     }

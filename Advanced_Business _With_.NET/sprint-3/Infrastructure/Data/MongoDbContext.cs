@@ -25,5 +25,8 @@ namespace Project.Infrastructure
         public IMongoCollection<SugestaoConsultaClinica> SugestaoConsultaClinica => _database.GetCollection<SugestaoConsultaClinica>("t_sugestao_consulta_clinica");
         public IMongoCollection<SugestaoConsultaCliente> SugestaoConsultaCliente => _database.GetCollection<SugestaoConsultaCliente>("t_sugestao_consulta_cliente");
         public IMongoCollection<MotivoRecusa> MotivoRecusa => _database.GetCollection<MotivoRecusa>("t_motivo_recusa");
+        public IMongoCollection<ServicosAgendados> ServicosAgendados => _database.GetCollection<ServicosAgendados>("t_servicos_agendados");
+        public IMongoCollection<Consulta> Consulta => _database.GetCollection<Consulta>("t_consulta");
+        public IMongoCollection<Feedback> Feedback => _database.GetCollection<Feedback>("t_feedback");
     }
 }

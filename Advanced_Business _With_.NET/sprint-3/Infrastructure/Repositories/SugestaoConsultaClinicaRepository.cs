@@ -52,8 +52,8 @@ namespace Project.Repositories
                 .Set(u => u.CidadePreferenciaCliente, sugestao.CidadePreferenciaCliente)
                 .Set(u => u.BairroPreferenciaCliente, sugestao.BairroPreferenciaCliente)
                 .Set(u => u.RuaPreferenciaCliente, sugestao.RuaPreferenciaCliente)
-                .Set(u => u.StatusSugestaoClinica, sugestao.StatusSugestaoClinica)
-                .Set(u => u.StatusSugestaoCliente, sugestao.StatusSugestaoCliente);
+                .Set(u => u.StatusSugestaoClinica, sugestao.StatusSugestaoClinica);
+                //.Set(u => u.StatusSugestaoCliente, sugestao.StatusSugestaoCliente);
 
             var resultado = await _sugestaoConsultaClinicaCollection.UpdateOneAsync(filtro, update);
 
@@ -122,9 +122,9 @@ namespace Project.Repositories
                     case "statussugestaoclinica":
                         updateDefinitions.Add(updateDefinitionBuilder.Set(c => c.StatusSugestaoClinica, campo.Value.ToString()));
                         break;
-                    case "statussugestaocliente":
+                    /*case "statussugestaocliente":
                         updateDefinitions.Add(updateDefinitionBuilder.Set(c => c.StatusSugestaoCliente, campo.Value.ToString()));
-                        break;
+                        break;*/
                 }
             }
 

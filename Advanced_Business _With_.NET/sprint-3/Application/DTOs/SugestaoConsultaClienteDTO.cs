@@ -81,9 +81,9 @@ namespace Project.Models
         [StringLength(100, ErrorMessage = "A 'RuaClinica' deve ter no máximo 100 caracteres.")]
         public string? RuaClinica { get; set; }
 
-        [Required(ErrorMessage = "O campo 'StatusSugestaoClinica' é obrigatório.")]
-        [StringLength(50, ErrorMessage = "O 'StatusSugestaoClinica' deve ter no máximo 50 caracteres.")]
-        public string? StatusSugestaoClinica { get; set; } = "Sem resposta";
+        //[Required(ErrorMessage = "O campo 'StatusSugestaoClinica' é obrigatório.")]
+        //[StringLength(50, ErrorMessage = "O 'StatusSugestaoClinica' deve ter no máximo 50 caracteres.")]
+        //public string? StatusSugestaoClinica { get; set; } = "Sem resposta";
 
         [Required(ErrorMessage = "O campo 'StatusSugestaoCliente' é obrigatório.")]
         [StringLength(50, ErrorMessage = "O 'StatusSugestaoCliente' deve ter no máximo 50 caracteres.")]

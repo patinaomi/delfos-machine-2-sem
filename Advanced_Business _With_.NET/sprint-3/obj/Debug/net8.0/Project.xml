@@ -271,6 +271,395 @@
              <response code="400">Dados inválidos fornecidos</response>
              <response code="500">Erro interno do servidor</response>
         </member>
+        <member name="T:ConsultaController">
+            <summary>
+                Controlador responsável pelas operações relacionadas a Consultas.
+            </summary>
+        </member>
+        <member name="M:ConsultaController.CadastrarConsulta(Project.Models.Consulta)">
+            <summary>
+                Cria uma nova Consulta.
+            </summary>
+            
+            <remarks>
+            
+            ## Cadastrar nova Consulta no banco de dados
+            
+            Use este endPoint para cadastrar uma Consulta.
+            
+            ### Campos que devem ser utilizados para criar um novo Consulta:
+            - **IdUsuario** string : Identificador do usuário
+            - **NomeCliente** string : Nome completo do cliente
+            - **CPFCliente** string : CPF oficial do cliente com 11 dígitos
+            - **Data** DateOnly : Data da consulta
+            - **Turno** string : Turno da consulta (manhã, tarde, noite)
+            - **Horario** string : Horário da consulta
+            - **IdClinica** string : Identificador da clínica
+            - **NomeClinica** string : Nome da clínica
+            - **CNPJClinica** string : CNPJ da clínica
+            - **NomeMedico** string : Nome do médico
+            - **Especialidade** string : Especialidade do médico
+            - **CEPClinica** string : CEP da clínica
+            - **EstadoClinica** string : Estado da clínica
+            - **CidadeClinica** string : Cidade da clínica
+            - **BairroClinica** string : Bairro da clínica
+            - **RuaClinica** string : Rua da clínica
+            - **StatusConsulta** string : Status da consulta (padrão = "Encerrado")
+            - **RespostaFeedback** string : Resposta do feedback (padrão = "Sem resposta")
+            
+            ### Campos que não devem ser utilizados para criar uma nova Consulta:
+            - **Id** : Id da consulta que será gerado automaticamente
+            
+            ### Exemplo de body para requisição:
+            ```json
+                {
+                    "IdUsuario": "1234567890",
+                    "NomeCliente": "João Silva",
+                    "CPFCliente": "12345678910",
+                    "Data": "2025-03-12",
+                    "Turno": "Manhã",
+                    "Horario": "09:00",
+                    "IdClinica": "0987654321",
+                    "NomeClinica": "Clínica Exemplo",
+                    "CNPJClinica": "12345678000199",
+                    "NomeMedico": "Dr. José",
+                    "Especialidade": "Cardiologia",
+                    "CEPClinica": "12345678",
+                    "EstadoClinica": "SP",
+                    "CidadeClinica": "São Paulo",
+                    "BairroClinica": "Centro",
+                    "RuaClinica": "Rua Exemplo, 123",
+                    "StatusConsulta": "Encerrado",
+                    "RespostaFeedback": "Sem resposta"
+                }
+            ```
+            
+            ### Exemplo de resposta quando o cadastro for efetuado:
+            
+            ```json
+                {   
+                    "Id": "67cc95b32811515d37220000", // gerado pelo banco de dados
+                    "IdUsuario": "1234567890",
+                    "NomeCliente": "João Silva",
+                    "CPFCliente": "12345678910",
+                    "Data": "2025-03-12",
+                    "Turno": "Manhã",
+                    "Horario": "09:00",
+                    "IdClinica": "0987654321",
+                    "NomeClinica": "Clínica Exemplo",
+                    "CNPJClinica": "12345678000199",
+                    "NomeMedico": "Dr. José",
+                    "Especialidade": "Cardiologia",
+                    "CEPClinica": "12345678",
+                    "EstadoClinica": "SP",
+                    "CidadeClinica": "São Paulo",
+                    "BairroClinica": "Centro",
+                    "RuaClinica": "Rua Exemplo, 123",
+                    "StatusConsulta": "Encerrado",
+                    "RespostaFeedback": "Sem resposta"
+                }
+            ```
+            </remarks>
+            
+            <response code="200">Requisição realizada com sucesso</response>
+            <response code="201">Consulta criado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:ConsultaController.ConsultarTodasConsultas">
+            <summary>
+                Consultar a lista com todas as Consultas.
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar todos os registros de Consultas do banco de dados
+            
+            Use este endPoint se seu objetivo é recuperar todos os registros de Consultas do banco de dados.
+            
+            ### Campos disponíveis para consultar as Consultas:
+            - **Id** : Id da consulta gerado automaticamente
+            - **NomeCliente** string : Nome completo do cliente
+            - **CPFCliente** string : CPF oficial do cliente com 11 dígitos
+            - **Data** DateOnly : Data da consulta
+            - **Turno** string : Turno da consulta (manhã, tarde, noite)
+            - **Horario** string : Horário da consulta
+            - **IdClinica** string : Identificador da clínica
+            - **NomeClinica** string : Nome da clínica
+            - **CNPJClinica** string : CNPJ da clínica
+            - **NomeMedico** string : Nome do médico
+            - **Especialidade** string : Especialidade do médico
+            - **CEPClinica** string : CEP da clínica
+            - **EstadoClinica** string : Estado da clínica
+            - **CidadeClinica** string : Cidade da clínica
+            - **BairroClinica** string : Bairro da clínica
+            - **RuaClinica** string : Rua da clínica
+            - **StatusConsulta** string : Status da consulta
+            - **RespostaFeedback** string : Resposta do feedback
+            
+            ### Exemplo de body de resposta, sempre será uma lista com todas as Consultas no banco:
+            ```json
+                [
+                    { 
+                        "Id": "67cc95b32811515d372209ce",
+                        "NomeCliente": "Claudio",
+                        "CPFCliente": "12345678910",
+                        "Data": "2025-03-12",
+                        "Turno": "Manhã",
+                        "Horario": "09:00",
+                        "IdClinica": "0987654321",
+                        "NomeClinica": "Clínica Exemplo",
+                        "CNPJClinica": "12345678000199",
+                        "NomeMedico": "Dr. José",
+                        "Especialidade": "Cardiologia",
+                        "CEPClinica": "12345678",
+                        "EstadoClinica": "SP",
+                        "CidadeClinica": "São Paulo",
+                        "BairroClinica": "Centro",
+                        "RuaClinica": "Rua Exemplo, 123",
+                        "StatusConsulta": "Encerrado",
+                        "RespostaFeedback": "Sem resposta"
+                    },
+                    {
+                        "Id": "67cca0540924d08d2c4b7819",
+                        "NomeCliente": "Caio",
+                        "CPFCliente": "12345678910",
+                        "Data": "2025-03-12",
+                        "Turno": "Tarde",
+                        "Horario": "14:00",
+                        "IdClinica": "0987654322",
+                        "NomeClinica": "Clínica Exemplo 2",
+                        "CNPJClinica": "12345678000198",
+                        "NomeMedico": "Dr. Maria",
+                        "Especialidade": "Dermatologia",
+                        "CEPClinica": "12345679",
+                        "EstadoClinica": "RJ",
+                        "CidadeClinica": "Rio de Janeiro",
+                        "BairroClinica": "Copacabana",
+                        "RuaClinica": "Avenida Atlântica, 456",
+                        "StatusConsulta": "Encerrado",
+                        "RespostaFeedback": "Sem resposta"
+                    }
+                ]
+            ```
+            </remarks>
+            
+            <response code="200">Requisição realizada com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:ConsultaController.ConsultarConsultaId(System.String)">
+            <summary>
+                Consultar um único registro de Consulta.
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar um único Consulta no banco, sendo consultado pelo ID do banco de dados.
+            
+            Use este endpoint quando precisar consultar somente um registro com todos os campos específicos.
+            
+            ### Campo que deve ser utilizado para consultar um Consulta:
+            
+            - **Id**: ID do banco
+            
+            ### Exemplo de body para requisição:
+            
+            ```json
+                {
+                    "Id": "67d1baa20c34f565cac59aab"
+                }
+            ```
+            
+            ### Exemplo de body que receberemos como resposta:
+            
+            ```json
+               {
+                    "Id": "67d1baa20c34f565cac59aab",
+                    "NomeCliente": "Claudio",
+                    "CPFCliente": "12345678910",
+                    "Data": "2025-03-12",
+                    "Turno": "Manhã",
+                    "Horario": "09:00",
+                    "IdClinica": "0987654321",
+                    "NomeClinica": "Clínica Exemplo",
+                    "CNPJClinica": "12345678000199",
+                    "NomeMedico": "Dr. José",
+                    "Especialidade": "Cardiologia",
+                    "CEPClinica": "12345678",
+                    "EstadoClinica": "SP",
+                    "CidadeClinica": "São Paulo",
+                    "BairroClinica": "Centro",
+                    "RuaClinica": "Rua Exemplo, 123",
+                    "StatusConsulta": "Encerrado",
+                    "RespostaFeedback": "Sem resposta"
+                }
+            ```
+            </remarks>
+            
+            <response code="200">Consulta consultado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:ConsultaController.AtualizarUsuario(System.String,Project.Models.Consulta)">
+            <summary>
+                Atualiza os dados completos existentes do Consulta, com base no ID do banco de dados.
+            </summary>
+            
+            <remarks>
+            
+            ## Atualizar todas as informações do Consulta no banco
+            
+            Use este endpoint se o objetivo for atualizar todos os campos do Consulta no cadastro. Se for parcial, utilize outro endpoint.
+            
+            ### Exemplo de requisição:
+            
+            ```json
+                {   
+                    "Id": "67d1baa20c34f565cac59aab",
+                    "NomeCliente": "Patricia Delfos",
+                    "CPFCliente": "12345678910",
+                    "Data": "2025-03-12",
+                    "Turno": "Manhã",
+                    "Horario": "09:00",
+                    "IdClinica": "0987654321",
+                    "NomeClinica": "Clínica Exemplo",
+                    "CNPJClinica": "12345678000199",
+                    "NomeMedico": "Dr. José",
+                    "Especialidade": "Cardiologia",
+                    "CEPClinica": "12345678",
+                    "EstadoClinica": "SP",
+                    "CidadeClinica": "São Paulo",
+                    "BairroClinica": "Centro",
+                    "RuaClinica": "Rua Exemplo, 123",
+                    "StatusConsulta": "Encerrado",
+                    "RespostaFeedback": "Sem resposta"
+                }
+            ``` 
+            
+            ### Se preencher alguns campos e outros não, estes campos serão preenchidos com dados inválidos e valores padrão criados pelo sistema.
+            </remarks>
+            
+            <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Consulta no banco de dados.</param>
+            <param name="consultaDto">Dados do Consulta a serem atualizados.</param>
+            <response code="200">Consulta atualizado com sucesso</response>
+            <response code="400">Dados inválidos</response>
+            <response code="401">Consulta não autorizado</response>
+            <response code="404">Consulta não encontrado</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:ConsultaController.AtualizarClinica(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+                Atualiza parcialmente os dados de uma Consulta existente.
+            </summary>
+            
+            <param name="id" type="string" example="67d1baa20c34f565cac59aab">ID do Consulta a ser atualizado</param>
+            
+            <remarks>
+            
+            ## Atualização Parcial de um Consulta
+            
+            Use este endpoint quando precisar atualizar apenas alguns campos específicos de um Consulta,
+            sem a necessidade de enviar todos os dados.
+            
+            ### Campos que podem ser atualizados:
+            - **NomeCliente**: Nome do cliente
+            - **CPFCliente** string : CPF oficial do cliente com 11 dígitos
+            - **Data** DateOnly : Data da consulta
+            - **Turno** string : Turno da consulta (manhã, tarde, noite)
+            - **Horario** string : Horário da consulta
+            - **IdClinica** string : Identificador da clínica
+            - **NomeClinica** string : Nome da clínica
+            - **CNPJClinica** string : CNPJ da clínica
+            - **NomeMedico** string : Nome do médico
+            - **Especialidade** string : Especialidade do médico
+            - **CEPClinica** string : CEP da clínica
+            - **EstadoClinica** string : Estado da clínica
+            - **CidadeClinica** string : Cidade da clínica
+            - **BairroClinica** string : Bairro da clínica
+            - **RuaClinica** string : Rua da clínica
+            - **StatusConsulta** string : Status da consulta
+            - **RespostaFeedback** string : Resposta do feedback
+            
+            ### Campos que não podem ser atualizados:
+            - **Id**: ID da consulta gerado automaticamente
+            
+            ### Exemplo de requisição:
+            
+            ```json
+            {
+                "Id": "67d1baa20c34f565cac59aab",
+                "Email": "novo.email@clinica.com.br"
+            }
+            ```
+            
+            Somente os campos incluídos no corpo da requisição serão atualizados.
+            
+            ### Exemplo de resposta da requisição:
+            
+            ```json
+            {
+                "Id": "67d1baa20c34f565cac59aab",
+                "NomeCliente": "Delfos",
+                "CPFCliente": "12345678910",
+                "Data": "2025-03-12",
+                "Turno": "Manhã",
+                "Horario": "09:00",
+                "IdClinica": "0987654321",
+                "NomeClinica": "Clínica Exemplo",
+                "CNPJClinica": "12345678000199",
+                "NomeMedico": "Dr. José",
+                "Especialidade": "Cardiologia",
+                "CEPClinica": "12345678",
+                "EstadoClinica": "SP",
+                "CidadeClinica": "São Paulo",
+                "BairroClinica": "Centro",
+                "RuaClinica": "Rua Exemplo, 123",
+                "StatusConsulta": "Encerrado",
+                "RespostaFeedback": "Sem resposta"
+            }
+            ```
+            </remarks>
+            
+            <response code="200">Consulta atualizada com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="404">Consulta não encontrada</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:ConsultaController.ExcluirConsulta(System.String)">
+             <summary>
+                 Excluir os Consulta do banco de dados.
+             </summary>
+            
+             <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Consulta a ser excluído</param>
+             
+             <remarks>
+             
+             ## Excluir um Consulta do banco de dados e dos cadastros.
+             
+             ### Exemplo da requisição para excluir um Consulta:
+             
+             ```json
+                 {
+                     "id": "67cc95b32811515d372209ce",
+                 }
+             ```
+             
+             ### Exemplo da resposta para excluir um Consulta:
+             
+             ```json
+                 {
+                     "message": "Consulta excluído com sucesso."
+                 }
+             ``` 
+             
+             Uma vez excluida da base, não tem reversão desta ação.
+             </remarks>
+             
+             <response code="200">Consulta criado com sucesso</response>
+             <response code="400">Dados inválidos fornecidos</response>
+             <response code="500">Erro interno do servidor</response>
+        </member>
         <member name="M:DiasPreferenciaController.CadastrarDia(Project.Models.DiasPreferenciaDTO)">
             <summary>
                 Cadastra um novo dia de preferência para um usuário autenticado.
@@ -741,6 +1130,232 @@
             <response code="401">Usuário não autorizado</response>
             <response code="404">Endereço não encontrado</response>
             <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:FeedbackController.CadastrarFeedback(Project.Models.Feedback)">
+            <summary>
+                Cria um novo Feedback.
+            </summary>
+            
+            <remarks>
+            
+            ## Cadastrar novo Feedback no banco de dados
+            
+            Use este endpoint para cadastrar um Feedback.
+            
+            ### Campos que devem ser utilizados para criar um novo Feedback:
+            - **Nota** string : Nota do feedback
+            - **Comentario** string : Comentário do feedback
+            
+            ### Campos que não devem ser utilizados para criar um novo Feedback:
+            - **Id** : Id do feedback que será gerado automaticamente
+            
+            ### Exemplo de body para requisição:
+            ```json
+                {
+                    "Nota": "5",
+                    "Comentario": "Excelente atendimento!"
+                }
+            ```
+            
+            ### Exemplo de resposta quando o cadastro for efetuado:
+            
+            ```json
+                {   
+                    "Id": "67cc95b32811515d37220000", // gerado pelo banco de dados
+                    "Nota": "5",
+                    "Comentario": "Excelente atendimento!"
+                }
+            ```
+            </remarks>
+            
+            <response code="200">Requisição realizada com sucesso</response>
+            <response code="201">Feedback criado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:FeedbackController.ConsultarTodosFeedbacks">
+            <summary>
+                Consultar a lista com todos os Feedbacks.
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar todos os registros de Feedbacks do banco de dados
+            
+            Use este endpoint se seu objetivo é recuperar todos os registros de Feedbacks do banco de dados.
+            
+            ### Exemplo de body de resposta, sempre será uma lista com todos os Feedbacks no banco:
+            ```json
+                [
+                    { 
+                        "Id": "67cc95b32811515d372209ce",
+                        "Nota": "5",
+                        "Comentario": "Excelente atendimento!"
+                    },
+                    {
+                        "Id": "67cca0540924d08d2c4b7819",
+                        "Nota": "4",
+                        "Comentario": "Bom atendimento, mas pode melhorar."
+                    }
+                ]
+            ```
+            </remarks>
+            
+            <response code="200">Requisição realizada com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:FeedbackController.ConsultarFeedbackId(System.String)">
+            <summary>
+                Consultar um único registro de Feedback.
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar um único Feedback no banco, sendo consultado pelo ID do banco de dados.
+            
+            Use este endpoint quando precisar consultar somente um registro com todos os campos específicos.
+            
+            ### Campo que deve ser utilizado para consultar um Feedback:
+            
+            - **Id**: ID do banco
+            
+            ### Exemplo de body para requisição:
+            
+            ```json
+                {
+                    "Id": "67cc95b32811515d372209ce"
+                }
+            ```
+            
+            ### Exemplo de body que receberemos como resposta:
+            
+            ```json
+               {
+                    "Id": "67cc95b32811515d372209ce",
+                    "Nota": "5",
+                    "Comentario": "Excelente atendimento!"
+                }
+            ```
+            </remarks>
+            
+            <response code="200">Feedback consultado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:FeedbackController.AtualizarFeedback(System.String,Project.Models.Feedback)">
+            <summary>
+                Atualiza os dados completos existentes do Feedback, com base no ID do banco de dados.
+            </summary>
+            
+            <remarks>
+            
+            ## Atualizar todas as informações do Feedback no banco
+            
+            Use este endpoint se o objetivo for atualizar todos os campos do Feedback no cadastro. Se for parcial, utilize outro endpoint.
+            
+            ### Exemplo de requisição:
+            
+            ```json
+                {   
+                    "Id": "67ce4b3d61760e36f862dd59",
+                    "Nota": "4",
+                    "Comentario": "Bom atendimento, mas pode melhorar."
+                }
+            ``` 
+            
+            ### Se preencher alguns campos e outros não, estes campos serão preenchidos com dados inválidos e valores padrão criados pelo sistema.
+            </remarks>
+            
+            <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Feedback no banco de dados.</param>
+            <param name="feedbackDto">Dados do Feedback a serem atualizados.</param>
+            <response code="200">Feedback atualizado com sucesso</response>
+            <response code="400">Dados inválidos</response>
+            <response code="401">Feedback não autorizado</response>
+            <response code="404">Feedback não encontrado</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:FeedbackController.AtualizarClinica(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+                Atualiza parcialmente os dados de um Feedback existente.
+            </summary>
+            
+            <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Feedback a ser atualizado</param>
+            
+            <remarks>
+            
+            ## Atualização Parcial de um Feedback
+            
+            Use este endpoint quando precisar atualizar apenas alguns campos específicos de um Feedback,
+            sem a necessidade de enviar todos os dados.
+            
+            ### Campos que podem ser atualizados:
+            - **Nota**: Nota do feedback
+            - **Comentario**: Comentário do feedback
+            
+            ### Campos que não podem ser atualizados:
+            - **Id**: ID do feedback gerado automaticamente
+            
+            ### Exemplo de requisição:
+            
+            ```json
+            {
+                "Id": "67cc95b32811515d372209ce",
+                "Comentario": "Atendimento satisfatório."
+            }
+            ```
+            
+            Somente os campos incluídos no corpo da requisição serão atualizados.
+            
+            ### Exemplo de resposta da requisição:
+            
+            ```json
+            {
+                "Id": "67ce4b3d61760e36f862dd59",
+                "Nota": "4",
+                "Comentario": "Atendimento satisfatório."
+            }
+            ```
+            </remarks>
+            
+            <response code="200">Feedback atualizado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="404">Feedback não encontrado</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:FeedbackController.ExcluirUsuario(System.String)">
+             <summary>
+                 Excluir um Feedback do banco de dados.
+             </summary>
+            
+             <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Feedback a ser excluído</param>
+             
+             <remarks>
+             
+             ## Excluir um Feedback do banco de dados e dos cadastros.
+             
+             ### Exemplo da requisição para excluir um Feedback:
+             
+             ```json
+                 {
+                     "Id": "67cc95b32811515d372209ce"
+                 }
+             ```
+             
+             ### Exemplo da resposta para excluir um Feedback:
+             
+             ```json
+                 {
+                     "message": "Feedback excluído com sucesso."
+                 }
+             ``` 
+             
+             Uma vez excluído da base, não há reversão desta ação.
+             </remarks>
+             
+             <response code="200">Feedback excluído com sucesso</response>
+             <response code="400">Dados inválidos fornecidos</response>
+             <response code="500">Erro interno do servidor</response>
         </member>
         <member name="M:HorariosController.CadastrarHorario(Project.Models.HorariosDTO)">
              <summary>
@@ -1414,7 +2029,7 @@
                  Excluir os Motivo de recusa do banco de dados.
              </summary>
             
-             <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Motivo de recusa a ser excluído</param>
+             <param name="id" type="string" example="67d0b66edb7709d2ac4f7f74">ID do Motivo de recusa a ser excluído</param>
              
              <remarks>
              
@@ -1424,7 +2039,7 @@
              
              ```json
                  {
-                     "id": "67cc95b32811515d372209ce",
+                     "id": "67d0b66edb7709d2ac4f7f74",
                  }
              ```
              
@@ -1440,6 +2055,354 @@
              </remarks>
              
              <response code="200">Motivo de recusa criado com sucesso</response>
+             <response code="400">Dados inválidos fornecidos</response>
+             <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:ServicosAgendadosController.CadastrarServicosAgendados(Project.Models.ServicosAgendados)">
+            <summary>
+                Cria um novo Serviço Agendado.
+            </summary>
+            
+            <remarks>
+            
+            ## Cadastrar novo Serviço Agendado no banco de dados
+            
+            Use este endpoint para cadastrar um Serviço Agendado. Somente serviços cadastrados podem ser gerenciados na plataforma.
+            
+            ### Campos que devem ser utilizados para criar um novo serviço agendado:
+            - **idUsuario** string : Identificador do usuário que agendou o serviço
+            - **nomeCliente** string : Nome completo do cliente
+            - **data** DateOnly : Data do agendamento no formato YYYY-MM-DD
+            - **turno** string : Período do dia (Manhã, Tarde ou Noite)
+            - **horario** string : Horário exato do agendamento
+            - **idClinica** string : Identificador da clínica onde ocorrerá o atendimento
+            - **nomeClinica** string : Nome da clínica
+            - **nomeMedico** string : Nome do médico responsável pelo atendimento
+            - **especialidade** string : Especialidade do médico
+            - **cepClinica** string : CEP da clínica
+            - **estadoClinica** string : Estado onde a clínica está localizada
+            - **cidadeClinica** string : Cidade onde a clínica está localizada
+            - **bairroClinica** string : Bairro onde a clínica está localizada
+            - **ruaClinica** string : Rua onde a clínica está localizada
+            
+            ### Campos que não devem ser enviados na criação de um novo serviço agendado:
+            - **id** : Gerado automaticamente pelo banco de dados
+            
+            ### Exemplo de body para requisição:
+            ```json
+            {
+                "idUsuario": "12345",
+                "nomeCliente": "João Silva",
+                "data": "2025-06-15",
+                "turno": "Manhã",
+                "horario": "08:30",
+                "idClinica": "67890",
+                "nomeClinica": "Clínica Exemplo",
+                "nomeMedico": "Dr. Carlos",
+                "especialidade": "Cardiologia",
+                "cepClinica": "01001-000",
+                "estadoClinica": "SP",
+                "cidadeClinica": "São Paulo",
+                "bairroClinica": "Centro",
+                "ruaClinica": "Rua das Flores, 123"
+            }
+            ```
+            
+            ### Exemplo de resposta quando o cadastro for efetuado:
+            
+            ```json
+            {
+                "id": "67d10436a54c286399e049f4",
+                "idUsuario": "12345",
+                "nomeCliente": "João Silva",
+                "data": "2025-06-15",
+                "turno": "Manhã",
+                "horario": "08:30",
+                "idClinica": "67890",
+                "nomeClinica": "Clínica Exemplo",
+                "nomeMedico": "Dr. Carlos",
+                "especialidade": "Cardiologia",
+                "cepClinica": "01001-000",
+                "estadoClinica": "SP",
+                "cidadeClinica": "São Paulo",
+                "bairroClinica": "Centro",
+                "ruaClinica": "Rua das Flores, 123"
+            }
+            ```
+            </remarks>
+            <response code="201">Serviço agendado criado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:ServicosAgendadosController.ConsultarTodosServicos">
+            <summary>
+                Consultar a lista com todos os serviços agendados.
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar todos os registros de serviços agendados no banco de dados
+            
+            Use este endpoint se seu objetivo é recuperar todos os registros de serviços agendados no banco de dados.
+            
+            ### Campos disponíveis para consulta:
+            - **id** : Identificador único do agendamento, gerado automaticamente.
+            - **idUsuario** string : ID do usuário associado ao agendamento.
+            - **nomeCliente** string : Nome do cliente que agendou o serviço.
+            - **data** DateOnly : Data do agendamento.
+            - **turno** string : Turno do agendamento (Manhã, Tarde ou Noite).
+            - **horario** string : Horário específico do agendamento.
+            - **idClinica** string : Identificador único da clínica onde o serviço será realizado.
+            - **nomeClinica** string : Nome da clínica onde o serviço será realizado.
+            - **nomeMedico** string : Nome do médico responsável pelo atendimento.
+            - **especialidade** string : Especialidade do médico responsável pelo atendimento.
+            - **cepClinica** string : CEP da clínica onde o serviço será realizado.
+            - **estadoClinica** string : Estado onde a clínica está localizada.
+            - **cidadeClinica** string : Cidade onde a clínica está localizada.
+            - **bairroClinica** string : Bairro onde a clínica está localizada.
+            - **ruaClinica** string : Nome da rua da clínica onde o serviço será realizado.
+            
+            ### Exemplo de resposta (lista de serviços agendados):
+            ```json
+                [
+                    { 
+                        "id": "67d10436a54c286399e049f4",
+                        "idUsuario": "abc123",
+                        "nomeCliente": "João Silva",
+                        "data": "2025-03-15",
+                        "turno": "Tarde",
+                        "horario": "14:00",
+                        "idClinica": "clinica456",
+                        "nomeClinica": "Clínica Saúde Total",
+                        "nomeMedico": "Dra. Ana Souza",
+                        "especialidade": "Odontologia",
+                        "cepClinica": "01001-000",
+                        "estadoClinica": "SP",
+                        "cidadeClinica": "São Paulo",
+                        "bairroClinica": "Centro",
+                        "ruaClinica": "Rua das Flores, 123"
+                    },
+                    {
+                        "id": "67d10436a54c286399e049f4",
+                        "idUsuario": "xyz789",
+                        "nomeCliente": "Maria Oliveira",
+                        "data": "2025-03-16",
+                        "turno": "Manhã",
+                        "horario": "09:30",
+                        "idClinica": "clinica789",
+                        "nomeClinica": "Centro Médico Vida",
+                        "nomeMedico": "Dr. Carlos Mendes",
+                        "especialidade": "Cardiologia",
+                        "cepClinica": "22041-001",
+                        "estadoClinica": "RJ",
+                        "cidadeClinica": "Rio de Janeiro",
+                        "bairroClinica": "Copacabana",
+                        "ruaClinica": "Av. Atlântica, 500"
+                    }
+                ]
+            ```
+            </remarks>
+            
+            <response code="200">Consulta realizada com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:ServicosAgendadosController.ConsultarServicoId(System.String)">
+            <summary>
+                Consultar um único serviço agendado
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar um único serviço no banco de dados pelo ID
+            
+            Use este endpoint quando precisar recuperar apenas um registro de serviço agendado com todos os detalhes.
+            
+            ### Parâmetro necessário para consulta:
+            
+            - **id**: ID único do serviço agendado no banco de dados.
+            
+             ### Exemplo de body para requisição:
+             
+            ```json
+                {
+                    "id": "67cc95b32811515d372209ce"
+                }
+            ```
+            
+            ### Exemplo de body da resposta esperada:
+            
+            ```json
+               {
+                    "id": "67d10436a54c286399e049f4",
+                    "idUsuario": "abc123",
+                    "nomeCliente": "João Silva",
+                    "data": "2025-03-15",
+                    "turno": "Tarde",
+                    "horario": "14:00",
+                    "idClinica": "clinica456",
+                    "nomeClinica": "Clínica Saúde Total",
+                    "nomeMedico": "Dra. Ana Souza",
+                    "especialidade": "Odontologia",
+                    "cepClinica": "01001-000",
+                    "estadoClinica": "SP",
+                    "cidadeClinica": "São Paulo",
+                    "bairroClinica": "Centro",
+                    "ruaClinica": "Rua das Flores, 123"
+                }
+            ```
+            </remarks>
+            
+            <response code="200">Serviço agendado consultado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="404">Serviço não encontrado</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:ServicosAgendadosController.AtualizarServicos(System.String,Project.Models.ServicosAgendados)">
+            <summary>
+                Atualiza todos os dados existentes de um serviço agendado com base no ID do banco de dados.
+            </summary>
+            
+            <remarks>
+            
+            ## Atualizar todas as informações de um serviço no banco
+            
+            Use este endpoint se o objetivo for atualizar todos os campos de um serviço agendado no cadastro.  
+            Se a atualização for parcial, utilize o endpoint específico para essa operação.
+            
+            ### Exemplo de requisição:
+            
+            ```json
+                {   
+                    "id": "67d10436a54c286399e049f4",
+                    "idUsuario": "abc123",
+                    "nomeCliente": "Patricia Delfos",
+                    "data": "2025-03-20",
+                    "turno": "Manhã",
+                    "horario": "09:30",
+                    "idClinica": "clinica456",
+                    "nomeClinica": "Clínica Saúde Total",
+                    "nomeMedico": "Dr. Marcos Lima",
+                    "especialidade": "Odontologia",
+                    "cepClinica": "01001-000",
+                    "estadoClinica": "SP",
+                    "cidadeClinica": "São Paulo",
+                    "bairroClinica": "Centro",
+                    "ruaClinica": "Av. Paulista, 1500"
+                }
+            ``` 
+            
+            ### Importante:
+            - Todos os campos devem ser preenchidos corretamente.
+            - Se algum campo for omitido, o sistema pode sobrescrevê-lo com um valor padrão ou inválido.
+            </remarks>
+            
+            <param name="id" type="string" example="67cc95b32811515d372209ce">ID do serviço no banco de dados.</param>
+            <param name="servicoAgendadoDTO">Dados do serviço agendado a serem atualizados.</param>
+            <response code="200">Serviço atualizado com sucesso</response>
+            <response code="400">Dados inválidos</response>
+            <response code="401">Usuário não autorizado</response>
+            <response code="404">Serviço não encontrado</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:ServicosAgendadosController.AtualizarClinica(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+             <summary>
+                 Atualiza parcialmente os dados de um serviço agendado existente.
+             </summary>
+             
+             <param name="id" type="string" example="67cc95b32811515d372209ce">ID do serviço a ser atualizado.</param>
+             
+             <remarks>
+             
+             ## Atualização Parcial de um Serviço Agendado
+             
+             Use este endpoint quando precisar atualizar apenas alguns campos específicos de um serviço agendado,
+             sem a necessidade de enviar todos os dados.
+             
+             ### Campos que podem ser atualizados:
+             - **data**: Data do serviço agendado no formato YYYY-MM-DD
+             - **turno**: Período do serviço (Manhã, Tarde ou Noite)
+             - **horario**: Horário específico do serviço
+             - **nomeClinica**: Nome da clínica onde o serviço será realizado
+             - **nomeMedico**: Nome do profissional responsável pelo atendimento
+             - **especialidade**: Especialidade do serviço médico
+             
+             ### Campos que não podem ser atualizados:
+             - **idUsuario**: O ID do usuário não pode ser alterado.
+             - **id**: O ID do serviço também não pode ser alterado.
+             - **idClinica**: ID da clínica onde o serviço será realizado
+            
+             ### Exemplo de requisição:
+             
+             ```json
+             {
+                 "id": "67cc95b32811515d372209ce",
+                 "horario": "10:30",
+                 "turno": "Tarde"
+             }
+             ```
+             
+             Somente os campos incluídos no corpo da requisição serão atualizados.
+             
+             ### Exemplo de resposta da requisição:
+             
+             ```json
+             {
+                 "id": "67d10436a54c286399e049f4",
+                 "idUsuario": "abc123",
+                 "nomeCliente": "Patricia Delfos",
+                 "data": "2025-03-20",
+                 "turno": "Tarde",
+                 "horario": "10:30",
+                 "idClinica": "clinica456",
+                 "nomeClinica": "Clínica Saúde Total",
+                 "nomeMedico": "Dr. Marcos Lima",
+                 "especialidade": "Odontologia",
+                 "cepClinica": "01001-000",
+                 "estadoClinica": "SP",
+                 "cidadeClinica": "São Paulo",
+                 "bairroClinica": "Centro",
+                 "ruaClinica": "Av. Paulista, 1500"
+             }
+             ```
+             </remarks>
+             
+             <response code="200">Serviço atualizado com sucesso</response>
+             <response code="400">Dados inválidos fornecidos</response>
+             <response code="404">Serviço não encontrado</response>
+             <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:ServicosAgendadosController.ExcluirServicos(System.String)">
+             <summary>
+                 Excluir os Serviços do banco de dados.
+             </summary>
+            
+             <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Serviços a ser excluído</param>
+             
+             <remarks>
+             
+             ## Excluir um Serviços do banco de dados e dos cadastros.
+             
+             ### Exemplo da requisição para excluir um Serviços:
+             
+             ```json
+                 {
+                     "id": "67d10436a54c286399e049f4",
+                 }
+             ```
+             
+             ### Exemplo da resposta para excluir um Serviços:
+             
+             ```json
+                 {
+                     "message": "Serviços excluído com sucesso."
+                 }
+             ``` 
+             
+             Uma vez excluida da base, não tem reversão desta ação.
+             </remarks>
+             
+             <response code="200">Serviços criado com sucesso</response>
              <response code="400">Dados inválidos fornecidos</response>
              <response code="500">Erro interno do servidor</response>
         </member>

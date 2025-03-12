@@ -417,7 +417,7 @@ public class SugestaoConsultaClienteController : Controller
         sugestaoExistente.CidadeClinica = sugestao.CidadeClinica;
         sugestaoExistente.BairroClinica = sugestao.BairroClinica;
         sugestaoExistente.RuaClinica = sugestao.RuaClinica;
-        sugestaoExistente.StatusSugestaoClinica = sugestao.StatusSugestaoClinica;
+        //sugestaoExistente.StatusSugestaoClinica = sugestao.StatusSugestaoClinica;
         sugestaoExistente.StatusSugestaoCliente = sugestao.StatusSugestaoCliente;
         sugestaoExistente.DataAlteracao = sugestao.DataAlteracao;
 
@@ -538,7 +538,7 @@ public class SugestaoConsultaClienteController : Controller
         sugestaoExistente.CidadeClinica = sugestao.CidadeClinica;
         sugestaoExistente.BairroClinica = sugestao.BairroClinica;
         sugestaoExistente.RuaClinica = sugestao.RuaClinica;
-        sugestaoExistente.StatusSugestaoClinica = sugestao.StatusSugestaoClinica;
+        //sugestaoExistente.StatusSugestaoClinica = sugestao.StatusSugestaoClinica;
         sugestaoExistente.StatusSugestaoCliente = sugestao.StatusSugestaoCliente;
         sugestaoExistente.DataAlteracao = sugestao.DataAlteracao;
 

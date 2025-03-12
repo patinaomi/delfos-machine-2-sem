@@ -15,6 +15,9 @@
             public string SugestaoConsultaClinicaCollectionName { get; set; } = null!;
             public string SugestaoConsultaClienteCollectionName { get; set; } = null!;
             public string MotivoRecusaCollectionName { get; set; } = null!;
+            public string ServicosAgendadosCollectionName { get; set; } = null!;
+            public string ConsultaCollectionName { get; set; } = null!;
+            public string FeedbackCollectionName { get; set; } = null!;
 
         }
     }

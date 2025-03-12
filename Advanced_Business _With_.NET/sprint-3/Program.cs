@@ -69,7 +69,17 @@ builder.Services.AddTransient<ISugestaoConsultaClienteRepository, SugestaoConsul
 builder.Services.AddTransient<IMotivoRecusaService, MotivoRecusaService>();
 builder.Services.AddTransient<IMotivoRecusaRepository, MotivoRecusaRepository>();
 
+// Consultas que foram realizadas
+builder.Services.AddTransient<IConsultaService, ConsultaService>();
+builder.Services.AddTransient<IConsultaRepository, ConsultaRepository>();
 
+// Feedbacks
+builder.Services.AddTransient<IFeedbackService, FeedbackService>();
+builder.Services.AddTransient<IFeedbackRepository, FeedbackRepository>();
+
+// Serviços agendados que ainda não ocorreram
+builder.Services.AddTransient<IServicosAgendadosService, ServicosAgendadosService>();
+builder.Services.AddTransient<IServicosAgendadosRepository, ServicosAgendadosRepository>();
 
 // Configurar autenticação com cookies
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -79,12 +89,12 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 
 // Adicionando suporte a sessões
-builder.Services.AddDistributedMemoryCache(); // Usar cache de memória para sessão
+builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Define o tempo de inatividade
-    options.Cookie.HttpOnly = true; // Garante que o cookie de sessão seja acessível apenas via HTTP
-    options.Cookie.IsEssential = true; // Marca o cookie como essencial para a aplicação
+    options.IdleTimeout = TimeSpan.FromMinutes(30); 
+    options.Cookie.HttpOnly = true; 
+    options.Cookie.IsEssential = true; 
 });
 
 
@@ -120,6 +130,7 @@ builder.Services.AddSwaggerGen(c =>
             Name = "Delfos Machine Group - Segundo semestre",
             Url = new Uri("https://github.com/patinaomi/delfos-machine-2-sem.git")
         }
+        
     });
     var xmlFile = $"{AppDomain.CurrentDomain.FriendlyName}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);

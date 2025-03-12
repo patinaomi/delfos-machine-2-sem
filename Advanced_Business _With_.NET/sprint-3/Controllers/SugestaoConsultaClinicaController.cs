@@ -369,7 +369,7 @@ public class SugestaoConsultaClinicaController : Controller
         sugestaoExistente.BairroPreferenciaCliente = sugestao.BairroPreferenciaCliente;
         sugestaoExistente.RuaPreferenciaCliente = sugestao.RuaPreferenciaCliente;
         sugestaoExistente.StatusSugestaoClinica = sugestao.StatusSugestaoClinica;
-        sugestaoExistente.StatusSugestaoCliente = sugestao.StatusSugestaoCliente;
+        //sugestaoExistente.StatusSugestaoCliente = sugestao.StatusSugestaoCliente;
         sugestaoExistente.DataAlteracao = sugestao.DataAlteracao;
 
         await _sugestaoService.Atualizar(sugestaoExistente);
@@ -478,7 +478,7 @@ public class SugestaoConsultaClinicaController : Controller
         sugestaoExistente.BairroPreferenciaCliente = sugestao.BairroPreferenciaCliente;
         sugestaoExistente.RuaPreferenciaCliente = sugestao.RuaPreferenciaCliente;
         sugestaoExistente.StatusSugestaoClinica = sugestao.StatusSugestaoClinica;
-        sugestaoExistente.StatusSugestaoCliente = sugestao.StatusSugestaoCliente;
+        //sugestaoExistente.StatusSugestaoCliente = sugestao.StatusSugestaoCliente;
         sugestaoExistente.DataAlteracao = sugestao.DataAlteracao;
 
         await _sugestaoService.Atualizar(sugestaoExistente);
