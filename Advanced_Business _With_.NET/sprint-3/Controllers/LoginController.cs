@@ -68,11 +68,9 @@ namespace Project.Controllers
             Console.WriteLine($"Email do Usuário: {usuario.Email}");
             Console.WriteLine($"ID do Usuário: {usuario.Id}");
 
-            // Redireciona para a página principal ou página desejada
             return RedirectToAction("Inicio", "Home");
         }
         
-        // Página de mensagem de erro em caso de falha no login
         [HttpGet("MensagemErro")]
         [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult MensagemErro()
@@ -80,7 +78,6 @@ namespace Project.Controllers
             return View();
         }
 
-        // Método para realizar o logout
         public async Task<IActionResult> Logout()
         {
             // Realiza o logout, limpando o cookie de autenticação
@@ -88,7 +85,6 @@ namespace Project.Controllers
             return RedirectToAction("Logar", "Login");
         }
 
-        // Rota da API para validar o login do usuário
         /// <summary>
         ///     Valida o login do usuário.
         /// </summary>

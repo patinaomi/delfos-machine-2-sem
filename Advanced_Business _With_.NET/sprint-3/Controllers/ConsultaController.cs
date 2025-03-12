@@ -1,9 +1,7 @@
 using Project.Infrastructure.Interfaces;
 using Project.Models;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 [Route("Consulta")] 
 public class ConsultaController : Controller
@@ -46,7 +44,6 @@ public class ConsultaController : Controller
         return View();
     }
 
-    // Rota da API para criar um Consulta
     /// <summary>
     ///     Cria uma nova Consulta.
     /// </summary>
@@ -152,8 +149,6 @@ public class ConsultaController : Controller
         return BadRequest(ModelState); 
     }
 
-
-    // Rota de View
     [HttpGet("Consultar")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Consultar()
@@ -162,7 +157,6 @@ public class ConsultaController : Controller
         return View(consultas); 
     }
 
-    // Rota de API
     /// <summary>
     ///     Consultar a lista com todas as Consultas.
     /// </summary>
@@ -319,12 +313,10 @@ public class ConsultaController : Controller
         return Ok(consulta);
     }
 
-    // View para atualizar um Consulta
     [HttpGet("Atualizar")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Atualizar()
     {
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -350,7 +342,6 @@ public class ConsultaController : Controller
             return View(consulta);
         }
 
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -596,7 +587,6 @@ public class ConsultaController : Controller
         return Ok(consultaAtualizado);
     }
 
-
     [HttpPost("Excluir")]
     [ValidateAntiForgeryToken]
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -608,10 +598,10 @@ public class ConsultaController : Controller
         {
             await _consultaService.Excluir(id);
 
-            await HttpContext.SignOutAsync();
+            //await HttpContext.SignOutAsync();
             
             TempData["SuccessMessage"] = "Consulta excluído com sucesso.";
-            return RedirectToAction("MensagemExclusao", "Consulta"); 
+            //return RedirectToAction("MensagemExclusao", "Consulta"); 
         }
 
         TempData["ErrorMessage"] = "Consulta não encontrado.";
@@ -625,7 +615,6 @@ public class ConsultaController : Controller
         return View();
     }
 
-    // Rota de API para excluir um Consulta
     /// <summary>
     ///     Excluir os Consulta do banco de dados.
     /// </summary>

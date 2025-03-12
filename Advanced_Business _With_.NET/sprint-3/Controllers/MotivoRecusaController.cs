@@ -3,7 +3,6 @@ using Project.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 [Route("MotivoRecusa")] 
 public class MotivoRecusaController : Controller
@@ -15,7 +14,6 @@ public class MotivoRecusaController : Controller
         _motivoRecusaService = motivoService;
     }
 
-    // usar essaa tag para permitir que todos possam fazer cadastrado, mas quem não estiver logado, não vai conseguir acessar nada.
     [AllowAnonymous]
     [HttpGet("Criar")]
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -46,7 +44,6 @@ public class MotivoRecusaController : Controller
         return View();
     }
 
-    // Rota da API para criar um Motivo de recusa
     /// <summary>
     ///     Cria um novo Motivo de recusa.
     /// </summary>
@@ -104,8 +101,6 @@ public class MotivoRecusaController : Controller
         return BadRequest(ModelState); 
     }
 
-
-    // Rota de View
     [HttpGet("Consultar")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Consultar()
@@ -114,7 +109,6 @@ public class MotivoRecusaController : Controller
         return View(motivos); 
     }
 
-    // Rota de API
     /// <summary>
     ///     Consultar a lista com todos os Motivos de recusa.
     /// </summary>
@@ -209,12 +203,10 @@ public class MotivoRecusaController : Controller
         return Ok(motivo);
     }
 
-    // View para atualizar um Motivo de recusa
     [HttpGet("Atualizar")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Atualizar()
     {
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -240,7 +232,6 @@ public class MotivoRecusaController : Controller
             return View(motivo);
         }
 
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -342,7 +333,6 @@ public class MotivoRecusaController : Controller
         return View(motivo);
     }
 
-    // Rota de API para atualizar parcialmente um Motivo de recusa
     /// <summary>
     ///     Atualiza parcialmente os dados de uma Motivo de recusa existente
     /// </summary>
@@ -409,7 +399,6 @@ public class MotivoRecusaController : Controller
         return Ok(motivoAtualizado);
     }
 
-
     [HttpPost("Excluir")]
     [ValidateAntiForgeryToken]
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -419,16 +408,13 @@ public class MotivoRecusaController : Controller
         
         if (motivo != null)
         {
-            // Exclui o Motivo de recusa do banco de dados
+
             await _motivoRecusaService.Excluir(id);
 
-            // Desloga o Motivo de recusa
-            //await _context.SaveChangesAsync();
-            await HttpContext.SignOutAsync();
+            //await HttpContext.SignOutAsync();
             
-            // Redireciona para a página de login ou para onde você preferir
             TempData["SuccessMessage"] = "Motivo de recusa excluído com sucesso.";
-            return RedirectToAction("MensagemExclusao", "Motivo"); 
+            //return RedirectToAction("MensagemExclusao", "Motivo"); 
         }
 
         TempData["ErrorMessage"] = "Motivo de recusa não encontrado.";
@@ -442,7 +428,6 @@ public class MotivoRecusaController : Controller
         return View();
     }
 
-    // Rota de API para excluir um Motivo de recusa
     /// <summary>
     ///     Excluir os Motivo de recusa do banco de dados.
     /// </summary>
@@ -490,8 +475,5 @@ public class MotivoRecusaController : Controller
 
         return Ok(new { message = "Motivo de recusa excluído com sucesso." });  
     }
-
-
-
 
 }

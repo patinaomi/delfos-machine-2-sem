@@ -1,9 +1,7 @@
 using Project.Infrastructure.Interfaces;
 using Project.Models;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 [Route("Endereco")] 
 public class EnderecoController : Controller
@@ -37,8 +35,6 @@ public class EnderecoController : Controller
             if (string.IsNullOrEmpty(idUsuario))
                 return Unauthorized("Usuário não logado.");
 
-
-            // Cria o objeto Endereco
             var endereco = new Endereco
             {
                 CEP = enderecoDTO.CEP,
@@ -52,7 +48,6 @@ public class EnderecoController : Controller
             await _enderecoService.Criar(endereco);
 
             TempData["SuccessMessage"] = "Endereco cadastrado com sucesso!";
-            //return RedirectToAction("Mensagem");
         }
         return View(enderecoDTO);
     }
@@ -279,7 +274,6 @@ public class EnderecoController : Controller
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Atualizar()
     {
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -305,7 +299,6 @@ public class EnderecoController : Controller
             return View(endereco);
         }
 
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -421,7 +414,6 @@ public class EnderecoController : Controller
         return View(endereco);
     }
 
-    // Rota de API para atualizar parcialmente um Endereço
     /// <summary>
     ///     Atualiza parcialmente os dados de um endereço existente
     /// </summary>
@@ -510,12 +502,10 @@ public class EnderecoController : Controller
         
         if (endereco != null)
         {
-            // Exclui o endereco do banco de dados
             await _enderecoService.Excluir(id);
             
-            // Redireciona para a página de login ou para onde você preferir
             TempData["SuccessMessage"] = "Endereco excluído com sucesso.";
-            return RedirectToAction("MensagemExclusao", "Endereco"); 
+            //return RedirectToAction("MensagemExclusao", "Endereco"); 
         }
 
         TempData["ErrorMessage"] = "Endereco não encontrado.";
@@ -528,7 +518,6 @@ public class EnderecoController : Controller
     {
         return View();
     }
-
 
     /// <summary>
     /// Exclui um endereço do usuário.
@@ -584,8 +573,5 @@ public class EnderecoController : Controller
         await _enderecoService.Excluir(id);
         return Ok(new { message = "Endereço excluído com sucesso." });
     }
-
-
-
 
 }

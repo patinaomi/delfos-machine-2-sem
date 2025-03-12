@@ -1,6 +1,5 @@
 using Project.Infrastructure.Interfaces;
 using Project.Models;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,7 +30,7 @@ public class CampanhaController : Controller
         if (ModelState.IsValid)
         {
             await _campanhaService.Criar(campanha);
-            TempData["SuccessMessage"] = "Usuário cadastrado com sucesso!";
+            TempData["SuccessMessage"] = "Ativiadade cadastrada com sucesso!";
             return RedirectToAction("Mensagem");
         }
         return View(campanha);
@@ -44,7 +43,6 @@ public class CampanhaController : Controller
         return View();
     }
 
-    // Rota da API para criar uma atividade de campanha
     /// <summary>
     ///     Cria uma nova atividade de campanha.
     /// </summary>
@@ -120,8 +118,6 @@ public class CampanhaController : Controller
         return BadRequest(ModelState); 
     }
 
-
-    // Rota de View
     [HttpGet("Consultar")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Consultar()
@@ -130,7 +126,6 @@ public class CampanhaController : Controller
         return View(campanhas); 
     }
 
-    // Rota de API
     /// <summary>
     ///     Consultar a lista com todas as atividades de campanha.
     /// </summary>
@@ -245,18 +240,16 @@ public class CampanhaController : Controller
 
         if (campanha == null)
         {
-            return NotFound(new { message = "Usuário não encontrado." });
+            return NotFound(new { message = "Atividade não encontrado." });
         }
 
         return Ok(campanha);
     }
 
-    // View para atualizar um usuário
     [HttpGet("Atualizar")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Atualizar()
     {
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -307,7 +300,7 @@ public class CampanhaController : Controller
 
         await _campanhaService.Atualizar(campanhaExistente);
 
-        TempData["SuccessMessage"] = "Usuário atualizado com sucesso!";
+        TempData["SuccessMessage"] = "Atividade atualizada com sucesso!";
         return RedirectToAction("MensagemAtualizacao");
     }
 
@@ -370,7 +363,6 @@ public class CampanhaController : Controller
             return NotFound();
         }
 
-
         campanhaExistente.Atividade = campanha.Atividade;
         campanhaExistente.Descricao = campanha.Descricao;
         campanhaExistente.Pontuacao = campanha.Pontuacao;
@@ -384,7 +376,6 @@ public class CampanhaController : Controller
 
         return Ok(campanhaExistente); 
     }
-
 
     [HttpGet("ConfirmarExcluir/{id}")]
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -400,7 +391,6 @@ public class CampanhaController : Controller
         return View(campanha);
     }
 
-    // Rota de API para atualizar parcialmente uma Campanha
     /// <summary>
     ///     Atualiza parcialmente os dados de uma campanha existente
     /// </summary>
@@ -472,7 +462,7 @@ public class CampanhaController : Controller
 
         if (campanhaAtualizado == null)
         {
-            return NotFound("Usuário não encontrada.");
+            return NotFound("Atividade não encontrada.");
         }
 
         return Ok(campanhaAtualizado);
@@ -488,19 +478,15 @@ public class CampanhaController : Controller
         
         if (campanha != null)
         {
-            // Exclui o usuário do banco de dados
             await _campanhaService.Excluir(id);
 
-            // Desloga o usuário
-            //await _context.SaveChangesAsync();
-            await HttpContext.SignOutAsync();
+            //await HttpContext.SignOutAsync();
             
-            // Redireciona para a página de login ou para onde você preferir
-            TempData["SuccessMessage"] = "Usuário excluído com sucesso.";
-            return RedirectToAction("MensagemExclusao", "Campanha"); 
+            TempData["SuccessMessage"] = "Atividade excluída com sucesso.";
+            //return RedirectToAction("MensagemExclusao", "Campanha"); 
         }
 
-        TempData["ErrorMessage"] = "Usuário não encontrado.";
+        TempData["ErrorMessage"] = "Atividade não encontrado.";
         return RedirectToAction(nameof(Index));
     }
 
@@ -511,12 +497,11 @@ public class CampanhaController : Controller
         return View();
     }
 
-    // Rota de API para excluir um Usuário
     /// <summary>
     ///     Excluir as atividades da campanha do banco de dados.
     /// </summary>
     ///
-    /// <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Usuário a ser excluído</param>
+    /// <param name="id" type="string" example="67cc95b32811515d372209ce">ID a ser excluído</param>
     /// 
     /// <remarks>
     /// 
@@ -557,7 +542,7 @@ public class CampanhaController : Controller
 
         await _campanhaService.Excluir(id);
 
-        return Ok(new { message = "Usuário excluído com sucesso." });  
+        return Ok(new { message = "Atividade excluída com sucesso." });  
     }
 
 

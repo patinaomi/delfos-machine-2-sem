@@ -1,11 +1,7 @@
 using Project.Infrastructure.Interfaces;
 using Project.Models;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using System.Reflection;
-
 [Route("Clinica")] 
 public class ClinicaController : Controller
 {
@@ -48,7 +44,6 @@ public class ClinicaController : Controller
         return View();
     }
 
-    // Rota de API para criar um Clinica
     /// <summary>
     ///     Cria um novo cadastro de Clinica no banco de dados.
     /// </summary>
@@ -58,7 +53,7 @@ public class ClinicaController : Controller
     /// 
     /// Use este endpoint quando precisar cadastrar uma nova clínica. Aqui ainda não cadastramos os médicos, somente as empresas.
     /// 
-    /// ### Campos que devem ser utilizados para criar um novo usuário:
+    /// ### Campos que devem ser utilizados para criar uma nova Clínica:
     /// 
     /// - **nome**: Nome da clínica
     /// - **cnpj**: CNPJ da clínica
@@ -66,7 +61,7 @@ public class ClinicaController : Controller
     /// - **email**: Endereço de email para contato
     /// - **senha**: Senha de acesso (será criptografada)
     /// 
-    /// ### Campos que não devem ser utilizados para criar um novo usuário:
+    /// ### Campos que não devem ser utilizados para criar uma nova Clínica:
     /// - **id**: ID não é necessário pois o banco vai criar um de forma automática.
     /// - **perfil**: Não será necessário enviar pois é default aqui
     /// 
@@ -127,8 +122,6 @@ public class ClinicaController : Controller
         return BadRequest(ModelState); 
     }
 
-
-    // Rota de View
     [HttpGet("Consultar")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Consultar()
@@ -137,14 +130,13 @@ public class ClinicaController : Controller
         return View(Clinicas); 
     }
 
-    // Rota de API para consultar todos os usuário de clinicas
     /// <summary>
-    ///     Consultar a lista com todo os Clinicas.
+    ///     Consultar a lista com todas as Clinicas.
     /// </summary>
     /// 
     /// <remarks>
     /// 
-    /// ## Consultar todos os usuários do banco
+    /// ## Consultar todos os clínicas no banco
     /// 
     /// Use este endpoint quando precisar consultar as clínicas com todos campos específicos de uma clínica.
     /// 
@@ -231,13 +223,10 @@ public class ClinicaController : Controller
         return Ok(clinica);
     }
 
-
-    // View para atualizar um Clinica
     [HttpGet("Atualizar")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Atualizar()
     {
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdClinica")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -263,7 +252,6 @@ public class ClinicaController : Controller
             return View(clinica);
         }
 
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdClinica")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -296,7 +284,6 @@ public class ClinicaController : Controller
         return View();
     }
 
-    // Rota de API para atualizar uma Clinica
     /// <summary>
     ///     Atualizar todos os dados de uma Clinica específica.
     /// </summary>
@@ -366,7 +353,6 @@ public class ClinicaController : Controller
         return Ok(clinicaExistente); 
     }
 
-    // Rota de API para atualizar parcialmente um Clinica
     /// <summary>
     ///     Atualiza parcialmente os dados de uma clínica existente
     /// </summary>
@@ -472,13 +458,10 @@ public class ClinicaController : Controller
             // Exclui o Clinica do banco de dados
             await _clinicaService.Excluir(id);
 
-            // Desloga o Clinica
-            //await _context.SaveChangesAsync();
-            await HttpContext.SignOutAsync();
+            //await HttpContext.SignOutAsync();
             
-            // Redireciona para a página de login ou para onde você preferir
             TempData["SuccessMessage"] = "Clinica excluído com sucesso.";
-            return RedirectToAction("MensagemExclusao", "Clinica"); 
+            //return RedirectToAction("MensagemExclusao", "Clinica"); 
         }
 
         TempData["ErrorMessage"] = "Clinica não encontrado.";
@@ -492,7 +475,6 @@ public class ClinicaController : Controller
         return View();
     }
 
-    // Rota de API para excluir um Clinica
     /// <summary>
     ///     Excluir os Clinicas do banco de dados.
     /// </summary>
@@ -538,7 +520,7 @@ public class ClinicaController : Controller
 
         await _clinicaService.Excluir(id);
 
-        return Ok(new { message = "Clinica excluído com sucesso." });  
+        return Ok(new { message = "Clínica excluída com sucesso." });  
     }
 
 

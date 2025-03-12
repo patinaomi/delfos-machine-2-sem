@@ -3,7 +3,6 @@ using Project.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 [Route("SugestaoConsultaCliente")] 
 public class SugestaoConsultaClienteController : Controller
@@ -15,7 +14,6 @@ public class SugestaoConsultaClienteController : Controller
         _sugestaoService = sugestaoService;
     }
 
-    // usar essaa tag para permitir que todos possam fazer cadastrado, mas quem não estiver logado, não vai conseguir acessar nada.
     [AllowAnonymous]
     [HttpGet("Criar")]
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -46,7 +44,6 @@ public class SugestaoConsultaClienteController : Controller
         return View();
     }
 
-    // Rota da API para criar um Sugestão
     /// <summary>
     ///     Cria uma novo Sugestão.
     /// </summary>
@@ -158,8 +155,6 @@ public class SugestaoConsultaClienteController : Controller
         return BadRequest(ModelState); 
     }
 
-
-    // Rota de View
     [HttpGet("Consultar")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Consultar()
@@ -354,12 +349,11 @@ public class SugestaoConsultaClienteController : Controller
         return Ok(sugestao);
     }
 
-    // View para atualizar um Sugestão
     [HttpGet("Atualizar")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Atualizar()
     {
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -385,7 +379,6 @@ public class SugestaoConsultaClienteController : Controller
             return View(sugestao);
         }
 
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -417,7 +410,6 @@ public class SugestaoConsultaClienteController : Controller
         sugestaoExistente.CidadeClinica = sugestao.CidadeClinica;
         sugestaoExistente.BairroClinica = sugestao.BairroClinica;
         sugestaoExistente.RuaClinica = sugestao.RuaClinica;
-        //sugestaoExistente.StatusSugestaoClinica = sugestao.StatusSugestaoClinica;
         sugestaoExistente.StatusSugestaoCliente = sugestao.StatusSugestaoCliente;
         sugestaoExistente.DataAlteracao = sugestao.DataAlteracao;
 
@@ -679,16 +671,10 @@ public class SugestaoConsultaClienteController : Controller
         
         if (sugestao != null)
         {
-            // Exclui o Sugestão do banco de dados
             await _sugestaoService.Excluir(id);
-
-            // Desloga o Sugestão
-            //await _context.SaveChangesAsync();
-            await HttpContext.SignOutAsync();
-            
-            // Redireciona para a página de login ou para onde você preferir
+            //await HttpContext.SignOutAsync();
             TempData["SuccessMessage"] = "Sugestão excluído com sucesso.";
-            return RedirectToAction("MensagemExclusao", "Sugestao"); 
+            //return RedirectToAction("MensagemExclusao", "Sugestao"); 
         }
 
         TempData["ErrorMessage"] = "Sugestão não encontrado.";
@@ -702,7 +688,6 @@ public class SugestaoConsultaClienteController : Controller
         return View();
     }
 
-    // Rota de API para excluir um Sugestão
     /// <summary>
     ///     Excluir os Sugestão do banco de dados.
     /// </summary>

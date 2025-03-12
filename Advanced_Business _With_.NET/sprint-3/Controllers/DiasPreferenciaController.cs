@@ -1,14 +1,12 @@
 using Project.Infrastructure.Interfaces;
 using Project.Models;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+
 
 [Route("DiasPreferencia")] 
 public class DiasPreferenciaController : Controller
 {
-    //private readonly ApplicationDbContext _context;
     private readonly IDiasPreferenciaService _diasPreferenciaService;
 
     public DiasPreferenciaController(IDiasPreferenciaService diasPreferenciaService)
@@ -49,7 +47,6 @@ public class DiasPreferenciaController : Controller
             await _diasPreferenciaService.Criar(dia);
 
             TempData["SuccessMessage"] = "Preferencia do dia cadastrado com sucesso!";
-            //return RedirectToAction("Mensagem");
         }
         return View(diasPreferenciaDTO);
     }
@@ -242,7 +239,6 @@ public class DiasPreferenciaController : Controller
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Atualizar()
     {
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -268,7 +264,6 @@ public class DiasPreferenciaController : Controller
             return View(dia);
         }
 
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -354,8 +349,6 @@ public class DiasPreferenciaController : Controller
 
         return Ok(diaExistente);
     }
-
-
 
     [HttpPost("Excluir")]
     [ValidateAntiForgeryToken]

@@ -236,7 +236,6 @@ public class HorariosController : Controller
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Atualizar()
     {
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -262,7 +261,6 @@ public class HorariosController : Controller
             return View(horario);
         }
 
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -379,7 +377,6 @@ public class HorariosController : Controller
         return RedirectToAction("Consultar");
     }
 
-
     /// <summary>
     ///     Exclui um horário de preferência do usuário.
     /// </summary>
@@ -434,6 +431,4 @@ public class HorariosController : Controller
         await _horariosService.Excluir(id);
         return Ok(new { message = "Horário excluído com sucesso." });
     }
-
-
 }

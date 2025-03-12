@@ -3,7 +3,6 @@ using Project.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 [Route("Feedback")] 
 public class FeedbackController : Controller
@@ -45,7 +44,6 @@ public class FeedbackController : Controller
         return View();
     }
 
-    // Rota da API para criar um Feedback
     /// <summary>
     ///     Cria um novo Feedback.
     /// </summary>
@@ -103,8 +101,6 @@ public class FeedbackController : Controller
         return BadRequest(ModelState); 
     }
 
-
-    // Rota de View
     [HttpGet("Consultar")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Consultar()
@@ -113,7 +109,6 @@ public class FeedbackController : Controller
         return View(feedbacks); 
     }
 
-    // Rota de API para consultar todos os Feedbacks
     /// <summary>
     ///     Consultar a lista com todos os Feedbacks.
     /// </summary>
@@ -152,7 +147,7 @@ public class FeedbackController : Controller
         return Ok(feedbacks);
     }
 
-    // Rota de API para consultar um único Feedback
+
     /// <summary>
     ///     Consultar um único registro de Feedback.
     /// </summary>
@@ -206,12 +201,10 @@ public class FeedbackController : Controller
         return Ok(feedback);
     }
 
-    // View para atualizar um Feedback
     [HttpGet("Atualizar")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Atualizar()
     {
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -237,7 +230,6 @@ public class FeedbackController : Controller
             return View(feedback);
         }
 
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -268,7 +260,6 @@ public class FeedbackController : Controller
         return View();
     }
 
-    // Rota de API para atualizar um Feedback
     /// <summary>
     ///     Atualiza os dados completos existentes do Feedback, com base no ID do banco de dados.
     /// </summary>
@@ -339,7 +330,6 @@ public class FeedbackController : Controller
         return View(feedback);
     }
 
-    // Rota de API para atualizar parcialmente um Feedback
     /// <summary>
     ///     Atualiza parcialmente os dados de um Feedback existente.
     /// </summary>
@@ -437,7 +427,6 @@ public class FeedbackController : Controller
         return View();
     }
 
-    // Rota de API para excluir um Feedback
     /// <summary>
     ///     Excluir um Feedback do banco de dados.
     /// </summary>

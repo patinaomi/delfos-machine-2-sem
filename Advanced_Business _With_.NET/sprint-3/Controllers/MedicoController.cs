@@ -3,7 +3,6 @@ using Project.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 [Route("Medico")] 
 public class MedicoController : Controller
@@ -15,7 +14,6 @@ public class MedicoController : Controller
         _medicoService = medicoService;
     }
 
-    // usar essaa tag para permitir que todos possam fazer cadastrado, mas quem não estiver logado, não vai conseguir acessar nada.
     [AllowAnonymous]
     [HttpGet("Criar")]
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -46,7 +44,6 @@ public class MedicoController : Controller
         return View();
     }
 
-    // Rota da API para criar um Médico
     /// <summary>
     ///     Cria um novo Médico.
     /// </summary>
@@ -121,8 +118,6 @@ public class MedicoController : Controller
         return BadRequest(ModelState); 
     }
 
-
-    // Rota de View
     [HttpGet("Consultar")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Consultar()
@@ -131,7 +126,6 @@ public class MedicoController : Controller
         return View(medicos); 
     }
 
-    // Rota de API
     /// <summary>
     ///     Consultar a lista com todo os Médicos.
     /// </summary>
@@ -244,12 +238,11 @@ public class MedicoController : Controller
         return Ok(medico);
     }
 
-    // View para atualizar um Médico
     [HttpGet("Atualizar")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Atualizar()
     {
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -275,7 +268,6 @@ public class MedicoController : Controller
             return View(medico);
         }
 
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -373,7 +365,6 @@ public class MedicoController : Controller
         return Ok(medicoExistente); 
     }
 
-
     [HttpGet("ConfirmarExcluir/{id}")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> ConfirmarExcluir(string id)
@@ -388,7 +379,6 @@ public class MedicoController : Controller
         return View(medico);
     }
 
-    // Rota de API para atualizar parcialmente um Médico
     /// <summary>
     ///     Atualiza parcialmente os dados de uma Médico existente
     /// </summary>
@@ -477,16 +467,11 @@ public class MedicoController : Controller
         
         if (medico != null)
         {
-            // Exclui o Médico do banco de dados
             await _medicoService.Excluir(id);
-
-            // Desloga o Médico
-            //await _context.SaveChangesAsync();
-            await HttpContext.SignOutAsync();
+            //await HttpContext.SignOutAsync();
             
-            // Redireciona para a página de login ou para onde você preferir
             TempData["SuccessMessage"] = "Médico excluído com sucesso.";
-            return RedirectToAction("MensagemExclusao", "Medico"); 
+            //return RedirectToAction("MensagemExclusao", "Medico"); 
         }
 
         TempData["ErrorMessage"] = "Médico não encontrado.";
@@ -500,7 +485,6 @@ public class MedicoController : Controller
         return View();
     }
 
-    // Rota de API para excluir um Médico
     /// <summary>
     ///     Excluir os Médico do banco de dados.
     /// </summary>
@@ -548,8 +532,5 @@ public class MedicoController : Controller
 
         return Ok(new { message = "Médico excluído com sucesso." });  
     }
-
-
-
 
 }

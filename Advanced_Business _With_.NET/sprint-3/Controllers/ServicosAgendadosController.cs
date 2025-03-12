@@ -15,7 +15,6 @@ public class ServicosAgendadosController : Controller
         _servicoService = servicoService;
     }
 
-    // usar essa tag para permitir que todos possam fazer cadastrado, mas quem não estiver logado, não vai conseguir acessar nada.
     [AllowAnonymous]
     [HttpGet("Criar")]
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -137,8 +136,6 @@ public class ServicosAgendadosController : Controller
         return BadRequest(ModelState); 
     }
 
-
-    // Rota de View
     [HttpGet("Consultar")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Consultar()
@@ -147,7 +144,6 @@ public class ServicosAgendadosController : Controller
         return View(servicos); 
     }
 
-    // Rota de API
     /// <summary>
     ///     Consultar a lista com todos os serviços agendados.
     /// </summary>
@@ -293,12 +289,10 @@ public class ServicosAgendadosController : Controller
         return Ok(servico);
     }
 
-    // View para atualizar um Serviços
     [HttpGet("Atualizar")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Atualizar()
     {
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -324,7 +318,6 @@ public class ServicosAgendadosController : Controller
             return View(servico);
         }
 
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -577,7 +570,6 @@ public class ServicosAgendadosController : Controller
         return View();
     }
 
-    // Rota de API para excluir um Serviços
     /// <summary>
     ///     Excluir os Serviços do banco de dados.
     /// </summary>
@@ -625,8 +617,5 @@ public class ServicosAgendadosController : Controller
 
         return Ok(new { message = "Serviços excluído com sucesso." });  
     }
-
-
-
 
 }
