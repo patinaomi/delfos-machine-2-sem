@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7b7wkr1Jjok=",
+  "dgSpecHash": "3SN5etLSkv0=",
   "success": true,
-  "projectFilePath": "/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Project.csproj",
+  "projectFilePath": "/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Project.csproj",
   "expectedPackageFiles": [
     "/Users/claudiobispo/.nuget/packages/awssdk.core/3.7.100.14/awssdk.core.3.7.100.14.nupkg.sha512",
     "/Users/claudiobispo/.nuget/packages/awssdk.securitytoken/3.7.100.14/awssdk.securitytoken.3.7.100.14.nupkg.sha512",

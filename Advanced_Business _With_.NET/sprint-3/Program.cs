@@ -77,6 +77,10 @@ builder.Services.AddTransient<IConsultaRepository, ConsultaRepository>();
 builder.Services.AddTransient<IFeedbackService, FeedbackService>();
 builder.Services.AddTransient<IFeedbackRepository, FeedbackRepository>();
 
+// Atividades da campanha de incentivo
+builder.Services.AddTransient<ICampanhaService, CampanhaService>();
+builder.Services.AddTransient<ICampanhaRepository, CampanhaRepository>();
+
 // Serviços agendados que ainda não ocorreram
 builder.Services.AddTransient<IServicosAgendadosService, ServicosAgendadosService>();
 builder.Services.AddTransient<IServicosAgendadosRepository, ServicosAgendadosRepository>();

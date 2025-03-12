@@ -18,6 +18,7 @@
             public string ServicosAgendadosCollectionName { get; set; } = null!;
             public string ConsultaCollectionName { get; set; } = null!;
             public string FeedbackCollectionName { get; set; } = null!;
+            public string CampanhaCollectionName { get; set; } = null!;
 
         }
     }

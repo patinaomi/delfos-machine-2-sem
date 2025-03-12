@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Project.csproj": {}
+    "/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Project.csproj": {}
   },
   "projects": {
-    "/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Project.csproj": {
+    "/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Project.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Project.csproj",
+        "projectUniqueName": "/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Project.csproj",
         "projectName": "Project",
-        "projectPath": "/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/Project.csproj",
+        "projectPath": "/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Project.csproj",
         "packagesPath": "/Users/claudiobispo/.nuget/packages/",
-        "outputPath": "/Users/claudiobispo/Documents/gerenciador-localidade-alocacao/Project/obj/",
+        "outputPath": "/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/claudiobispo/.nuget/NuGet/NuGet.Config"
