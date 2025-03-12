@@ -4,6 +4,50 @@
         <name>Project</name>
     </assembly>
     <members>
+        <member name="M:Project.Controllers.LoginController.ValidarLogin(System.String,System.String)">
+            <summary>
+                Valida o login do usuário.
+            </summary>
+            
+            <remarks>
+            
+            ## Validação de Login
+            
+            Use este endpoint para validar as credenciais de um usuário.
+            
+            ### Campos que devem ser utilizados para validar o login:
+            - **email** string : Email do usuário
+            - **senha** string : Senha do usuário
+            
+            ### Exemplo de body para requisição:
+            ```json
+                {
+                    "email": "joao@exemplo.com",
+                    "senha": "senha123"
+                }
+            ```
+            
+            ### Exemplo de resposta quando a validação for bem-sucedida:
+            
+            ```json
+                {
+                    "message": "Login válido"
+                }
+            ```
+            
+            ### Exemplo de resposta quando a validação falhar:
+            
+            ```json
+                {
+                    "message": "Usuário ou senha inválidos"
+                }
+            ```
+            </remarks>
+            
+            <response code="200">Login válido</response>
+            <response code="401">Usuário ou senha inválidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
         <member name="M:CampanhaController.CadastrarCampanha(Project.Models.Campanha)">
             <summary>
                 Cria uma nova atividade de campanha.
@@ -64,7 +108,7 @@
             <response code="400">Dados inválidos fornecidos</response>
             <response code="500">Erro interno do servidor</response>
         </member>
-        <member name="M:CampanhaController.ConsultarTodasCampanhas">
+        <member name="M:CampanhaController.ConsultarTodasAtividades">
             <summary>
                 Consultar a lista com todas as atividades de campanha.
             </summary>

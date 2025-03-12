@@ -14,7 +14,6 @@ namespace Project.Controllers
             _loginService = loginService;
         }
 
-        // Exibe a página de login
         [HttpGet("Logar")]
         [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Logar()
@@ -22,7 +21,6 @@ namespace Project.Controllers
             return View();
         }
 
-        // Exibe a página com histórico dos logins
         [HttpGet("Consultar")]
         [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Consultar()
@@ -88,6 +86,61 @@ namespace Project.Controllers
             // Realiza o logout, limpando o cookie de autenticação
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Logar", "Login");
+        }
+
+        // Rota da API para validar o login do usuário
+        /// <summary>
+        ///     Valida o login do usuário.
+        /// </summary>
+        /// 
+        /// <remarks>
+        /// 
+        /// ## Validação de Login
+        /// 
+        /// Use este endpoint para validar as credenciais de um usuário.
+        /// 
+        /// ### Campos que devem ser utilizados para validar o login:
+        /// - **email** string : Email do usuário
+        /// - **senha** string : Senha do usuário
+        /// 
+        /// ### Exemplo de body para requisição:
+        /// ```json
+        ///     {
+        ///         "email": "joao@exemplo.com",
+        ///         "senha": "senha123"
+        ///     }
+        /// ```
+        /// 
+        /// ### Exemplo de resposta quando a validação for bem-sucedida:
+        /// 
+        /// ```json
+        ///     {
+        ///         "message": "Login válido"
+        ///     }
+        /// ```
+        /// 
+        /// ### Exemplo de resposta quando a validação falhar:
+        /// 
+        /// ```json
+        ///     {
+        ///         "message": "Usuário ou senha inválidos"
+        ///     }
+        /// ```
+        /// </remarks>
+        /// 
+        /// <response code="200">Login válido</response>
+        /// <response code="401">Usuário ou senha inválidos</response>
+        /// <response code="500">Erro interno do servidor</response>
+        [HttpPost("ValidarLogin")]
+        public async Task<IActionResult> ValidarLogin(string email, string senha)
+        {
+            var usuario = await _loginService.Autenticar(email, senha);
+            if (usuario == null)
+            {
+                return Unauthorized("Usuário ou senha inválidos");
+            }
+
+            return Ok(new { message = "Login válido" });
         }
 
         
