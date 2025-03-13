@@ -13,7 +13,6 @@ namespace Project.Controllers
             _httpClient = httpClient;
         }
 
-        // 🔹 Novo endpoint para carregar o menu inicial ao abrir o chat
         [HttpGet("GetMenu")]
         public async Task<IActionResult> GetMenu()
         {
@@ -73,7 +72,7 @@ namespace Project.Controllers
             switch (message.Text.Trim())
             {
                 case "1":
-                    // 🔹 Buscar os dados pessoais do usuário no banco
+                    // Pesquisar os dados pessoais do usuário no banco
                     var responseDados = await _httpClient.GetAsync($"http://localhost:3001/Usuario/ConsultarUsuarioId/{idUsuario}");
 
                     if (!responseDados.IsSuccessStatusCode)
@@ -91,7 +90,7 @@ namespace Project.Controllers
                     // 🔹 Lista de campos que NÃO devem aparecer
                     var camposRestritos = new HashSet<string> { "id", "perfil", "senha", "token" };
 
-                    // 🔹 Filtrar os dados removendo os campos restritos
+                    // Filtrar os dados removendo os campos restritos
                     dadosFiltrados = dadosPessoais
                         .Where(campo => !camposRestritos.Contains(campo.Key))
                         .ToDictionary(campo => campo.Key, campo => campo.Value);
@@ -101,7 +100,7 @@ namespace Project.Controllers
                         return Ok(new { response = "Nenhum dado editável disponível." });
                     }
 
-                    // 🔹 Criar o menu dinâmico com os campos disponíveis
+                    // Criar o menu dinâmico com os campos disponíveis
                     var opcoesMenu = "📋 Selecione um campo para atualizar:\n\n";
                     int opcao = 1;
 
