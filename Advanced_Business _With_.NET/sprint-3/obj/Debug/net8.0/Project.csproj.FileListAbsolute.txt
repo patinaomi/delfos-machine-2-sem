@@ -362,3 +362,4 @@
 /Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/obj/Debug/net8.0/Project.pdb
 /Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/obj/Debug/net8.0/Project.genruntimeconfig.cache
 /Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/obj/Debug/net8.0/ref/Project.dll
+/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/bin/Debug/net8.0/OpenAI.dll

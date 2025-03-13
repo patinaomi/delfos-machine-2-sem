@@ -85,6 +85,13 @@ builder.Services.AddTransient<ICampanhaRepository, CampanhaRepository>();
 builder.Services.AddTransient<IServicosAgendadosService, ServicosAgendadosService>();
 builder.Services.AddTransient<IServicosAgendadosRepository, ServicosAgendadosRepository>();
 
+// Chat
+builder.Services.AddTransient<IChatService, ChatService>();
+builder.Services.AddTransient<IChatRepository, ChatRepository>();
+
+// Adicionar a chave da API do OpenAI para usar o assistente
+builder.Services.Configure<OpenAISettings>(builder.Configuration.GetSection("OpenAI"));
+
 // Configurar autenticação com cookies
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -101,7 +108,7 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true; 
 });
 
-
+builder.Services.AddHttpClient();
 
 // Configuração do Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();

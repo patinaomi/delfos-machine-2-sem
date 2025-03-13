@@ -274,7 +274,7 @@ Objetivo: Verificar se o cliente pode acessar a plataforma, validando email e se
 
 3. Autenticação segura é necessária para realizar qualquer operação de atualização ou exclusão, garantindo que apenas o cliente ou um administrador autorizado possa modificar seus dados.
 
-# Classe Agenda
+# Classe Agendamento/Agenda
 
 **Responsabilidades da Classe Agenda:**
 
@@ -417,7 +417,7 @@ Objetivo: Listar todas as consultas de um cliente específico.
 3. Consultas podem ser canceladas até um determinado tempo antes do horário agendado.
 4. Toda consulta precisa ter data e hora, sendo definida por base nos melhores feedbacks e custo baixo.
 
-# Classe Dentista
+# Classe Dentista/Médico
 
 **Responsabilidades da Classe Dentista:**
 
@@ -654,3 +654,54 @@ Objetivo: Recuperar logs de login dentro de um intervalo de datas específico pa
 1. Os logs devem ser armazenados em um formato seguro e acessível apenas a usuários autorizados.
 2. Deve haver uma política de retenção para determinar por quanto tempo os logs serão mantidos.
 3. Os registros de login falhos devem ser monitorados para identificar possíveis tentativas de ataque.
+
+## Fluxo do Assistente Inteligente – OdontoPrev
+
+1️⃣ O assistente inicia automaticamente o chat quando identifica que há formulários pendentes, notificando o usuário sobre a necessidade de preenchimento.
+
+Notificações automatizadas via chat ou e-mail lembram o usuário de concluir os formulários inacabados.
+2️⃣ O assistente possui IA especializada exclusivamente em Odontologia e Seguro Odontológico, entendendo perguntas e fornecendo respostas relacionadas a:
+
+Cobertura de planos odontológicos
+Procedimentos cobertos
+Agendamentos e reembolsos
+Cuidados com a saúde bucal
+(Nenhum outro assunto será permitido no chat)
+3️⃣ O bot consulta a API para verificar os formulários disponíveis e os status de preenchimento.
+
+4️⃣ O bot avalia os campos preenchidos e os que ainda precisam de resposta.
+
+5️⃣ O assistente faz perguntas ao usuário para completar os campos pendentes e envia as respostas em tempo real para a API via INSERT/PATCH.
+
+6️⃣ Quando o formulário estiver completo, o assistente confirma com o usuário e finaliza o processo.
+
+7️⃣ Relatórios automáticos são gerados para acompanhar o status dos formulários preenchidos e pendentes, ajudando na gestão do atendimento odontológico.
+
+8️⃣ Todas as interações no chat serão registradas no banco de dados, armazenando perguntas e respostas dos usuários.
+
+Esses dados serão utilizados para treinar o modelo de IA, tornando o assistente mais preciso e eficiente nas respostas futuras.
+
+9️⃣ Aprimoramento do NLP (Processamento de Linguagem Natural)
+
+Melhorias contínuas no treinamento do assistente com base nas interações registradas.
+Implementação de um sistema de feedback para o usuário avaliar se a resposta foi útil.
+
+🔟 Automação do Agendamento Odontológico (Se aplicável à OdontoPrev)
+
+O assistente pode oferecer sugestões de horários disponíveis e permitir que o usuário agende consultas diretamente pelo chat.
+
+1️⃣1️⃣ Reconhecimento de Voz (Opcional, mas inovador)
+
+Integração com reconhecimento de voz para permitir que usuários interajam falando em vez de digitando.
+
+## 📌 O fluxo básico seria:
+
+1️⃣ Após o login, o chat aparece no lado direito da tela.
+
+2️⃣ O usuário pode enviar e receber mensagens.
+
+3️⃣ O chat se conecta à API do assistente para obter os formulários pendentes.
+
+4️⃣ O assistente faz perguntas, e o usuário responde.
+
+5️⃣ As interações são armazenadas no banco de dados.

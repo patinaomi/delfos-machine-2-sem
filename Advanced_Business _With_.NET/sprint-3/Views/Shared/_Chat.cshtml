@@ -1,0 +1,20 @@
+
+<div id="chat-icon" class="chat-icon" onclick="toggleChat()">
+    📨
+</div>
+
+<div id="chat-container" class="chat-container">
+    <div class="chat-header" onclick="toggleChat()">
+        <span>Assistente Delfos</span>
+    </div>
+    
+    <div id="chat-body" class="chat-body">
+        <!-- As mensagens serão carregadas aqui via JavaScript -->
+    </div>
+    
+    <div class="chat-footer">
+        <input type="text" id="chatInput" placeholder="Digite sua mensagem..." onkeypress="handleKeyPress(event)" />
+        <button onclick="sendMessage()">Enviar</button>
+        <button onclick="startRecognition()">🎤 Falar</button>
+    </div>
+</div>

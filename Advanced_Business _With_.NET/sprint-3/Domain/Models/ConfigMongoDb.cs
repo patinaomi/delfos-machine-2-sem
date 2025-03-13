@@ -19,6 +19,7 @@
             public string ConsultaCollectionName { get; set; } = null!;
             public string FeedbackCollectionName { get; set; } = null!;
             public string CampanhaCollectionName { get; set; } = null!;
+            public string ChatCollectionName { get; set; } = null!;
 
         }
     }

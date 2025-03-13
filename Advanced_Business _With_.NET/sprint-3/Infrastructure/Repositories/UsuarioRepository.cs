@@ -93,25 +93,19 @@ namespace Project.Repositories
                 return usuario;
             }
 
-            // Combinar todas as definições de atualização
             var combinedUpdate = updateDefinitionBuilder.Combine(updateDefinitions);
             
-            // Filtro para encontrar o documento
             var filtro = Builders<Usuario>.Filter.Eq(c => c.Id, id);
             
-            // Executar a atualização
             var resultado = await _usuarioCollection.UpdateOneAsync(filtro, combinedUpdate);
 
-            // Retornar o usuário atualizado se a operação for bem-sucedida
             if (resultado.ModifiedCount > 0)
             {
-                // Buscar o usuário atualizada
                 return await ConsultarId(id);
             }
 
             return null;
         }
-
 
         public async Task Excluir(string id)
         {

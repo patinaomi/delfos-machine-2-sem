@@ -386,3 +386,88 @@ setInterval(() => {
     currentSlide = (currentSlide + 1) % slides.length;
     moveToSlide(currentSlide);
 }, 8000);
+
+
+// Chat
+
+
+function startRecognition() {
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'pt-BR';
+    recognition.start();
+
+    recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        addMessage(transcript, true);
+        sendMessage(transcript);
+    };
+}
+
+async function toggleChat() {
+    const chatContainer = document.getElementById("chat-container");
+    chatContainer.classList.toggle("open");
+
+    if (chatContainer.classList.contains("open")) {
+        try {
+            const response = await fetch("/Chat/GetMenu");
+            if (!response.ok) {
+                throw new Error("Erro ao carregar o menu.");
+            }
+
+            const menuData = await response.json();
+            displayMenu(menuData.response);
+        } catch (error) {
+            console.error("Erro:", error);
+            displayMenu("Erro ao carregar o menu.");
+        }
+    }
+}
+
+function handleKeyPress(event) {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+}
+
+function displayMenu(menu) {
+    const chatBody = document.getElementById("chat-body");
+    const formattedMenu = menu.replace(/\n/g, "<br>");
+    chatBody.innerHTML = `<p class="chat-message">${formattedMenu}</p>`;
+}
+
+function sendMessage(message) {
+let input = document.getElementById("chatInput");
+if (!message) {
+    message = input.value.trim();
+}
+
+if (message) {
+    addMessage(message, true);
+
+    fetch('/Chat/SendMessage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: message })
+    })
+    .then(response => response.json())
+    .then(data => {
+        addMessage(data.response, false);
+    });
+
+    input.value = "";
+}
+}
+
+function addMessage(text, isUser) {
+    let chatBody = document.getElementById("chat-body");
+    let messageDiv = document.createElement("div");
+    messageDiv.className = isUser ? "user-message" : "bot-message";
+    messageDiv.innerText = text;
+    chatBody.appendChild(messageDiv);
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function playAudioResponse(audioUrl) {
+    const audio = new Audio(audioUrl);
+    audio.play();
+}

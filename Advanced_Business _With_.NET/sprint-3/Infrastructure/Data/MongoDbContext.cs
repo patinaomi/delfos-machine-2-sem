@@ -29,5 +29,6 @@ namespace Project.Infrastructure
         public IMongoCollection<Consulta> Consulta => _database.GetCollection<Consulta>("t_consulta");
         public IMongoCollection<Feedback> Feedback => _database.GetCollection<Feedback>("t_feedback");
         public IMongoCollection<Campanha> Campanha => _database.GetCollection<Campanha>("t_campanha");
+        public IMongoCollection<Chat> Chat => _database.GetCollection<Chat>("t_chat");
     }
 }
