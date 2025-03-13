@@ -26,15 +26,15 @@ public class MotivoRecusaController : Controller
     [HttpPost("Criar")]
     [ValidateAntiForgeryToken]
     [ApiExplorerSettings(IgnoreApi = true)]
-    public async Task<IActionResult> Criar(MotivoRecusa motivo)
+    public async Task<IActionResult> Criar(MotivoRecusa motivoRecusa)
     {
         if (ModelState.IsValid)
         {
-            await _motivoRecusaService.Criar(motivo);
+            await _motivoRecusaService.Criar(motivoRecusa);
             TempData["SuccessMessage"] = "Motivo de recusa cadastrado com sucesso!";
             return RedirectToAction("Mensagem");
         }
-        return View(motivo);
+        return View(motivoRecusa);
     }
 
     [HttpGet("Mensagem")]
@@ -225,11 +225,11 @@ public class MotivoRecusaController : Controller
 
     [HttpPost("Atualizar")]
     [ApiExplorerSettings(IgnoreApi = true)]
-    public async Task<IActionResult> Atualizar(MotivoRecusa motivo)
+    public async Task<IActionResult> Atualizar(MotivoRecusa motivoRecusa)
     {
         if (!ModelState.IsValid)
         {
-            return View(motivo);
+            return View(motivoRecusa);
         }
 
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
@@ -246,8 +246,8 @@ public class MotivoRecusaController : Controller
             return NotFound();
         }
 
-        motivoExistente.Motivo = motivo.Motivo;
-        motivoExistente.Descricao = motivo.Descricao;
+        motivoExistente.Motivo = motivoRecusa.Motivo;
+        motivoExistente.Descricao = motivoRecusa.Descricao;
 
         await _motivoRecusaService.Atualizar(motivoExistente);
 
@@ -286,7 +286,7 @@ public class MotivoRecusaController : Controller
     /// </remarks>
     /// 
     /// <param name="id" type="string" example="67d0b66edb7709d2ac4f7f74">ID do Motivo de recusa no banco de dados.</param>
-    /// <param name="motivoRecusaDto">Dados do Motivo de recusa a serem atualizados.</param>
+    /// <param name="motivo">Dados do Motivo de recusa a serem atualizados.</param>
     /// <response code="200">Motivo de recusa atualizado com sucesso</response>
     /// <response code="400">Dados inválidos</response>
     /// <response code="401">Motivo de recusa não autorizado</response>
@@ -371,6 +371,8 @@ public class MotivoRecusaController : Controller
     ///     }
     /// ``` 
     /// </remarks>
+    /// 
+    /// <param name="camposParaAtualizar"></param>
     /// 
     /// <response code="200">Motivo de recusa atualizada com sucesso</response>
     /// <response code="400">Dados inválidos fornecidos</response>

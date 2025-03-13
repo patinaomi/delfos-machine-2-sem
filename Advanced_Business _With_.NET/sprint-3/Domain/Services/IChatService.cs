@@ -7,8 +7,5 @@ namespace Project.Infrastructure.Interfaces
         Task<Chat> Criar(Chat chat);
         Task<Chat> ConsultarId(string id);
         Task<List<Chat>> ConsultarTodos();
-        Task<Chat?> Atualizar(Chat chat);
-        Task<Chat?> AtualizarParcial(string id, Dictionary<string, object> camposParaAtualizar);
-        Task Excluir(string id);
     }
 }

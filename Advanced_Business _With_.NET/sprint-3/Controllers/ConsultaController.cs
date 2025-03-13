@@ -421,7 +421,7 @@ public class ConsultaController : Controller
     /// </remarks>
     /// 
     /// <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Consulta no banco de dados.</param>
-    /// <param name="consultaDto">Dados do Consulta a serem atualizados.</param>
+    /// <param name="consulta">Dados do Consulta a serem atualizados.</param>
     /// <response code="200">Consulta atualizado com sucesso</response>
     /// <response code="400">Dados inválidos</response>
     /// <response code="401">Consulta não autorizado</response>
@@ -553,6 +553,8 @@ public class ConsultaController : Controller
     /// }
     /// ```
     /// </remarks>
+    /// 
+    /// <param name="camposParaAtualizar"></param>
     /// 
     /// <response code="200">Consulta atualizada com sucesso</response>
     /// <response code="400">Dados inválidos fornecidos</response>

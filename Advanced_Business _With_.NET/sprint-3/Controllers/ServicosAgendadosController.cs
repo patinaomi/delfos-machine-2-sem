@@ -397,7 +397,7 @@ public class ServicosAgendadosController : Controller
     /// </remarks>
     /// 
     /// <param name="id" type="string" example="67cc95b32811515d372209ce">ID do serviço no banco de dados.</param>
-    /// <param name="servicoAgendadoDTO">Dados do serviço agendado a serem atualizados.</param>
+    /// <param name="servico">Dados do serviço agendado a serem atualizados.</param>
     /// <response code="200">Serviço atualizado com sucesso</response>
     /// <response code="400">Dados inválidos</response>
     /// <response code="401">Usuário não autorizado</response>
@@ -513,6 +513,8 @@ public class ServicosAgendadosController : Controller
     /// }
     /// ```
     /// </remarks>
+    /// 
+    /// <param name="camposParaAtualizar"></param>
     /// 
     /// <response code="200">Serviço atualizado com sucesso</response>
     /// <response code="400">Dados inválidos fornecidos</response>

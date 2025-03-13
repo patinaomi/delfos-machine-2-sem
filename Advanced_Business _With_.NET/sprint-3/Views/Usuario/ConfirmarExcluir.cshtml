@@ -1,6 +1,6 @@
 @model Project.Models.Usuario
 
-<section class="energy-section">
+<section class="energy-section p-5">
     <h2>Tem certeza que deseja excluir sua conta?</h2>
 
     <div>
@@ -11,8 +11,8 @@
 
         <form asp-action="Excluir" method="post">
             <input type="hidden" asp-for="Id" value="@Model.Id" />
-            <button type="submit" class="btn btn-danger">Excluir</button>
-            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn" style="background-color: #9B4819; color: #fdf5e6;">Excluir</button>
+            <a asp-controller="Home" asp-action="Inicio" class="btn" style="background-color: #bc885d; color: #fdf5e6;">Cancelar</a>
         </form>
     </div>
 

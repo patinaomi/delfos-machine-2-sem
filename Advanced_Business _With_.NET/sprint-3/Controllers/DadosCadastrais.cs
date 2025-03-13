@@ -1,62 +1,37 @@
 using Project.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using MongoDB.Driver;
+using System.Security.Claims;
 
 [Route("DadosCadastrais")]
 public class DadosCadastraisController : Controller
 {
-    private readonly IMongoCollection<Usuario> _usuarios;
-    private readonly IMongoCollection<Endereco> _enderecos;
-    private readonly IMongoCollection<DiasPreferencia> _diasPreferencia;
-    private readonly IMongoCollection<Turno> _turnos;
-    private readonly IMongoCollection<Horarios> _horarios;
+    private readonly IDadosCadastraisService _dadosCadastraisService;
 
-
-    public DadosCadastraisController(IMongoClient mongoClient)
+    public DadosCadastraisController(IDadosCadastraisService dadosCadastraisService)
     {
-        var database = mongoClient.GetDatabase("nomeDoBanco");
-
-        _usuarios = database.GetCollection<Usuario>("t_usuario");
-        _enderecos = database.GetCollection<Endereco>("t_endereco");
-        _diasPreferencia = database.GetCollection<DiasPreferencia>("t_dias_preferencia");
-        _turnos = database.GetCollection<Turno>("t_turno");
-        _horarios = database.GetCollection<Horarios>("t_horario");
+        _dadosCadastraisService = dadosCadastraisService;
     }
 
     [HttpGet("Consultar")]
-    [ApiExplorerSettings(IgnoreApi = true)]
-    public async Task<IActionResult> Consultar()
+    public IActionResult Consultar()
     {
-        var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
+        var idUsuario = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
+            if (string.IsNullOrEmpty(idUsuario))
+                return Unauthorized("Usuário não logado.");
 
-        if (string.IsNullOrEmpty(userIdString))
+        // Imprimir no console o valor de idUsuario
+        Console.WriteLine($"Dados do usuario: {idUsuario}");
+
+        if (!string.IsNullOrEmpty(idUsuario))
         {
-            return RedirectToAction("Error");
+            var dadosCadastrais = _dadosCadastraisService.ObterDadosCadastraisPorUsuarioId(idUsuario);
 
+            Console.WriteLine($"Dados cadastrais: {dadosCadastrais}");
+
+            return View(dadosCadastrais);
         }
-
-        var usuario = await _usuarios.Find(c => c.Id == userIdString).FirstOrDefaultAsync();
-        if (usuario == null)
-        {
-            return RedirectToAction("Error");
-        }
-
-        var endereco = await _enderecos.Find(e => e.IdUsuario == userIdString).FirstOrDefaultAsync() ?? new Endereco();
-        var diasPreferencia = await _diasPreferencia.Find(d => d.IdUsuario == userIdString).ToListAsync() ?? new List<DiasPreferencia>();
-        var turno = await _turnos.Find(t => t.IdUsuario == userIdString).FirstOrDefaultAsync() ?? new Turno();
-        var horarios = await _horarios.Find(h => h.IdUsuario == userIdString).FirstOrDefaultAsync() ?? new Horarios();
-
-        var dadosCadastrais = new DadosCadastrais
-        {
-            Usuario = usuario,
-            Endereco = endereco,
-            DiasPreferencia = diasPreferencia,
-            Turno = turno,
-            Horarios = horarios
-        };
         
 
-        return View(dadosCadastrais); 
+        return RedirectToAction("Error"); 
     }
 }

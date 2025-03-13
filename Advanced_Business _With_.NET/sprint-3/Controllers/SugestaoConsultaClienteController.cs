@@ -311,7 +311,7 @@ public class SugestaoConsultaClienteController : Controller
     ///   }
     /// ```
     /// 
-    /// /// ### Campos disponíveis para consultar as Sugestões:
+    /// ### Campos disponíveis para consultar as Sugestões:
     /// - **id** : Id do registro da sugestão, gerado automaticamente.
     /// - **IdClinica** : Identificador único da clínica associada à sugestão.
     /// - **NomeClinica** : Nome da clínica associada à sugestão.
@@ -336,7 +336,7 @@ public class SugestaoConsultaClienteController : Controller
     /// - **DataConsulta** : Data base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
     /// - **HorarioConsulta** : Hora base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
     /// 
-    //// </remarks>
+    /// </remarks>
     /// 
     /// <response code="200">Sugestão consultada com sucesso</response>
     /// <response code="400">Dados inválidos fornecidos</response>
@@ -510,7 +510,7 @@ public class SugestaoConsultaClienteController : Controller
     /// </remarks>
     /// 
     /// <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Sugestão no banco de dados.</param>
-    /// <param name="SugestaoConsultaClinicaDTO">Dados do Sugestão a serem atualizados.</param>
+    /// <param name="sugestao">Dados do Sugestão a serem atualizados.</param>
     /// <response code="200">Sugestão atualizado com sucesso</response>
     /// <response code="400">Dados inválidos</response>
     /// <response code="401">Sugestão não autorizado</response>
@@ -661,6 +661,8 @@ public class SugestaoConsultaClienteController : Controller
     ///   }
     /// ```
     /// </remarks>
+    /// 
+    /// <param name="camposParaAtualizar"></param>
     /// 
     /// <response code="200">Sugestão atualizada com sucesso</response>
     /// <response code="400">Dados inválidos fornecidos</response>

@@ -89,8 +89,10 @@ builder.Services.AddTransient<IServicosAgendadosRepository, ServicosAgendadosRep
 builder.Services.AddTransient<IChatService, ChatService>();
 builder.Services.AddTransient<IChatRepository, ChatRepository>();
 
-// Adicionar a chave da API do OpenAI para usar o assistente
-builder.Services.Configure<OpenAISettings>(builder.Configuration.GetSection("OpenAI"));
+// Dados cadastrais consolidado
+builder.Services.AddTransient<IDadosCadastraisService, DadosCadastraisService>();
+builder.Services.AddTransient<IDadosCadastraisRepository, DadosCadastraisRepository>();
+
 
 // Configurar autenticação com cookies
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

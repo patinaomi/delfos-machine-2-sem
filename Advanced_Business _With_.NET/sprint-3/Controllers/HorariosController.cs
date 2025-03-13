@@ -337,8 +337,8 @@ public class HorariosController : Controller
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> AtualizarHorario(string id, [FromBody] HorariosDTO horariosDTO)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
+        if (horariosDTO.Id == null)
+            return BadRequest(new { message = "ID do horário não pode ser nulo." });
 
         var horarioExistente = await _horariosService.ConsultarId(horariosDTO.Id);
         if (horarioExistente == null)

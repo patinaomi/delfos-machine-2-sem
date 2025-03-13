@@ -4,6 +4,156 @@
         <name>Project</name>
     </assembly>
     <members>
+        <member name="M:Project.Controllers.ChatController.SendMessage(Project.Controllers.ChatMessage)">
+             <summary>
+                 Envia uma conversa para o chat e avalia a resposta
+             </summary>
+             <remarks>
+             
+             ## Exemplo de requisição de conversa com pergunta e resposta
+             
+             Use este endpoint, se o objetivo é testar o fluxo de pergunta e resposta do chatbot.
+             
+             ### Este endpoint ficará em construção até a última sprint.
+             
+             </remarks>
+            
+             <response code="200">Requisição realizada com sucesso</response>
+             <response code="400">Dados inválidos fornecidos</response>
+             <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:Project.Controllers.ChatController.CadastrarConversa(Project.Models.Chat)">
+            <summary>
+                Cria uma nova conversa no banco de dados
+            </summary>
+            
+            <remarks>
+            
+            ## Cadastrar nova conversa do CHATBOT no banco
+            
+            Use este endPoint para cadastrar as interações do usuário com o chatbot para entendermos o comportamento e as dúviadas.
+            
+            ### Campos que devem ser utilizados para criar um novo dia:
+            - **idUsuario** string : Id do usuário que esta em contato com o chat
+            - **pergunta** string : Pergunta realizada
+            - **resposta** string : Resposta obtida na interação
+            - **data** string : Data do contato
+            
+            ### Campos que não devem ser utilizados para criar um novo dia:
+            - **id** : Id do dia que será gerado automaticamente
+            
+            
+            ### Exemplo de body para requisição:
+            ```json
+                {
+                    "idUsuario": "67d0a90a9147cc4c1c99cce2",
+                    "pergunta": "Como faço para atualizar o meu cadastro?",
+                    "resposta": "Digite no menu a opção deseja que seu cadastro poderá ser alterado",
+                    "data": "2025-03-13"
+                }
+            ```
+            
+            ### Exemplo de resposta quando o cadastro for efetuado:
+            
+            ```json
+                {   
+                    "id": "67cc95b32811515d37220000", -- gerado pelo banco de dados
+                    "idUsuario": "67d0a90a9147cc4c1c99cce2",
+                    "pergunta": "Como faço para atualizar o meu cadastro?",
+                    "resposta": "Digite no menu a opção desejada",
+                    "data": "2025-03-13"
+                }
+            ```
+            </remarks>
+            
+            <response code="200">Requisição realizada com sucesso</response>
+            <response code="201">Dados criadoo com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:Project.Controllers.ChatController.ConsultarTodasConversas">
+            <summary>
+                Consultar a lista com todo os usuários.
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar todos os registros de usuários do banco de dados
+            
+            Use este endPoint se seu objetivo é recuperar todos os registros de usuários do banco de dados
+            
+            ### Campos disponiveis para consultar os usuários:
+            - **id** : Id do dia que será gerado automaticamente
+            - **nome** string : Nome completo do usuário
+            - **cpf** string : CPF oficial do usuário com 11 digitos
+            - **telefone** string : Telefone de contato
+            - **email** string : Email principal de contato
+            - **senha** string : Senha de acesso (teremos hash para proteger a senha)
+            - **perfil** string : Todos os usuários cadastrados nesta rota, nasceram com perfil padrão = "Comum"
+            
+            Exemplo de body de resposta, sempre será uma lista com todos os usuários no banco:
+            ```json
+                [
+                    { 
+                       "id": "67cc95b32811515d37220000", -- gerado pelo banco de dados
+                        "idUsuario": "67d0a90a9147cc4c1c99cce2",
+                        "pergunta": "Como faço para atualizar o meu cadastro?",
+                        "resposta": "Digite no menu a opção deseja que seu cadastro poderá ser alterado",
+                        "data": "2025-03-13"
+                    },
+                    {
+                        "id": "67cca0540924d08d2c4b7819",
+                        "idUsuario": "67d0a90a9147cc4c1c99cce2",
+                        "pergunta": "Como faço para atualizar o meu endereço?",
+                        "resposta": "Digite no menu a opção desejada",
+                        "data": "2025-05-20"
+                    }
+                ]
+            ```
+            </remarks>
+            
+            <response code="200">Dado criado com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
+        <member name="M:Project.Controllers.ChatController.ConsultarConversaId(System.String)">
+            <summary>
+                Consultar um único registro de conversa
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar uma única conversa no banco, sendo consultado pelo ID do banco de dados
+            
+            Use este endpoint quando precisar consultar somente um registro com todos campos específicos.
+            
+            ### Campos que devem ser utilizados para consultar de conversa do chatbot:
+            
+            - **id**: ID do banco
+            
+             ### Exemplo de body para requisição:
+             
+            ```json
+                "id": "67cc95b32811515d372209ce"
+            ```
+            
+            ### Exemplo de body que receberemos como resposta:
+            
+            ```json
+               {
+                    "id": "67cc95b32811515d37220000", 
+                    "idUsuario": "67d0a90a9147cc4c1c99cce2",
+                    "pergunta": "Como faço para atualizar o meu cadastro?",
+                    "resposta": "Digite no menu a opção desejada",
+                    "data": "2025-03-13"
+                }
+            ```
+            </remarks>
+            
+            <response code="200">Conversa consultada com sucesso</response>
+            <response code="400">Dados inválidos fornecidos</response>
+            <response code="500">Erro interno do servidor</response>
+        </member>
         <member name="M:Project.Controllers.LoginController.ValidarLogin(System.String,System.String)">
             <summary>
                 Valida o login do usuário.
@@ -238,7 +388,7 @@
             </remarks>
             
             <param name="id" type="string" example="67cc95b32811515d372209ce">ID da atividade de campanha no banco de dados.</param>
-            <param name="CampanhaDTO">Dados da atividade de campanha a serem atualizados.</param>
+            <param name="campanha">Dados da atividade de campanha a serem atualizados.</param>
             <response code="200">Atividade de campanha atualizada com sucesso</response>
             <response code="400">Dados inválidos</response>
             <response code="401">Usuário não autorizado</response>
@@ -295,6 +445,8 @@
             }
             ```
             </remarks>
+            
+            <param name="camposParaAtualizar"></param>
             
             <response code="200">Campanha atualizada com sucesso</response>
             <response code="400">Dados inválidos fornecidos</response>
@@ -506,6 +658,8 @@
             ```
             
             </remarks>
+            
+            <param name="clinica"></param>
             
             <response code="200">Clinica atualizado com sucesso</response>
             <response code="400">Dados inválidos fornecidos</response>
@@ -867,7 +1021,7 @@
             </remarks>
             
             <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Consulta no banco de dados.</param>
-            <param name="consultaDto">Dados do Consulta a serem atualizados.</param>
+            <param name="consulta">Dados do Consulta a serem atualizados.</param>
             <response code="200">Consulta atualizado com sucesso</response>
             <response code="400">Dados inválidos</response>
             <response code="401">Consulta não autorizado</response>
@@ -946,6 +1100,8 @@
             }
             ```
             </remarks>
+            
+            <param name="camposParaAtualizar"></param>
             
             <response code="200">Consulta atualizada com sucesso</response>
             <response code="400">Dados inválidos fornecidos</response>
@@ -1594,7 +1750,7 @@
             </remarks>
             
             <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Feedback no banco de dados.</param>
-            <param name="feedbackDto">Dados do Feedback a serem atualizados.</param>
+            <param name="feedback">Dados do Feedback a serem atualizados.</param>
             <response code="200">Feedback atualizado com sucesso</response>
             <response code="400">Dados inválidos</response>
             <response code="401">Feedback não autorizado</response>
@@ -1643,6 +1799,8 @@
             }
             ```
             </remarks>
+            
+            <param name="camposParaAtualizar"></param>
             
             <response code="200">Feedback atualizado com sucesso</response>
             <response code="400">Dados inválidos fornecidos</response>
@@ -2060,7 +2218,7 @@
             
             
             <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Médico no banco de dados.</param>
-            <param name="medicoDto">Dados do Médico a serem atualizados.</param>
+            <param name="medico">Dados do Médico a serem atualizados.</param>
             <response code="200">Médico atualizado com sucesso</response>
             <response code="400">Dados inválidos</response>
             <response code="401">Médico não autorizado</response>
@@ -2118,6 +2276,8 @@
             }
             ```
             </remarks>
+            
+            <param name="camposParaAtualizar"></param>
             
             <response code="200">Médico atualizada com sucesso</response>
             <response code="400">Dados inválidos fornecidos</response>
@@ -2298,7 +2458,7 @@
             </remarks>
             
             <param name="id" type="string" example="67d0b66edb7709d2ac4f7f74">ID do Motivo de recusa no banco de dados.</param>
-            <param name="motivoRecusaDto">Dados do Motivo de recusa a serem atualizados.</param>
+            <param name="motivo">Dados do Motivo de recusa a serem atualizados.</param>
             <response code="200">Motivo de recusa atualizado com sucesso</response>
             <response code="400">Dados inválidos</response>
             <response code="401">Motivo de recusa não autorizado</response>
@@ -2344,6 +2504,8 @@
                 }
             ``` 
             </remarks>
+            
+            <param name="camposParaAtualizar"></param>
             
             <response code="200">Motivo de recusa atualizada com sucesso</response>
             <response code="400">Dados inválidos fornecidos</response>
@@ -2624,7 +2786,7 @@
             </remarks>
             
             <param name="id" type="string" example="67cc95b32811515d372209ce">ID do serviço no banco de dados.</param>
-            <param name="servicoAgendadoDTO">Dados do serviço agendado a serem atualizados.</param>
+            <param name="servico">Dados do serviço agendado a serem atualizados.</param>
             <response code="200">Serviço atualizado com sucesso</response>
             <response code="400">Dados inválidos</response>
             <response code="401">Usuário não autorizado</response>
@@ -2692,6 +2854,8 @@
              }
              ```
              </remarks>
+             
+             <param name="camposParaAtualizar"></param>
              
              <response code="200">Serviço atualizado com sucesso</response>
              <response code="400">Dados inválidos fornecidos</response>
@@ -2928,6 +3092,82 @@
              <response code="500">Erro interno do servidor</response>
         </member>
         <member name="M:SugestaoConsultaClienteController.ConsultarSugestaoId(System.String)">
+            <summary>
+                Consultar um único registro de Sugestão
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar um único Sugestão no banco, sendo consultado pelo ID do banco de dados
+            
+            Use este endpoint quando precisar consultar somente um registro com todos os campos específicos.
+            
+            ### Campos que devem ser utilizados para consultar um Sugestão:
+            
+            - **id**: ID do registro no banco de dados.
+            
+             ### Exemplo de body para requisição:
+             
+            ```json
+                { "id": "67d0afc5ac13f169dbf8af5b" }
+            ```
+            
+            ### Exemplo de body que receberemos como resposta:
+            
+            ```json
+              {
+                "id": "67d0afc5ac13f169dbf8af5b",
+                "idClinica": "67ce4b3d61760e36f862dd59",
+                "nomeClinica": "Delfos",
+                "telefoneClinica": "1123456789",
+                "emailClinica": "contato@odontobem.com",
+                "idUsuario": "67cc95b32811515d372209ce",
+                "nomeCliente": "Carlos Oliveira",
+                "telefoneCliente": "11987654321",
+                "emailCliente": "carlos.oliveira@email.com",
+                "diaPreferenciaCliente": "Sexta-feira",
+                "turnoPreferenciaCliente": "Noite",
+                "horarioPreferenciaCliente": "19:30",
+                "especilidade": "Ortodontia",
+                "cepClinica": "01452000",
+                "estadoClinica": "SP",
+                "cidadeClinica": "São Paulo",
+                "bairroClinica": "Pinheiros",
+                "ruaClinica": "Rua dos Três Irmãos",
+                "statusSugestaoClinica": "Aceita",
+                "statusSugestaoCliente": "Aceita",
+                "dataAlteracao": "2025-03-11T22:00:00Z",
+                "dataConsulta": "2025-03-12",
+                "horarioConsulta": "19:30"
+              }
+            ```
+            
+            ### Campos disponíveis para consultar as Sugestões:
+            - **id** : Id do registro da sugestão, gerado automaticamente.
+            - **IdClinica** : Identificador único da clínica associada à sugestão.
+            - **NomeClinica** : Nome da clínica associada à sugestão.
+            - **TelefoneClinica** : Número de telefone de contato da clínica.
+            - **EmailClinica** : Endereço de e-mail principal de contato da clínica.
+            - **IdUsuario** : Identificador único do usuário associado à sugestão.
+            - **NomeCliente** : Nome completo do cliente associado à sugestão.
+            - **TelefoneCliente** : Número de telefone de contato do cliente.
+            - **EmailCliente** : Endereço de e-mail principal de contato do cliente.
+            - **DiaPreferenciaCliente** : Dia de preferência do cliente para atendimento.
+            - **TurnoPreferenciaCliente** : Turno de preferência do cliente para atendimento (ex: manhã, tarde ou noite).
+            - **HorarioPreferenciaCliente** : Horário de preferência do cliente para atendimento.
+            - **Especialidade** : Especialidade desejada para o atendimento (ex: Ortodontia).
+            - **CEPPreferenciaCliente** : CEP de preferência do cliente para o atendimento.
+            - **EstadoPreferenciaCliente** : Estado de preferência do cliente para o atendimento.
+            - **CidadePreferenciaCliente** : Cidade de preferência do cliente para o atendimento.
+            - **BairroPreferenciaCliente** : Bairro de preferência do cliente para o atendimento.
+            - **RuaPreferenciaCliente** : Rua de preferência do cliente para o atendimento.
+            - **StatusSugestaoClinica** : Status da sugestão na clínica (ex: Aprovada, Aceita).
+            - **StatusSugestaoCliente** : Status da sugestão para o cliente (ex: Confirmada, Aceita).
+            - **DataAlteracao** : Data da última alteração realizada na sugestão.
+            - **DataConsulta** : Data base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
+            - **HorarioConsulta** : Hora base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
+            
+            </remarks>
             
             <response code="200">Sugestão consultada com sucesso</response>
             <response code="400">Dados inválidos fornecidos</response>
@@ -3003,7 +3243,7 @@
             </remarks>
             
             <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Sugestão no banco de dados.</param>
-            <param name="SugestaoConsultaClinicaDTO">Dados do Sugestão a serem atualizados.</param>
+            <param name="sugestao">Dados do Sugestão a serem atualizados.</param>
             <response code="200">Sugestão atualizado com sucesso</response>
             <response code="400">Dados inválidos</response>
             <response code="401">Sugestão não autorizado</response>
@@ -3094,6 +3334,8 @@
               }
             ```
             </remarks>
+            
+            <param name="camposParaAtualizar"></param>
             
             <response code="200">Sugestão atualizada com sucesso</response>
             <response code="400">Dados inválidos fornecidos</response>
@@ -3313,6 +3555,52 @@
             <response code="500">Erro interno do servidor</response>
         </member>
         <member name="M:SugestaoConsultaClinicaController.ConsultarSugestaoId(System.String)">
+            <summary>
+                Consultar um único registro de Sugestão
+            </summary>
+            
+            <remarks>
+            
+            ## Consultar um único Sugestão no banco, sendo consultado pelo ID do banco de dados
+            
+            Use este endpoint quando precisar consultar somente um registro com todos os campos específicos.
+            
+            ### Campos que devem ser utilizados para consultar um Sugestão:
+            
+            - **id**: ID do registro no banco de dados.
+            
+             ### Exemplo de body para requisição:
+             
+            ```json
+                { "id": "67cc95b32811515d372209ce" }
+            ```
+            
+            ### Exemplo de body que receberemos como resposta:
+            
+            ```json
+                {   
+                    "id": "67d0ac40c335e74f3472265c",
+                    "IdUsuario": "123456789",
+                    "NomeCliente": "Cláudio",
+                    "TelefoneCliente": "11958757740",
+                    "EmailCliente": "claudio_cssp@hotmail.com",
+                    "DiaPreferenciaCliente": "Segunda-feira",
+                    "TurnoPreferenciaCliente": "Manhã",
+                    "HorarioPreferenciaCliente": "08:00",
+                    "Especilidade": "Odontologia",
+                    "CEPPreferenciaCliente": "01001000",
+                    "EstadoPreferenciaCliente": "SP",
+                    "CidadePreferenciaCliente": "São Paulo",
+                    "BairroPreferenciaCliente": "Centro",
+                    "RuaPreferenciaCliente": "Rua da Saúde",
+                    "StatusSugestaoClinica": "Aprovada",
+                    "StatusSugestaoCliente": "Confirmada",
+                    "DataAlteracao": "2025-03-11T12:00:00",
+                    "dataConsulta": "2025-03-12",
+                    "horarioConsulta": "19:30"
+                }
+            ```
+            </remarks>
             
             <response code="200">Sugestão consultada com sucesso</response>
             <response code="400">Dados inválidos fornecidos</response>
@@ -3379,7 +3667,7 @@
             </remarks>
             
             <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Sugestão no banco de dados.</param>
-            <param name="SugestaoConsultaClinicaDTO">Dados do Sugestão a serem atualizados.</param>
+            <param name="sugestao">Dados do Sugestão a serem atualizados.</param>
             <response code="200">Sugestão atualizado com sucesso</response>
             <response code="400">Dados inválidos</response>
             <response code="401">Sugestão não autorizado</response>
@@ -3462,6 +3750,8 @@
                 }
             ```
             </remarks>
+            
+            <param name="camposParaAtualizar"></param>
             
             <response code="200">Sugestão atualizada com sucesso</response>
             <response code="400">Dados inválidos fornecidos</response>
@@ -3871,14 +4161,14 @@
             
             
             <param name="id" type="string" example="67cc95b32811515d372209ce">ID do usuário no banco de dados.</param>
-            <param name="usuarioDto">Dados do usuário a serem atualizados.</param>
+            <param name="usuario">Dados do usuário a serem atualizados.</param>
             <response code="200">Usuário atualizado com sucesso</response>
             <response code="400">Dados inválidos</response>
             <response code="401">Usuário não autorizado</response>
             <response code="404">Usuário não encontrado</response>
             <response code="500">Erro interno do servidor</response>
         </member>
-        <member name="M:UsuarioController.AtualizarClinica(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+        <member name="M:UsuarioController.AtualizarParcial(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
             <summary>
                 Atualiza parcialmente os dados de uma usuário existente
             </summary>
@@ -3907,7 +4197,7 @@
             ```json
             {
                 "id": "67cc95b32811515d372209ce",
-                "email": "novo.email@clinica.com.br"
+                "email": "novo.email@delfo.com.br"
             }
             ```
             
@@ -3927,6 +4217,8 @@
             }
             ```
             </remarks>
+            
+            <param name="camposParaAtualizar"></param>
             
             <response code="200">Usuário atualizada com sucesso</response>
             <response code="400">Dados inválidos fornecidos</response>

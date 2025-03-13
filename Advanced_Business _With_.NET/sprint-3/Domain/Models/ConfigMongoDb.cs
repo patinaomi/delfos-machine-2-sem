@@ -1,4 +1,6 @@
-    namespace Project.Domain
+using Project.Infrastructure;
+
+namespace Project.Domain
     {
         public class ConfigMongoDb
         {
@@ -21,5 +23,9 @@
             public string CampanhaCollectionName { get; set; } = null!;
             public string ChatCollectionName { get; set; } = null!;
 
+        public static implicit operator ConfigMongoDb(MongoDbContext v)
+        {
+            throw new NotImplementedException();
         }
+    }
     }

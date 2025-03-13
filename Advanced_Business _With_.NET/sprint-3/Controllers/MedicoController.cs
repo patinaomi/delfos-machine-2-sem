@@ -331,7 +331,7 @@ public class MedicoController : Controller
     /// 
     /// 
     /// <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Médico no banco de dados.</param>
-    /// <param name="medicoDto">Dados do Médico a serem atualizados.</param>
+    /// <param name="medico">Dados do Médico a serem atualizados.</param>
     /// <response code="200">Médico atualizado com sucesso</response>
     /// <response code="400">Dados inválidos</response>
     /// <response code="401">Médico não autorizado</response>
@@ -429,6 +429,8 @@ public class MedicoController : Controller
     /// }
     /// ```
     /// </remarks>
+    /// 
+    /// <param name="camposParaAtualizar"></param>
     /// 
     /// <response code="200">Médico atualizada com sucesso</response>
     /// <response code="400">Dados inválidos fornecidos</response>

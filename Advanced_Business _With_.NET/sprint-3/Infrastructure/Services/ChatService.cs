@@ -28,20 +28,5 @@ namespace Project.Application.Services
             return await _chatRepository.ConsultarId(id);
         }
 
-
-        public async Task<Chat?> Atualizar(Chat chat)
-        {
-            return await _chatRepository.Atualizar(chat);
-        }
-
-        public async Task<Chat?> AtualizarParcial(string id, Dictionary<string, object> camposParaAtualizar)
-        {
-            return await _chatRepository.AtualizarParcial(id, camposParaAtualizar);
-        }
-
-        public async Task Excluir(string id)
-        {
-            await _chatRepository.Excluir(id);
-        }
     }
 }

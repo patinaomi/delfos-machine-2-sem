@@ -323,6 +323,8 @@ public class ClinicaController : Controller
     /// 
     /// </remarks>
     /// 
+    /// <param name="clinica"></param>
+    /// 
     /// <response code="200">Clinica atualizado com sucesso</response>
     /// <response code="400">Dados inválidos fornecidos</response>
     /// <response code="404">Clinica não encontrado</response>

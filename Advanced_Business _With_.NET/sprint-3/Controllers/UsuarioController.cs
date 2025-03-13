@@ -3,7 +3,6 @@ using Project.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 [Route("Usuario")] 
 public class UsuarioController : Controller
@@ -46,7 +45,7 @@ public class UsuarioController : Controller
         return View();
     }
 
-    // Rota da API para criar um usuário
+
     /// <summary>
     ///     Cria um novo usuário.
     /// </summary>
@@ -331,7 +330,7 @@ public class UsuarioController : Controller
     /// 
     /// 
     /// <param name="id" type="string" example="67cc95b32811515d372209ce">ID do usuário no banco de dados.</param>
-    /// <param name="usuarioDto">Dados do usuário a serem atualizados.</param>
+    /// <param name="usuario">Dados do usuário a serem atualizados.</param>
     /// <response code="200">Usuário atualizado com sucesso</response>
     /// <response code="400">Dados inválidos</response>
     /// <response code="401">Usuário não autorizado</response>
@@ -343,7 +342,7 @@ public class UsuarioController : Controller
     {
         if (string.IsNullOrEmpty(id) || usuario == null || id != usuario.Id)
         {
-            return BadRequest("Id do Clinica não corresponde ao fornecido.");
+            return BadRequest("Id não corresponde ao fornecido.");
         }
 
         var usuarioExistente = await _usuarioService.ConsultarId(id);
@@ -380,7 +379,6 @@ public class UsuarioController : Controller
         return View(usuario);
     }
 
-    // Rota de API para atualizar parcialmente um Usuário
     /// <summary>
     ///     Atualiza parcialmente os dados de uma usuário existente
     /// </summary>
@@ -409,7 +407,7 @@ public class UsuarioController : Controller
     /// ```json
     /// {
     ///     "id": "67cc95b32811515d372209ce",
-    ///     "email": "novo.email@clinica.com.br"
+    ///     "email": "novo.email@delfo.com.br"
     /// }
     /// ```
     /// 
@@ -430,6 +428,8 @@ public class UsuarioController : Controller
     /// ```
     /// </remarks>
     /// 
+    /// <param name="camposParaAtualizar"></param>
+    /// 
     /// <response code="200">Usuário atualizada com sucesso</response>
     /// <response code="400">Dados inválidos fornecidos</response>
     /// <response code="404">Usuário não encontrada</response>
@@ -440,11 +440,11 @@ public class UsuarioController : Controller
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> AtualizarClinica(string id, [FromBody] Dictionary<string, object> camposParaAtualizar)
+    public async Task<IActionResult> AtualizarParcial(string id, [FromBody] Dictionary<string, object> camposParaAtualizar)
     {
         if (string.IsNullOrEmpty(id) || camposParaAtualizar == null || !camposParaAtualizar.Any())
         {
-            return BadRequest("Id da Clinica e/ou campos para atualização são necessários.");
+            return BadRequest("Id dos campos     ///  atualização são necessários.");
         }
 
         var usuarioAtualizado = await _usuarioService.AtualizarParcial(id, camposParaAtualizar);
@@ -490,7 +490,6 @@ public class UsuarioController : Controller
         return View();
     }
 
-    // Rota de API para excluir um Usuário
     /// <summary>
     ///     Excluir os Usuário do banco de dados.
     /// </summary>
@@ -538,8 +537,5 @@ public class UsuarioController : Controller
 
         return Ok(new { message = "Usuário excluído com sucesso." });  
     }
-
-
-
 
 }

@@ -44,8 +44,8 @@ namespace Project.Controllers
             // Realiza o login do usuário e adiciona as claims necessárias
             var claims = new List<System.Security.Claims.Claim>
             {
-                new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Name, usuario.Nome),
-                new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Email, usuario.Email),
+                new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Name, usuario.Nome ?? string.Empty),
+                new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Email, usuario.Email ?? string.Empty),
                 new System.Security.Claims.Claim("IdUsuario", usuario.Id.ToString())
             };
 

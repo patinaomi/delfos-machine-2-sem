@@ -341,7 +341,7 @@ public class CampanhaController : Controller
     /// </remarks>
     /// 
     /// <param name="id" type="string" example="67cc95b32811515d372209ce">ID da atividade de campanha no banco de dados.</param>
-    /// <param name="CampanhaDTO">Dados da atividade de campanha a serem atualizados.</param>
+    /// <param name="campanha">Dados da atividade de campanha a serem atualizados.</param>
     /// <response code="200">Atividade de campanha atualizada com sucesso</response>
     /// <response code="400">Dados inválidos</response>
     /// <response code="401">Usuário não autorizado</response>
@@ -440,6 +440,8 @@ public class CampanhaController : Controller
     /// }
     /// ```
     /// </remarks>
+    /// 
+    /// <param name="camposParaAtualizar"></param>
     /// 
     /// <response code="200">Campanha atualizada com sucesso</response>
     /// <response code="400">Dados inválidos fornecidos</response>

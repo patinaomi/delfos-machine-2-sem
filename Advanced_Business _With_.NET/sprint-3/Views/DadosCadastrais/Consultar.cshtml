@@ -1,14 +1,14 @@
 
 @using System.Security.Claims
-@model DadosCadastrais
+@model DadosCadastraisDTO
 
 @{
     ViewData["Title"] = "Dados Cadastrais";
     var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 }
 
-<main class="min-h-100vh p-5" style="min-height: 160vh">
-    <h2>Dados Cadastrais</h2>
+<main class="p-5" style="height: 200vh; background-color: #bc885d;">
+    <h2 class="radley-regular" style="color: #fdf5e6;">Dados Cadastrais</h2>
 
     <!-- Saudação personalizada -->
     <h6 class="mb-4">
@@ -35,19 +35,21 @@
             <p>E-mail: @Model.Usuario.Email</p>
             <p>Telefone: @Model.Usuario.Telefone</p>
             <p>Senha: @Model.Usuario.Senha</p>
+            <p>Perfil: @Model.Usuario.Perfil</p>
 
             <div class="form-group pt-3">
-                <a asp-controller="Usuario" asp-action="Atualizar" class="btn btn-primary">Atualizar</a>
-                <a asp-controller="Home" asp-action="Index" class="btn btn-secondary bg-green">Home</a>
-                <a asp-controller="Usuario" asp-action="ConfirmarExcluir" asp-route-id="@Model.Usuario.Id" class="btn" style="background-color: #fe0c03; color: white;">Deletar conta</a>
-
+                <a asp-controller="Endereco" asp-action="Atualizar" class="btn" style="background-color: #9B4819; color: #fdf5e6;">Atualizar</a>
+                <a asp-controller="Home" asp-action="Inicio" class="btn" style="background-color: #bc885d; color: #fdf5e6;">Home</a>
+                <a asp-controller="Usuario" asp-action="ConfirmarExcluir" asp-route-id="@Model.Usuario.Id" class="btn" style="background-color: #F4E1C1; color: #9B4819;">Deletar conta</a>
             </div>
 
         </section>
 
-        <!-- Seção de Endereço -->
-        <section  class="card p-3 mb-2 shadow-lg bg-body-tertiary rounded">
-            <h3>Endereço da residência</h3>
+
+        <!-- Seção com endereço -->
+        
+        <section class="card p-3 mb-2 shadow-lg bg-body-tertiary rounded">
+            <h3>Endereço de preferência</h3>
             <p>CEP: @Model.Endereco.CEP</p>
             <p>Estado: @Model.Endereco.Estado</p>
             <p>Cidade: @Model.Endereco.Cidade</p>
@@ -55,15 +57,12 @@
             <p>Rua: @Model.Endereco.Rua</p>
 
             <div class="form-group pt-3">
-                <a asp-controller="Endereco" asp-action="Atualizar" class="btn btn-primary">Atualizar</a>
-                <a asp-controller="Home" asp-action="Index" class="btn btn-secondary bg-green">Home</a>
-                <a asp-controller="Endereco" asp-action="ConfirmarExcluir" asp-route-id="@Model.Usuario.Id" class="btn" style="background-color: #fe0c03; color: white;">Deletar endereço</a>
-            
+                <a asp-controller="Usuario" asp-action="Atualizar" class="btn" style="background-color: #9B4819; color: #fdf5e6;">Atualizar</a>
+                <a asp-controller="Home" asp-action="Inicio" class="btn" style="background-color: #bc885d; color: #fdf5e6;">Home</a>
+                <a asp-controller="Usuario" asp-action="ConfirmarExcluir" asp-route-id="@Model.Usuario.Id" class="btn" style="background-color: #F4E1C1; color: #9B4819;">Deletar conta</a>
             </div>
 
         </section>
-
-    
 
     </div>
 

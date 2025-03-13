@@ -284,7 +284,7 @@ public class FeedbackController : Controller
     /// </remarks>
     /// 
     /// <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Feedback no banco de dados.</param>
-    /// <param name="feedbackDto">Dados do Feedback a serem atualizados.</param>
+    /// <param name="feedback">Dados do Feedback a serem atualizados.</param>
     /// <response code="200">Feedback atualizado com sucesso</response>
     /// <response code="400">Dados inválidos</response>
     /// <response code="401">Feedback não autorizado</response>
@@ -371,6 +371,8 @@ public class FeedbackController : Controller
     /// }
     /// ```
     /// </remarks>
+    /// 
+    /// <param name="camposParaAtualizar"></param>
     /// 
     /// <response code="200">Feedback atualizado com sucesso</response>
     /// <response code="400">Dados inválidos fornecidos</response>

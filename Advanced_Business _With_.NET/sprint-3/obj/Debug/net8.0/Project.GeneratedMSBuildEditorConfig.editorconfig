@@ -46,14 +46,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGlhc1ByZWZlcmVuY2lhL0NyaWFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/DiasPreferencia/Mensagem.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGlhc1ByZWZlcmVuY2lhL01lbnNhZ2VtLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/DiasPreferencia/MensagemAtualizacao.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGlhc1ByZWZlcmVuY2lhL01lbnNhZ2VtQXR1YWxpemFjYW8uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/Endereco/Atualizar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW5kZXJlY28vQXR1YWxpemFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -68,18 +60,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/Endereco/Criar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW5kZXJlY28vQ3JpYXIuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/Endereco/Mensagem.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW5kZXJlY28vTWVuc2FnZW0uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/Endereco/MensagemAtualizacao.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW5kZXJlY28vTWVuc2FnZW1BdHVhbGl6YWNhby5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/Endereco/MensagemExclusao.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW5kZXJlY28vTWVuc2FnZW1FeGNsdXNhby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/Home/Clinica.cshtml]
@@ -104,14 +84,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/Horarios/Criar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9yYXJpb3MvQ3JpYXIuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/Horarios/Mensagem.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9yYXJpb3MvTWVuc2FnZW0uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/Horarios/MensagemAtualizacao.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9yYXJpb3MvTWVuc2FnZW1BdHVhbGl6YWNhby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/Login/Consultar.cshtml]
@@ -154,14 +126,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHVybm8vQ3JpYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/Turno/Mensagem.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHVybm8vTWVuc2FnZW0uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/Turno/MensagemAtualizacao.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVHVybm8vTWVuc2FnZW1BdHVhbGl6YWNhby5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/Usuario/Atualizar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXN1YXJpby9BdHVhbGl6YXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -180,10 +144,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/Usuario/Mensagem.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXN1YXJpby9NZW5zYWdlbS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/Usuario/MensagemAtualizacao.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXN1YXJpby9NZW5zYWdlbUF0dWFsaXphY2FvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/Usuario/MensagemExclusao.cshtml]

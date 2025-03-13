@@ -1,9 +1,7 @@
 using Project.Infrastructure.Interfaces;
 using Project.Models;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 [Route("Turno")] 
 public class TurnoController : Controller
@@ -263,7 +261,6 @@ public class TurnoController : Controller
             return View(turno);
         }
 
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -342,6 +339,9 @@ public class TurnoController : Controller
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
+
+        if (turnoDTO.Id == null)
+            return BadRequest(new { message = "ID do turno não pode ser nulo." });
 
         var turnoExistente = await _turnoService.ConsultarId(turnoDTO.Id);
         if (turnoExistente == null)
