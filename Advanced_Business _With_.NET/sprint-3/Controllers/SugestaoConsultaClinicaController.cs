@@ -74,6 +74,8 @@ public class SugestaoConsultaClinicaController : Controller
     /// - **StatusSugestaoClinica** : Status da sugestão na clínica.
     /// - **StatusSugestaoCliente** : Status da sugestão para o cliente. Na primeira fase que é avaliação da clínica, este campo nunca será preenchido.
     /// - **DataAlteracao** : Data da última alteração realizada na sugestão.
+    /// - **DataConsulta** : Data base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
+    /// - **HorarioConsulta** : Hora base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
     /// 
     /// ### Campos que não devem ser utilizados para criar uma nova sugestão:
     /// - **id** : Id do dia que será gerado automaticamente
@@ -98,7 +100,9 @@ public class SugestaoConsultaClinicaController : Controller
     ///         "RuaPreferenciaCliente": "Rua da Saúde",
     ///         "StatusSugestaoClinica": "Aprovada",
     ///         "StatusSugestaoCliente": "Confirmada",
-    ///         "DataAlteracao": "2025-03-11T12:00:00"
+    ///         "DataAlteracao": "2025-03-11T12:00:00",
+    ///         "dataConsulta": "2025-03-12",
+    ///         "horarioConsulta": "19:30"
     ///     }
     /// ```
     /// 
@@ -122,7 +126,9 @@ public class SugestaoConsultaClinicaController : Controller
     ///         "RuaPreferenciaCliente": "Rua da Saúde",
     ///         "StatusSugestaoClinica": "Aprovada",
     ///         "StatusSugestaoCliente": "Confirmada",
-    ///         "DataAlteracao": "2025-03-11T12:00:00"
+    ///         "DataAlteracao": "2025-03-11T12:00:00",
+    ///         "dataConsulta": "2025-03-12",
+    ///         "horarioConsulta": "19:30"
     ///     }
     /// ```
     /// </remarks>
@@ -187,6 +193,8 @@ public class SugestaoConsultaClinicaController : Controller
     /// - **StatusSugestaoClinica** : Status da sugestão na clínica.
     /// - **StatusSugestaoCliente** : Status da sugestão para o cliente.
     /// - **DataAlteracao** : Data da última alteração realizada na sugestão.
+    /// - **DataConsulta** : Data base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
+    /// - **HorarioConsulta** : Hora base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
     /// 
     /// Exemplo de corpo de resposta (body) com a lista de Sugestões:
     /// ```json
@@ -208,7 +216,9 @@ public class SugestaoConsultaClinicaController : Controller
     ///              "ruaPreferenciaCliente": "Rua da Saúde",
     ///              "statusSugestaoClinica": "Aprovada",
     ///              "statusSugestaoCliente": "Confirmada",
-    ///              "dataAlteracao": "2025-03-11T19:00:00Z"
+    ///              "dataAlteracao": "2025-03-11T19:00:00Z",
+    ///              "dataConsulta": "2025-03-12",
+    ///              "horarioConsulta": "19:30"
     ///             },
     ///         {
     ///              "id": "67d0ad99c335e74f3472265d",
@@ -227,7 +237,9 @@ public class SugestaoConsultaClinicaController : Controller
     ///              "ruaPreferenciaCliente": "Rua do Oriente",
     ///              "statusSugestaoClinica": "Pendente",
     ///              "statusSugestaoCliente": "Sem resposta",
-    ///              "dataAlteracao": "2025-03-11T21:00:00Z"
+    ///              "dataAlteracao": "2025-03-11T21:00:00Z",
+    ///              "dataConsulta": "2025-03-12",
+    ///              "horarioConsulta": "19:30"
     ///            }
     ///        ]
     /// ```
@@ -284,7 +296,9 @@ public class SugestaoConsultaClinicaController : Controller
     ///         "RuaPreferenciaCliente": "Rua da Saúde",
     ///         "StatusSugestaoClinica": "Aprovada",
     ///         "StatusSugestaoCliente": "Confirmada",
-    ///         "DataAlteracao": "2025-03-11T12:00:00"
+    ///         "DataAlteracao": "2025-03-11T12:00:00",
+    ///         "dataConsulta": "2025-03-12",
+    ///         "horarioConsulta": "19:30"
     ///     }
     /// ```
     //// </remarks>
@@ -362,7 +376,7 @@ public class SugestaoConsultaClinicaController : Controller
         sugestaoExistente.DiaPreferenciaCliente = sugestao.DiaPreferenciaCliente;
         sugestaoExistente.TurnoPreferenciaCliente = sugestao.TurnoPreferenciaCliente;
         sugestaoExistente.HorarioPreferenciaCliente = sugestao.HorarioPreferenciaCliente;
-        sugestaoExistente.Especilidade = sugestao.Especilidade;
+        sugestaoExistente.Especialidade = sugestao.Especialidade;
         sugestaoExistente.CEPPreferenciaCliente = sugestao.CEPPreferenciaCliente;
         sugestaoExistente.EstadoPreferenciaCliente = sugestao.EstadoPreferenciaCliente;
         sugestaoExistente.CidadePreferenciaCliente = sugestao.CidadePreferenciaCliente;
@@ -371,6 +385,8 @@ public class SugestaoConsultaClinicaController : Controller
         sugestaoExistente.StatusSugestaoClinica = sugestao.StatusSugestaoClinica;
         //sugestaoExistente.StatusSugestaoCliente = sugestao.StatusSugestaoCliente;
         sugestaoExistente.DataAlteracao = sugestao.DataAlteracao;
+        sugestaoExistente.DataConsulta = sugestao.DataConsulta;
+        sugestaoExistente.HoraConsulta = sugestao.HoraConsulta;
 
         await _sugestaoService.Atualizar(sugestaoExistente);
 
@@ -413,6 +429,8 @@ public class SugestaoConsultaClinicaController : Controller
     /// - **StatusSugestaoClinica**: Status da sugestão na clínica (exemplo: "Aprovada", "Rejeitada").
     /// - **StatusSugestaoCliente**: Status da sugestão do cliente (exemplo: "Confirmada", "Cancelada").
     /// - **DataAlteracao**: Data da última alteração dos dados.
+    /// - **DataConsulta** : Data base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
+    /// - **HorarioConsulta** : Hora base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
     /// 
     /// ### Exemplo de requisição:
     /// 
@@ -433,7 +451,9 @@ public class SugestaoConsultaClinicaController : Controller
     ///         "RuaPreferenciaCliente": "Rua da Saúde",
     ///         "StatusSugestaoClinica": "Aprovada",
     ///         "StatusSugestaoCliente": "Confirmada",
-    ///         "DataAlteracao": "2025-03-11T12:00:00"
+    ///         "DataAlteracao": "2025-03-11T12:00:00",
+    ///         "dataConsulta": "2025-03-12",
+    ///         "horarioConsulta": "19:30"
     ///     }
     /// ```
     /// 
@@ -471,7 +491,7 @@ public class SugestaoConsultaClinicaController : Controller
         sugestaoExistente.DiaPreferenciaCliente = sugestao.DiaPreferenciaCliente;
         sugestaoExistente.TurnoPreferenciaCliente = sugestao.TurnoPreferenciaCliente;
         sugestaoExistente.HorarioPreferenciaCliente = sugestao.HorarioPreferenciaCliente;
-        sugestaoExistente.Especilidade = sugestao.Especilidade;
+        sugestaoExistente.Especialidade = sugestao.Especialidade;
         sugestaoExistente.CEPPreferenciaCliente = sugestao.CEPPreferenciaCliente;
         sugestaoExistente.EstadoPreferenciaCliente = sugestao.EstadoPreferenciaCliente;
         sugestaoExistente.CidadePreferenciaCliente = sugestao.CidadePreferenciaCliente;
@@ -480,6 +500,8 @@ public class SugestaoConsultaClinicaController : Controller
         sugestaoExistente.StatusSugestaoClinica = sugestao.StatusSugestaoClinica;
         //sugestaoExistente.StatusSugestaoCliente = sugestao.StatusSugestaoCliente;
         sugestaoExistente.DataAlteracao = sugestao.DataAlteracao;
+        sugestaoExistente.DataConsulta = sugestao.DataConsulta;
+        sugestaoExistente.HoraConsulta = sugestao.HoraConsulta;
 
         await _sugestaoService.Atualizar(sugestaoExistente);
 
@@ -532,6 +554,8 @@ public class SugestaoConsultaClinicaController : Controller
     /// - **statusSugestaoClinica**: Status da sugestão da clínica (exemplo: "Aprovado", "Pendente")
     /// - **statusSugestaoCliente**: Status da sugestão do cliente (exemplo: "Aceito", "Aguardando")
     /// - **dataAlteracao**: Data da última alteração
+    /// - **DataConsulta** : Data base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
+    /// - **HorarioConsulta** : Hora base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
     /// 
     /// ### Campos que não podem ser atualizados:
     /// - **Perfil**: O perfil será sempre "Comum" para clientes, não podendo ser alterado.
@@ -568,7 +592,9 @@ public class SugestaoConsultaClinicaController : Controller
     ///         "RuaPreferenciaCliente": "Rua da Saúde",
     ///         "StatusSugestaoClinica": "Aprovada",
     ///         "StatusSugestaoCliente": "Confirmada",
-    ///         "DataAlteracao": "2025-03-11T12:00:00"
+    ///         "DataAlteracao": "2025-03-11T12:00:00",
+    ///         "dataConsulta": "2025-03-12",
+    ///         "horarioConsulta": "19:30"
     ///     }
     /// ```
     /// </remarks>
@@ -681,8 +707,4 @@ public class SugestaoConsultaClinicaController : Controller
 
         return Ok(new { message = "Sugestão excluído com sucesso." });  
     }
-
-
-
-
 }

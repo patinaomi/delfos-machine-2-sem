@@ -310,8 +310,8 @@ footer {
 }
 
 /* Login */
-.energy-section-login {
-  background-image: url(/assets/Login/imagem1.jpg);
+.section-login {
+  background-image: url(/assets/Home/imagem4.png);
   background-size: cover;
   min-width: 100vh;
   min-height: 80vh;

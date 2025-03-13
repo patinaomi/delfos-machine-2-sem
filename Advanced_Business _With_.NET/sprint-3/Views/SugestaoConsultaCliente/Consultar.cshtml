@@ -1,0 +1,112 @@
+@model IEnumerable<Project.Models.SugestaoConsultaCliente>
+
+@{
+    ViewData["Title"] = "Sugestões de Consulta";
+}
+<section class="p-3">
+    <h2 class=" p-3" style="color: #9B4819;">Sugestões de Consulta</h2>
+    <p class="p-3">As consultas sugeridas estão dentro do seu perfil de preferência. Caso alguma consulta não se enquadre dentro da sua disponibilidade, nos informe para que possamos melhorar nossa análise.</p>
+    <p class="p-3">Também é possível atualizar seus dados de preferência, para que possamos te indicar melhores serviços.</p>
+    <div class="row">
+        @foreach (var sugestao in Model)
+        {   
+            <div class="col-md-4 p-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: #9B4819;">@sugestao.NomeClinica</h5>
+                        <p class="card-text">
+                            <strong>Data:</strong> @sugestao.DataConsulta<br />
+                            <strong>Horário:</strong> @sugestao.HoraConsulta<br/>
+                            <strong>Turno:</strong> @sugestao.TurnoPreferenciaCliente<br/>
+                            
+                            <h5 class="pt-2" style="color: #9B4819;">Detalhes do Endereço</h5>
+                            <strong>CEP:</strong> @sugestao.CEPClinica<br/>
+                            <strong>Estado:</strong> @sugestao.EstadoClinica<br/>
+                            <strong>Cidade:</strong> @sugestao.CidadeClinica<br/>
+                            <strong>Bairro:</strong> @sugestao.BairroClinica<br/>
+                            <strong>Rua:</strong> @sugestao.RuaClinica<br/>
+                            <strong>Distância:</strong>1 km<br/>
+
+                            <h5 class="pt-2" style="color: #9B4819;">Detalhes da Consulta</h5>
+                            <strong>Médico:</strong> @sugestao.NomeMedico<br/>
+                            <strong>Especialidade:</strong> @sugestao.Especialidade<br/>
+
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-success" onclick="aceitarSugestao(
+                                    '@sugestao.IdUsuario',
+                                    '@sugestao.NomeCliente',
+                                    '@sugestao.CPFCliente',
+                                    '@sugestao.DataConsulta',
+                                    '@sugestao.TurnoPreferenciaCliente',
+                                    '@sugestao.HoraConsulta',
+                                    '@sugestao.IdClinica',
+                                    '@sugestao.NomeClinica',
+                                    '@sugestao.CNPJClinica',
+                                    '@sugestao.NomeMedico',
+                                    '@sugestao.Especialidade',
+                                    '@sugestao.CEPClinica',
+                                    '@sugestao.EstadoClinica',
+                                    '@sugestao.CidadeClinica',
+                                    '@sugestao.BairroClinica',
+                                    '@sugestao.RuaClinica'
+                                )">Aceitar</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="recusarSugestao('@sugestao.Id')">Recusar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<script>
+    function aceitarSugestao(idUsuario, nomeCliente, cpfCliente, dataConsulta, turno, horario, idClinica, nomeClinica, cnpjClinica, nomeMedico, especialidade, cepClinica, estadoClinica, cidadeClinica, bairroClinica, ruaClinica) {
+    // Verificar se a data é válida
+    const dateParts = dataConsulta.split('/');
+    const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+    const dataISO = new Date(formattedDate).toISOString().split('T')[0];
+
+    const data = {
+        IdUsuario: idUsuario,
+        NomeCliente: nomeCliente,
+        CPFCliente: cpfCliente,
+        Data: dataISO,
+        Turno: turno,
+        Horario: horario,
+        IdClinica: idClinica,
+        NomeClinica: nomeClinica,
+        CNPJClinica: cnpjClinica,
+        NomeMedico: nomeMedico,
+        Especialidade: especialidade,
+        CEPClinica: cepClinica,
+        EstadoClinica: estadoClinica,
+        CidadeClinica: cidadeClinica,
+        BairroClinica: bairroClinica,
+        RuaClinica: ruaClinica,
+        StatusConsulta: 'Aceita',
+        RespostaFeedback: 'Sem resposta'
+    };
+    console.log(data); // Verificar os dados
+    $.ajax({
+        url: '/Consulta/CadastrarConsulta',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function (result) {
+            alert('Sugestão aceita com sucesso!');
+            location.reload();
+        },
+        error: function (xhr, status, error) {
+            console.log(xhr.responseText); // Verificar a resposta do servidor
+            alert('Erro ao aceitar a sugestão: ' + error);
+        }
+    });
+    }
+
+    function recusarSugestao(id) {
+
+    }
+</script>

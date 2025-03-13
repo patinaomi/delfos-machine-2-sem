@@ -7,8 +7,8 @@
 <section class="d-flex justify-content-center align-items-center mt-5 p-5" style="height: 80vh">
     <!-- Container do Formulário ocupando 20% da largura e 100% da altura -->
     <div class="w-20 d-flex align-items-center justify-content-center" style="height: 100vh; padding-right: 10px;">
-        <div class="container-fluid border p-4 bg-white" style="min-height: 80vh; width: 60vh;">
-            <h2 class="radley-regular" style="color: #9B4819;">Atualizar dados</h2>
+        <div class="container-fluid border p-2 bg-white" style="min-height: 80vh; width: 60vh;">
+            <h2 class="radley-regular text-center" style="color: #9B4819;">Atualizar dados</h2>
             <form asp-action="Atualizar" method="post">
                 <div class="form-group">
                     <label asp-for="Nome" class="control-label"></label>
@@ -40,14 +40,22 @@
                     <span asp-validation-for="Senha" class="text-danger"></span>
                 </div>
                 
-                <div class="form-group pt-3">
+                <div class="form-group pt-1">
                     <input type="submit" value="salvar" class="btn" style="background-color: #9B4819; color: #fdf5e6;" />
                 </div>
             </form>
 
+            <!-- Exibir alerta de sucesso, se houver -->
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success mt-1 p-2 text-center">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+
             <div>
-                <h2 class="radley-regular mt-3" style="color: #9B4819;">Complete o cadastro</h2>
-                <p>Preencha as demais informações e saiba como nosso modelo funciona e ainda ganhe com isso, com o nosso programa de Benefícios.</p>
+                <h2 class="radley-regular text-center" style="color: #9B4819; font-size: x-large;">Complete o cadastro</h2>
+                <p style="font-size: medium;">Preencha as demais informações e saiba como nosso modelo funciona e ainda ganhe com isso, com o nosso programa de Benefícios.</p>
                 
                 <a asp-controller="Endereco" asp-action="Criar" class="btn" style="background-color: #bc885d; color: #fdf5e6;">insira seu endereco</a>
                 <a asp-controller="Home" asp-action="Inicio" class="btn" style="background-color: #F4E1C1; color: #9B4819;">Voltar</a>

@@ -50,7 +50,7 @@ namespace Project.Repositories
                 .Set(u => u.DiaPreferenciaCliente, sugestao.DiaPreferenciaCliente)
                 .Set(u => u.TurnoPreferenciaCliente, sugestao.TurnoPreferenciaCliente)
                 .Set(u => u.HorarioPreferenciaCliente, sugestao.HorarioPreferenciaCliente)
-                .Set(u => u.Especilidade, sugestao.Especilidade)
+                .Set(u => u.Especialidade, sugestao.Especialidade)
                 .Set(u => u.CEPClinica, sugestao.CEPClinica)
                 .Set(u => u.EstadoClinica, sugestao.EstadoClinica)
                 .Set(u => u.CidadeClinica, sugestao.CidadeClinica)
@@ -117,8 +117,8 @@ namespace Project.Repositories
                     case "horariopreferenciacliente":
                         updateDefinitions.Add(updateDefinitionBuilder.Set(c => c.HorarioPreferenciaCliente, campo.Value.ToString()));
                         break;
-                    case "especilidade":
-                        updateDefinitions.Add(updateDefinitionBuilder.Set(c => c.Especilidade, campo.Value.ToString()));
+                    case "especialidade":
+                        updateDefinitions.Add(updateDefinitionBuilder.Set(c => c.Especialidade, campo.Value.ToString()));
                         break;
                     case "cepclinica":
                         updateDefinitions.Add(updateDefinitionBuilder.Set(c => c.CEPClinica, campo.Value.ToString()));

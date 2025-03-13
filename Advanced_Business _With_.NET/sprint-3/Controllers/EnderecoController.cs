@@ -306,7 +306,8 @@ public class EnderecoController : Controller
             return RedirectToAction("Error");
         }
 
-        var enderecoExistente = await _enderecoService.ConsultarPorUsuarioId(userIdString);
+        //var enderecoExistente = await _enderecoService.ConsultarPorUsuarioId
+        var enderecoExistente = await _enderecoService.ConsultarId(userIdString);
 
         if (enderecoExistente == null)
         {
@@ -322,7 +323,8 @@ public class EnderecoController : Controller
         await _enderecoService.Atualizar(enderecoExistente);
 
         TempData["SuccessMessage"] = "Usuário atualizado com sucesso!";
-        return RedirectToAction("MensagemAtualizacao");
+        //return RedirectToAction("MensagemAtualizacao");
+        return View(enderecoExistente);
     }
 
     [HttpGet("MensagemAtualizacao")]

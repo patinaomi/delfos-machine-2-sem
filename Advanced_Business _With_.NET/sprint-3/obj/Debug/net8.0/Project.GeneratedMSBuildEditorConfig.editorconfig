@@ -78,6 +78,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRW5kZXJlY28vTWVuc2FnZW1FeGNsdXNhby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/Home/Clinica.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9DbGluaWNhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/Home/Hero.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9IZXJvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -124,6 +128,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/SugestaoConsultaCliente/Consultar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU3VnZXN0YW9Db25zdWx0YUNsaWVudGUvQ29uc3VsdGFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Advanced_Business _With_.NET/sprint-3/Views/Turno/Atualizar.cshtml]

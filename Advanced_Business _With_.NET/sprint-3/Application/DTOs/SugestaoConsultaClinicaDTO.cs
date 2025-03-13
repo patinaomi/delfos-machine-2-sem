@@ -41,7 +41,7 @@ namespace Project.Models
 
         [Required(ErrorMessage = "O campo 'Especilidade' é obrigatório.")]
         [StringLength(100, ErrorMessage = "A 'Especialidade' deve ter no máximo 100 caracteres.")]
-        public string? Especilidade { get; set; }
+        public string? Especialidade { get; set; }
 
         [Required(ErrorMessage = "O campo 'CEPPreferenciaCliente' é obrigatório.")]
         [StringLength(8, MinimumLength = 8, ErrorMessage = "O 'CEPPreferenciaCliente' deve ter exatamente 8 caracteres.")]
@@ -68,9 +68,15 @@ namespace Project.Models
         [StringLength(50, ErrorMessage = "O 'StatusSugestaoClinica' deve ter no máximo 50 caracteres.")]
         public string? StatusSugestaoClinica { get; set; } = "Sem resposta";
 
-        //[Required(ErrorMessage = "O campo 'StatusSugestaoCliente' é obrigatório.")]
-        //[StringLength(50, ErrorMessage = "O 'StatusSugestaoCliente' deve ter no máximo 50 caracteres.")]
-        //public string? StatusSugestaoCliente { get; set; } = "Sem resposta";
         public DateTime DataAlteracao { get; set; }
+
+        public DateOnly DataConsulta { get; set; }
+
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+        public DateTime HoraConsulta { get; set; }
+
+        public string? CPFCliente { get; set; }
+        public string? NomeMedico { get; set; }
+        public string? CNPJClinica { get; set; }
     }
 }

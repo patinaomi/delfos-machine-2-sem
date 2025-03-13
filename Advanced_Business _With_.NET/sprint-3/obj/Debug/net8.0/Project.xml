@@ -306,7 +306,7 @@
                  Excluir as atividades da campanha do banco de dados.
              </summary>
             
-             <param name="id" type="string" example="67cc95b32811515d372209ce">ID do Usuário a ser excluído</param>
+             <param name="id" type="string" example="67cc95b32811515d372209ce">ID a ser excluído</param>
              
              <remarks>
              
@@ -345,7 +345,7 @@
             
             Use este endpoint quando precisar cadastrar uma nova clínica. Aqui ainda não cadastramos os médicos, somente as empresas.
             
-            ### Campos que devem ser utilizados para criar um novo usuário:
+            ### Campos que devem ser utilizados para criar uma nova Clínica:
             
             - **nome**: Nome da clínica
             - **cnpj**: CNPJ da clínica
@@ -353,7 +353,7 @@
             - **email**: Endereço de email para contato
             - **senha**: Senha de acesso (será criptografada)
             
-            ### Campos que não devem ser utilizados para criar um novo usuário:
+            ### Campos que não devem ser utilizados para criar uma nova Clínica:
             - **id**: ID não é necessário pois o banco vai criar um de forma automática.
             - **perfil**: Não será necessário enviar pois é default aqui
             
@@ -397,12 +397,12 @@
         </member>
         <member name="M:ClinicaController.ConsultarTodos">
             <summary>
-                Consultar a lista com todo os Clinicas.
+                Consultar a lista com todas as Clinicas.
             </summary>
             
             <remarks>
             
-            ## Consultar todos os usuários do banco
+            ## Consultar todos os clínicas no banco
             
             Use este endpoint quando precisar consultar as clínicas com todos campos específicos de uma clínica.
             
@@ -2765,7 +2765,8 @@
             - **StatusSugestaoClinica** : Status da sugestão na clínica (ex: Aprovada, Aceita).
             - **StatusSugestaoCliente** : Status da sugestão para o cliente (ex: Confirmada, Aceita).
             - **DataAlteracao** : Data da última alteração realizada na sugestão.
-            
+            - **DataConsulta** : Data base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
+            - **HorarioConsulta** : Hora base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
             
             ### Exemplo de body para requisição:
             ```json
@@ -2790,7 +2791,9 @@
                     "ruaClinica": "Rua dos Três Irmãos",
                     "statusSugestaoClinica": "Aprovada",
                     "statusSugestaoCliente": "Confirmada",
-                    "dataAlteracao": "2025-03-11T15:00:00"
+                    "dataAlteracao": "2025-03-11T15:00:00",
+                    "dataConsulta": "2025-03-12",
+                    "horarioConsulta": "19:30"
                 }
             ```
             
@@ -2818,7 +2821,9 @@
                     "ruaClinica": "Rua dos Três Irmãos",
                     "statusSugestaoClinica": "Aprovada",
                     "statusSugestaoCliente": "Confirmada",
-                    "dataAlteracao": "2025-03-11T15:00:00"
+                    "dataAlteracao": "2025-03-11T15:00:00",
+                    "dataConsulta": "2025-03-12",
+                    "horarioConsulta": "19:30"
                 }
             ```
             </remarks>
@@ -2859,6 +2864,8 @@
              - **StatusSugestaoClinica** : Status da sugestão na clínica (ex: Aprovada, Aceita).
              - **StatusSugestaoCliente** : Status da sugestão para o cliente (ex: Confirmada, Aceita).
              - **DataAlteracao** : Data da última alteração realizada na sugestão.
+             - **DataConsulta** : Data base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
+             - **HorarioConsulta** : Hora base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
             
              Exemplo de corpo de resposta (body) com a lista de Sugestões:
              ```json
@@ -2884,7 +2891,9 @@
                  "ruaClinica": "Rua dos Três Irmãos",
                  "statusSugestaoClinica": "Aprovada",
                  "statusSugestaoCliente": "Confirmada",
-                 "dataAlteracao": "2025-03-11T22:00:00Z"
+                 "dataAlteracao": "2025-03-11T22:00:00Z",
+                 "dataConsulta": "2025-03-12",
+                 "horarioConsulta": "19:30:00"
                },
                {
                  "id": "67d0afc5ac13f169dbf8af5b",
@@ -2907,7 +2916,9 @@
                  "ruaClinica": "Rua dos Três Irmãos",
                  "statusSugestaoClinica": "Aceita",
                  "statusSugestaoCliente": "Aceita",
-                 "dataAlteracao": "2025-03-11T22:00:00Z"
+                 "dataAlteracao": "2025-03-11T22:00:00Z",
+                 "dataConsulta": "2025-03-12",
+                 "horarioConsulta": "19:30"
                }
              ]
              ```
@@ -2955,6 +2966,8 @@
             - **StatusSugestaoClinica** : Status da sugestão na clínica (ex: Aprovada, Aceita).
             - **StatusSugestaoCliente** : Status da sugestão para o cliente (ex: Confirmada, Aceita).
             - **DataAlteracao** : Data da última alteração realizada na sugestão.
+            - **DataConsulta** : Data base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
+            - **HorarioConsulta** : Hora base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
             
             ### Exemplo de requisição:
             
@@ -2980,7 +2993,9 @@
                 "ruaClinica": "Rua dos Três Irmãos",
                 "statusSugestaoClinica": "Aceita",
                 "statusSugestaoCliente": "Aceita",
-                "dataAlteracao": "2025-03-11T22:00:00Z"
+                "dataAlteracao": "2025-03-11T22:00:00Z",
+                "dataConsulta": "2025-03-12",
+                "horarioConsulta": "19:30"
               }
             ``` 
             
@@ -3029,6 +3044,8 @@
             - **StatusSugestaoClinica** : Status da sugestão na clínica (ex: Aprovada, Aceita).
             - **StatusSugestaoCliente** : Status da sugestão para o cliente (ex: Confirmada, Aceita).
             - **DataAlteracao** : Data da última alteração realizada na sugestão.
+            - **DataConsulta** : Data base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
+            - **HorarioConsulta** : Hora base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
             
             ### Campos que não podem ser atualizados:
             - **id** : Id do registro da sugestão, gerado automaticamente.
@@ -3071,7 +3088,9 @@
                 "ruaClinica": "Rua dos Três Irmãos",
                 "statusSugestaoClinica": "Aceita",
                 "statusSugestaoCliente": "Aceita",
-                "dataAlteracao": "2025-03-11T22:00:00Z"
+                "dataAlteracao": "2025-03-11T22:00:00Z",
+                "dataConsulta": "2025-03-12",
+                "horarioConsulta": "19:30"
               }
             ```
             </remarks>
@@ -3143,6 +3162,8 @@
             - **StatusSugestaoClinica** : Status da sugestão na clínica.
             - **StatusSugestaoCliente** : Status da sugestão para o cliente. Na primeira fase que é avaliação da clínica, este campo nunca será preenchido.
             - **DataAlteracao** : Data da última alteração realizada na sugestão.
+            - **DataConsulta** : Data base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
+            - **HorarioConsulta** : Hora base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
             
             ### Campos que não devem ser utilizados para criar uma nova sugestão:
             - **id** : Id do dia que será gerado automaticamente
@@ -3167,7 +3188,9 @@
                     "RuaPreferenciaCliente": "Rua da Saúde",
                     "StatusSugestaoClinica": "Aprovada",
                     "StatusSugestaoCliente": "Confirmada",
-                    "DataAlteracao": "2025-03-11T12:00:00"
+                    "DataAlteracao": "2025-03-11T12:00:00",
+                    "dataConsulta": "2025-03-12",
+                    "horarioConsulta": "19:30"
                 }
             ```
             
@@ -3191,7 +3214,9 @@
                     "RuaPreferenciaCliente": "Rua da Saúde",
                     "StatusSugestaoClinica": "Aprovada",
                     "StatusSugestaoCliente": "Confirmada",
-                    "DataAlteracao": "2025-03-11T12:00:00"
+                    "DataAlteracao": "2025-03-11T12:00:00",
+                    "dataConsulta": "2025-03-12",
+                    "horarioConsulta": "19:30"
                 }
             ```
             </remarks>
@@ -3231,6 +3256,8 @@
             - **StatusSugestaoClinica** : Status da sugestão na clínica.
             - **StatusSugestaoCliente** : Status da sugestão para o cliente.
             - **DataAlteracao** : Data da última alteração realizada na sugestão.
+            - **DataConsulta** : Data base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
+            - **HorarioConsulta** : Hora base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
             
             Exemplo de corpo de resposta (body) com a lista de Sugestões:
             ```json
@@ -3252,7 +3279,9 @@
                          "ruaPreferenciaCliente": "Rua da Saúde",
                          "statusSugestaoClinica": "Aprovada",
                          "statusSugestaoCliente": "Confirmada",
-                         "dataAlteracao": "2025-03-11T19:00:00Z"
+                         "dataAlteracao": "2025-03-11T19:00:00Z",
+                         "dataConsulta": "2025-03-12",
+                         "horarioConsulta": "19:30"
                         },
                     {
                          "id": "67d0ad99c335e74f3472265d",
@@ -3271,7 +3300,9 @@
                          "ruaPreferenciaCliente": "Rua do Oriente",
                          "statusSugestaoClinica": "Pendente",
                          "statusSugestaoCliente": "Sem resposta",
-                         "dataAlteracao": "2025-03-11T21:00:00Z"
+                         "dataAlteracao": "2025-03-11T21:00:00Z",
+                         "dataConsulta": "2025-03-12",
+                         "horarioConsulta": "19:30"
                        }
                    ]
             ```
@@ -3316,6 +3347,8 @@
             - **StatusSugestaoClinica**: Status da sugestão na clínica (exemplo: "Aprovada", "Rejeitada").
             - **StatusSugestaoCliente**: Status da sugestão do cliente (exemplo: "Confirmada", "Cancelada").
             - **DataAlteracao**: Data da última alteração dos dados.
+            - **DataConsulta** : Data base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
+            - **HorarioConsulta** : Hora base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
             
             ### Exemplo de requisição:
             
@@ -3336,7 +3369,9 @@
                     "RuaPreferenciaCliente": "Rua da Saúde",
                     "StatusSugestaoClinica": "Aprovada",
                     "StatusSugestaoCliente": "Confirmada",
-                    "DataAlteracao": "2025-03-11T12:00:00"
+                    "DataAlteracao": "2025-03-11T12:00:00",
+                    "dataConsulta": "2025-03-12",
+                    "horarioConsulta": "19:30"
                 }
             ```
             
@@ -3383,6 +3418,8 @@
             - **statusSugestaoClinica**: Status da sugestão da clínica (exemplo: "Aprovado", "Pendente")
             - **statusSugestaoCliente**: Status da sugestão do cliente (exemplo: "Aceito", "Aguardando")
             - **dataAlteracao**: Data da última alteração
+            - **DataConsulta** : Data base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
+            - **HorarioConsulta** : Hora base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
             
             ### Campos que não podem ser atualizados:
             - **Perfil**: O perfil será sempre "Comum" para clientes, não podendo ser alterado.
@@ -3419,7 +3456,9 @@
                     "RuaPreferenciaCliente": "Rua da Saúde",
                     "StatusSugestaoClinica": "Aprovada",
                     "StatusSugestaoCliente": "Confirmada",
-                    "DataAlteracao": "2025-03-11T12:00:00"
+                    "DataAlteracao": "2025-03-11T12:00:00",
+                    "dataConsulta": "2025-03-12",
+                    "horarioConsulta": "19:30"
                 }
             ```
             </remarks>

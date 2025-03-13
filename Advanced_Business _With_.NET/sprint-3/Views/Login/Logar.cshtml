@@ -33,10 +33,17 @@
                     <input type="submit" value="login" class="btn w-100 radley-regular" style="background-color: #fdf5e6; color: #9B4819;" />
                 </div>
 
-                <div class="form-group w-100 pt-3">
+                <div class="form-group w-100 pt-2">
                     <a asp-controller="Login" asp-action="Consultar"  class="btn w-100 radley-regular" style="background-color: #bc885d; color: #fdf5e6; border-color: #bc885d;">consultar</a>
                 </div>
             </form>
+
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="alert alert-warning p-0 bg-[#bc885d] text-center mt-1">
+                    @ViewBag.ErrorMessage
+                </div>
+            }
 
             <h2 class="radley-regular mt-3">Cadastre-se</h2>
             <p class="carlito-regular">Se ainda não possui uma conta, realize o cadastro e conheça nossos produtos e serviços.</p>

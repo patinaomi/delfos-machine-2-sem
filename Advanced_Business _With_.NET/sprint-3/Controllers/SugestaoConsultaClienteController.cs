@@ -32,17 +32,11 @@ public class SugestaoConsultaClienteController : Controller
         {
             await _sugestaoService.Criar(sugestao);
             TempData["SuccessMessage"] = "Sugestão cadastrada com sucesso!";
-            return RedirectToAction("Mensagem");
+            //return RedirectToAction("Mensagem");
         }
         return View(sugestao);
     }
 
-    [HttpGet("Mensagem")]
-    [ApiExplorerSettings(IgnoreApi = true)]
-    public IActionResult Mensagem()
-    {
-        return View();
-    }
 
     /// <summary>
     ///     Cria uma novo Sugestão.
@@ -76,7 +70,8 @@ public class SugestaoConsultaClienteController : Controller
     /// - **StatusSugestaoClinica** : Status da sugestão na clínica (ex: Aprovada, Aceita).
     /// - **StatusSugestaoCliente** : Status da sugestão para o cliente (ex: Confirmada, Aceita).
     /// - **DataAlteracao** : Data da última alteração realizada na sugestão.
-    /// 
+    /// - **DataConsulta** : Data base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
+    /// - **HorarioConsulta** : Hora base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
     /// 
     /// ### Exemplo de body para requisição:
     /// ```json
@@ -101,7 +96,9 @@ public class SugestaoConsultaClienteController : Controller
     ///         "ruaClinica": "Rua dos Três Irmãos",
     ///         "statusSugestaoClinica": "Aprovada",
     ///         "statusSugestaoCliente": "Confirmada",
-    ///         "dataAlteracao": "2025-03-11T15:00:00"
+    ///         "dataAlteracao": "2025-03-11T15:00:00",
+    ///         "dataConsulta": "2025-03-12",
+    ///         "horarioConsulta": "19:30"
     ///     }
     /// ```
     /// 
@@ -129,7 +126,9 @@ public class SugestaoConsultaClienteController : Controller
     ///         "ruaClinica": "Rua dos Três Irmãos",
     ///         "statusSugestaoClinica": "Aprovada",
     ///         "statusSugestaoCliente": "Confirmada",
-    ///         "dataAlteracao": "2025-03-11T15:00:00"
+    ///         "dataAlteracao": "2025-03-11T15:00:00",
+    ///         "dataConsulta": "2025-03-12",
+    ///         "horarioConsulta": "19:30"
     ///     }
     /// ```
     /// </remarks>
@@ -193,6 +192,8 @@ public class SugestaoConsultaClienteController : Controller
     /// - **StatusSugestaoClinica** : Status da sugestão na clínica (ex: Aprovada, Aceita).
     /// - **StatusSugestaoCliente** : Status da sugestão para o cliente (ex: Confirmada, Aceita).
     /// - **DataAlteracao** : Data da última alteração realizada na sugestão.
+    /// - **DataConsulta** : Data base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
+    /// - **HorarioConsulta** : Hora base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
     ///
     /// Exemplo de corpo de resposta (body) com a lista de Sugestões:
     /// ```json
@@ -218,7 +219,9 @@ public class SugestaoConsultaClienteController : Controller
     ///     "ruaClinica": "Rua dos Três Irmãos",
     ///     "statusSugestaoClinica": "Aprovada",
     ///     "statusSugestaoCliente": "Confirmada",
-    ///     "dataAlteracao": "2025-03-11T22:00:00Z"
+    ///     "dataAlteracao": "2025-03-11T22:00:00Z",
+    ///     "dataConsulta": "2025-03-12",
+    ///     "horarioConsulta": "19:30:00"
     ///   },
     ///   {
     ///     "id": "67d0afc5ac13f169dbf8af5b",
@@ -241,7 +244,9 @@ public class SugestaoConsultaClienteController : Controller
     ///     "ruaClinica": "Rua dos Três Irmãos",
     ///     "statusSugestaoClinica": "Aceita",
     ///     "statusSugestaoCliente": "Aceita",
-    ///     "dataAlteracao": "2025-03-11T22:00:00Z"
+    ///     "dataAlteracao": "2025-03-11T22:00:00Z",
+    ///     "dataConsulta": "2025-03-12",
+    ///     "horarioConsulta": "19:30"
     ///   }
     /// ]
     /// ```
@@ -301,7 +306,9 @@ public class SugestaoConsultaClienteController : Controller
     ///     "ruaClinica": "Rua dos Três Irmãos",
     ///     "statusSugestaoClinica": "Aceita",
     ///     "statusSugestaoCliente": "Aceita",
-    ///     "dataAlteracao": "2025-03-11T22:00:00Z"
+    ///     "dataAlteracao": "2025-03-11T22:00:00Z",
+    ///     "dataConsulta": "2025-03-12",
+    ///     "horarioConsulta": "19:30"
     ///   }
     /// ```
     /// 
@@ -327,6 +334,9 @@ public class SugestaoConsultaClienteController : Controller
     /// - **StatusSugestaoClinica** : Status da sugestão na clínica (ex: Aprovada, Aceita).
     /// - **StatusSugestaoCliente** : Status da sugestão para o cliente (ex: Confirmada, Aceita).
     /// - **DataAlteracao** : Data da última alteração realizada na sugestão.
+    /// - **DataConsulta** : Data base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
+    /// - **HorarioConsulta** : Hora base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
+    /// 
     //// </remarks>
     /// 
     /// <response code="200">Sugestão consultada com sucesso</response>
@@ -395,16 +405,19 @@ public class SugestaoConsultaClienteController : Controller
 
         sugestaoExistente.IdClinica = sugestao.IdClinica    ;
         sugestaoExistente.NomeClinica = sugestao.NomeClinica;
+        sugestaoExistente.CNPJClinica = sugestao.CNPJClinica;
         sugestaoExistente.TelefoneClinica = sugestao.TelefoneClinica;
         sugestaoExistente.EmailClinica = sugestao.EmailClinica;
         sugestaoExistente.IdUsuario = sugestao.IdUsuario;
         sugestaoExistente.NomeCliente = sugestao.NomeCliente;
+        sugestaoExistente.CPFCliente = sugestao.CPFCliente;
         sugestaoExistente.TelefoneCliente = sugestao.TelefoneCliente;
         sugestaoExistente.EmailCliente = sugestao.EmailCliente;
         sugestaoExistente.DiaPreferenciaCliente = sugestao.DiaPreferenciaCliente;
         sugestaoExistente.TurnoPreferenciaCliente = sugestao.TurnoPreferenciaCliente;
         sugestaoExistente.HorarioPreferenciaCliente = sugestao.HorarioPreferenciaCliente;
-        sugestaoExistente.Especilidade = sugestao.Especilidade;
+        sugestaoExistente.Especialidade = sugestao.Especialidade;
+        sugestaoExistente.NomeMedico = sugestao.NomeMedico;
         sugestaoExistente.CEPClinica = sugestao.CEPClinica;
         sugestaoExistente.EstadoClinica = sugestao.EstadoClinica;
         sugestaoExistente.CidadeClinica = sugestao.CidadeClinica;
@@ -412,11 +425,14 @@ public class SugestaoConsultaClienteController : Controller
         sugestaoExistente.RuaClinica = sugestao.RuaClinica;
         sugestaoExistente.StatusSugestaoCliente = sugestao.StatusSugestaoCliente;
         sugestaoExistente.DataAlteracao = sugestao.DataAlteracao;
+        sugestaoExistente.DataConsulta = sugestao.DataConsulta;
+        sugestaoExistente.HoraConsulta = sugestao.HoraConsulta;
 
         await _sugestaoService.Atualizar(sugestaoExistente);
 
         TempData["SuccessMessage"] = "Sugestão atualizado com sucesso!";
-        return RedirectToAction("MensagemAtualizacao");
+        //return RedirectToAction("MensagemAtualizacao");
+        return View(sugestaoExistente);
     }
 
     [HttpGet("MensagemAtualizacao")]
@@ -458,6 +474,8 @@ public class SugestaoConsultaClienteController : Controller
     /// - **StatusSugestaoClinica** : Status da sugestão na clínica (ex: Aprovada, Aceita).
     /// - **StatusSugestaoCliente** : Status da sugestão para o cliente (ex: Confirmada, Aceita).
     /// - **DataAlteracao** : Data da última alteração realizada na sugestão.
+    /// - **DataConsulta** : Data base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
+    /// - **HorarioConsulta** : Hora base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
     /// 
     /// ### Exemplo de requisição:
     /// 
@@ -483,7 +501,9 @@ public class SugestaoConsultaClienteController : Controller
     ///     "ruaClinica": "Rua dos Três Irmãos",
     ///     "statusSugestaoClinica": "Aceita",
     ///     "statusSugestaoCliente": "Aceita",
-    ///     "dataAlteracao": "2025-03-11T22:00:00Z"
+    ///     "dataAlteracao": "2025-03-11T22:00:00Z",
+    ///     "dataConsulta": "2025-03-12",
+    ///     "horarioConsulta": "19:30"
     ///   }
     /// ``` 
     /// 
@@ -503,7 +523,7 @@ public class SugestaoConsultaClienteController : Controller
     {
         if (string.IsNullOrEmpty(id) || sugestao == null || id != sugestao.Id)
         {
-            return BadRequest("Id do Clinica não corresponde ao fornecido.");
+            return BadRequest("Id da Sugestão não corresponde ao fornecido.");
         }
 
         var sugestaoExistente = await _sugestaoService.ConsultarId(id);
@@ -515,16 +535,19 @@ public class SugestaoConsultaClienteController : Controller
 
         sugestaoExistente.IdClinica = sugestao.IdClinica    ;
         sugestaoExistente.NomeClinica = sugestao.NomeClinica;
+        sugestaoExistente.CNPJClinica = sugestao.CNPJClinica;
         sugestaoExistente.TelefoneClinica = sugestao.TelefoneClinica;
         sugestaoExistente.EmailClinica = sugestao.EmailClinica;
         sugestaoExistente.IdUsuario = sugestao.IdUsuario;
         sugestaoExistente.NomeCliente = sugestao.NomeCliente;
+        sugestaoExistente.CPFCliente = sugestao.CPFCliente;
         sugestaoExistente.TelefoneCliente = sugestao.TelefoneCliente;
         sugestaoExistente.EmailCliente = sugestao.EmailCliente;
         sugestaoExistente.DiaPreferenciaCliente = sugestao.DiaPreferenciaCliente;
         sugestaoExistente.TurnoPreferenciaCliente = sugestao.TurnoPreferenciaCliente;
         sugestaoExistente.HorarioPreferenciaCliente = sugestao.HorarioPreferenciaCliente;
-        sugestaoExistente.Especilidade = sugestao.Especilidade;
+        sugestaoExistente.Especialidade = sugestao.Especialidade;
+        sugestaoExistente.NomeMedico = sugestao.NomeMedico;
         sugestaoExistente.CEPClinica = sugestao.CEPClinica;
         sugestaoExistente.EstadoClinica = sugestao.EstadoClinica;
         sugestaoExistente.CidadeClinica = sugestao.CidadeClinica;
@@ -533,6 +556,8 @@ public class SugestaoConsultaClienteController : Controller
         //sugestaoExistente.StatusSugestaoClinica = sugestao.StatusSugestaoClinica;
         sugestaoExistente.StatusSugestaoCliente = sugestao.StatusSugestaoCliente;
         sugestaoExistente.DataAlteracao = sugestao.DataAlteracao;
+        sugestaoExistente.DataConsulta = sugestao.DataConsulta;
+        sugestaoExistente.HoraConsulta = sugestao.HoraConsulta;
 
         await _sugestaoService.Atualizar(sugestaoExistente);
 
@@ -587,6 +612,8 @@ public class SugestaoConsultaClienteController : Controller
     /// - **StatusSugestaoClinica** : Status da sugestão na clínica (ex: Aprovada, Aceita).
     /// - **StatusSugestaoCliente** : Status da sugestão para o cliente (ex: Confirmada, Aceita).
     /// - **DataAlteracao** : Data da última alteração realizada na sugestão.
+    /// - **DataConsulta** : Data base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
+    /// - **HorarioConsulta** : Hora base para a consulta, de acordo com a definição da clínica com as prefreências de, dia turno e horário do cliente.
     /// 
     /// ### Campos que não podem ser atualizados:
     /// - **id** : Id do registro da sugestão, gerado automaticamente.
@@ -629,7 +656,9 @@ public class SugestaoConsultaClienteController : Controller
     ///     "ruaClinica": "Rua dos Três Irmãos",
     ///     "statusSugestaoClinica": "Aceita",
     ///     "statusSugestaoCliente": "Aceita",
-    ///     "dataAlteracao": "2025-03-11T22:00:00Z"
+    ///     "dataAlteracao": "2025-03-11T22:00:00Z",
+    ///     "dataConsulta": "2025-03-12",
+    ///     "horarioConsulta": "19:30"
     ///   }
     /// ```
     /// </remarks>
@@ -672,9 +701,9 @@ public class SugestaoConsultaClienteController : Controller
         if (sugestao != null)
         {
             await _sugestaoService.Excluir(id);
-            //await HttpContext.SignOutAsync();
             TempData["SuccessMessage"] = "Sugestão excluído com sucesso.";
             //return RedirectToAction("MensagemExclusao", "Sugestao"); 
+            return View(sugestao);
         }
 
         TempData["ErrorMessage"] = "Sugestão não encontrado.";

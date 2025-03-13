@@ -1,11 +1,11 @@
-@model Project.Models.Turno
+@model Project.Models.Horarios
 
 @{
     ViewData["Title"] = "Atualizar preferencia de turnos do usuário";
 }
 
 <section class="d-flex justify-content-center align-items-center mt-5" style="height: 80vh">
-    <!-- Container do Formulário ocupando 20% da largura e 100% da altura -->
+
     <div class="w-20 d-flex align-items-center justify-content-center" style="height: 100vh; padding-right: 10px;">
         <div class="container-fluid border p-4" style="min-height: 80vh; width: 60vh;">
             <h2>Atualizar dados</h2>
@@ -22,9 +22,9 @@
                     <span asp-validation-for="IdUsuario" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="TurnoPreferencia" class="control-label">Turno</label>
-                    <input asp-for="TurnoPreferencia" class="form-control" />
-                    <span asp-validation-for="TurnoPreferencia" class="text-danger"></span>
+                    <label asp-for="HorariosPreferencia" class="control-label">Horário</label>
+                    <input asp-for="HorariosPreferencia" class="form-control" />
+                    <span asp-validation-for="HorariosPreferencia" class="text-danger"></span>
                 </div>
             
                 <div class="form-group pt-3">

@@ -57,6 +57,14 @@
                     <a asp-controller="Endereco" asp-action="Consultar" class="btn" style="background-color: #bc885d; color: #fdf5e6;">consultar</a>
                 </div>
             </form>
+
+            <!-- Exibir alerta de sucesso, se houver -->
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success mt-3">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
         </div>
     </div>
 

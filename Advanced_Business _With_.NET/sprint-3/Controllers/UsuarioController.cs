@@ -268,7 +268,6 @@ public class UsuarioController : Controller
             return View(usuario);
         }
 
-        //var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         var userIdString = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value;
 
         if (string.IsNullOrEmpty(userIdString))
@@ -291,8 +290,9 @@ public class UsuarioController : Controller
 
         await _usuarioService.Atualizar(usuarioExistente);
 
-        TempData["SuccessMessage"] = "Usuário atualizado com sucesso!";
-        return RedirectToAction("MensagemAtualizacao");
+        TempData["SuccessMessage"] = "Dados atualizados com sucesso!";
+        //return RedirectToAction("MensagemAtualizacao");
+        return View(usuarioExistente);
     }
 
     [HttpGet("MensagemAtualizacao")]

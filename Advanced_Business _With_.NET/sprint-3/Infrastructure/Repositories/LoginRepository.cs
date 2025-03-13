@@ -17,11 +17,10 @@ namespace Project.Repositories
 
             // Tabelas
             _loginCollection = mongoDatabase.GetCollection<Login>(settings.Value.LoginCollectionName);
-             _usuarioCollection = mongoDatabase.GetCollection<Usuario>(settings.Value.UsuarioCollectionName);
+            _usuarioCollection = mongoDatabase.GetCollection<Usuario>(settings.Value.UsuarioCollectionName);
 
         }
 
-        // Método para criar um novo login
         public async Task<Login> Criar(Login login)
         {
             await _loginCollection.InsertOneAsync(login);
@@ -61,8 +60,5 @@ namespace Project.Repositories
 
             return usuario;
         }
-
-
-
     }
 }

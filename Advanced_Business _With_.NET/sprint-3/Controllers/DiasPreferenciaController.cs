@@ -36,8 +36,6 @@ public class DiasPreferenciaController : Controller
             if (string.IsNullOrEmpty(idUsuario))
                 return Unauthorized("Usuário não logado.");
 
-
-            // Cria o objeto Endereco
             var dia = new DiasPreferencia
             {
                 DiasSemana = diasPreferenciaDTO.DiasSemana,
@@ -46,7 +44,7 @@ public class DiasPreferenciaController : Controller
 
             await _diasPreferenciaService.Criar(dia);
 
-            TempData["SuccessMessage"] = "Preferencia do dia cadastrado com sucesso!";
+            TempData["SuccessMessage"] = "Preferência do dia cadastrado com sucesso!";
         }
         return View(diasPreferenciaDTO);
     }
