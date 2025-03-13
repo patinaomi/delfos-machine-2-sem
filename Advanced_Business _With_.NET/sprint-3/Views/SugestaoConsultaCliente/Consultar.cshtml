@@ -7,6 +7,7 @@
     <h2 class=" p-3" style="color: #9B4819;">Sugestões de Consulta</h2>
     <p class="p-3">As consultas sugeridas estão dentro do seu perfil de preferência. Caso alguma consulta não se enquadre dentro da sua disponibilidade, nos informe para que possamos melhorar nossa análise.</p>
     <p class="p-3">Também é possível atualizar seus dados de preferência, para que possamos te indicar melhores serviços.</p>
+    <p class="p-3" style="color: red; font-size: small;">Importante: Caso não tenha sugestão aqui, cadastre uma na API para visualizar o comportamento. Ou ajuste o status de alguma para "Pendente"</p>
     <div class="row">
         @foreach (var sugestao in Model)
         {   
@@ -15,7 +16,8 @@
                     <div class="card-body">
                         <h5 class="card-title" style="color: #9B4819;">@sugestao.NomeClinica</h5>
                         <p class="card-text">
-                            <strong>Data:</strong> @sugestao.DataConsulta<br />
+                            <strong>IdSugestao:</strong> @sugestao.Id<br/>
+                            <strong>Data:</strong> @sugestao.DataConsulta<br/>
                             <strong>Horário:</strong> @sugestao.HoraConsulta<br/>
                             <strong>Turno:</strong> @sugestao.TurnoPreferenciaCliente<br/>
                             
@@ -35,6 +37,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-outline-success" onclick="aceitarSugestao(
+                                    '@sugestao.Id', // ID da sugestão
                                     '@sugestao.IdUsuario',
                                     '@sugestao.NomeCliente',
                                     '@sugestao.CPFCliente',
@@ -63,11 +66,18 @@
 </section>
 
 <script>
-    function aceitarSugestao(idUsuario, nomeCliente, cpfCliente, dataConsulta, turno, horario, idClinica, nomeClinica, cnpjClinica, nomeMedico, especialidade, cepClinica, estadoClinica, cidadeClinica, bairroClinica, ruaClinica) {
-    // Verificar se a data é válida
-    const dateParts = dataConsulta.split('/');
-    const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
-    const dataISO = new Date(formattedDate).toISOString().split('T')[0];
+    function aceitarSugestao(Id, idUsuario, nomeCliente, cpfCliente, dataConsulta, turno, horario, idClinica, nomeClinica, cnpjClinica, nomeMedico, especialidade, cepClinica, estadoClinica, cidadeClinica, bairroClinica, ruaClinica) {
+
+    console.log("DataConsulta Recebida:", dataConsulta);
+    console.log("Parâmetros recebidos:", { Id, idUsuario, nomeCliente, cpfCliente, dataConsulta, turno, horario, idClinica });
+
+    const dataParts = dataConsulta.split('/');
+    if (dataParts.length !== 3) {
+        alert('Erro: Formato de data inválido.');
+        return;
+    }
+
+    const dataISO = `${dataParts[2]}-${dataParts[1]}-${dataParts[0]}`;
 
     const data = {
         IdUsuario: idUsuario,
@@ -89,7 +99,9 @@
         StatusConsulta: 'Aceita',
         RespostaFeedback: 'Sem resposta'
     };
-    console.log(data); // Verificar os dados
+    //console.log(data);
+    console.log("Enviando dados para CadastrarConsulta:", data);
+
     $.ajax({
         url: '/Consulta/CadastrarConsulta',
         type: 'POST',
@@ -97,10 +109,31 @@
         data: JSON.stringify(data),
         success: function (result) {
             alert('Sugestão aceita com sucesso!');
-            location.reload();
+
+            // Atualizar o status da sugestão para "Aceito" para não mostrar mais na nossa lista de sugestões.
+            const statusData = { StatusSugestaoCliente: 'Aceito' };
+            console.log(`Atualizando status da sugestão ${Id}:`, statusData);
+
+            $.ajax({
+                url: `/SugestaoConsultaCliente/AtualizarParcial/${Id}`,
+                type: 'PATCH',
+                contentType: 'application/json',
+                data: JSON.stringify({ 
+                    //id: Id,
+                    StatusSugestaoCliente: 'Aceita' }),
+                success: function (result) {
+                    alert('Sugestão aceita com sucesso!');
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText); 
+                    alert('Erro ao atualizar o status da sugestão: ' + error);
+                }
+            });
+            //location.reload();
         },
         error: function (xhr, status, error) {
-            console.log(xhr.responseText); // Verificar a resposta do servidor
+            console.log(xhr.responseText);
             alert('Erro ao aceitar a sugestão: ' + error);
         }
     });

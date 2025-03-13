@@ -32,7 +32,6 @@ public class SugestaoConsultaClienteController : Controller
         {
             await _sugestaoService.Criar(sugestao);
             TempData["SuccessMessage"] = "Sugestão cadastrada com sucesso!";
-            //return RedirectToAction("Mensagem");
         }
         return View(sugestao);
     }

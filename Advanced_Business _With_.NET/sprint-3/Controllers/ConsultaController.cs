@@ -37,12 +37,6 @@ public class ConsultaController : Controller
         return View(consulta);
     }
 
-    [HttpGet("Mensagem")]
-    [ApiExplorerSettings(IgnoreApi = true)]
-    public IActionResult Mensagem()
-    {
-        return View();
-    }
 
     /// <summary>
     ///     Cria uma nova Consulta.

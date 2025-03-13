@@ -31,7 +31,10 @@ namespace Project.Repositories
 
         public async Task<List<SugestaoConsultaCliente>> ConsultarTodos()
         {
-            return await _sugestaoConsultaClienteCollection.Find(_ => true).ToListAsync();
+            var filtro = Builders<SugestaoConsultaCliente>.Filter.Eq(u => u.StatusSugestaoCliente, "Pendente");
+            //return await _sugestaoConsultaClienteCollection.Find(_ => true).
+            //ToListAsync();
+            return await _sugestaoConsultaClienteCollection.Find(filtro).ToListAsync();
         }
 
         public async Task<SugestaoConsultaCliente?> Atualizar(SugestaoConsultaCliente sugestao)

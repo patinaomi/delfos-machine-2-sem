@@ -1,0 +1,41 @@
+@model IEnumerable<Project.Models.Consulta>
+
+@{
+    ViewData["Title"] = "Consultas agendadas";
+}
+<section class="p-3">
+    <h2 class=" p-3" style="color: #9B4819;">Consulta Agendadas</h2>
+    <p class="p-3">Lista das suas consultas que foram programadas de acordo com a sua aprovação.</p>
+    <div class="row">
+        @foreach (var sugestao in Model)
+        {   
+            <div class="col-md-4 p-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: #9B4819;">@sugestao.NomeClinica</h5>
+                        <p class="card-text">
+                            <strong>IdSugestao:</strong> @sugestao.Id<br/>
+                            <strong>Data:</strong> @sugestao.Data<br/>
+                            <strong>Horário:</strong> @sugestao.Horario<br/>
+                            <strong>Turno:</strong> @sugestao.Turno<br/>
+                            
+                            <h5 class="pt-2" style="color: #9B4819;">Detalhes do Endereço</h5>
+                            <strong>CEP:</strong> @sugestao.CEPClinica<br/>
+                            <strong>Estado:</strong> @sugestao.EstadoClinica<br/>
+                            <strong>Cidade:</strong> @sugestao.CidadeClinica<br/>
+                            <strong>Bairro:</strong> @sugestao.BairroClinica<br/>
+                            <strong>Rua:</strong> @sugestao.RuaClinica<br/>
+                            <strong>Distância:</strong>1 km<br/>
+
+                            <h5 class="pt-2" style="color: #9B4819;">Detalhes da Consulta</h5>
+                            <strong>Médico:</strong> @sugestao.NomeMedico<br/>
+                            <strong>Especialidade:</strong> @sugestao.Especialidade<br/>
+
+                        </p>
+                       
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
