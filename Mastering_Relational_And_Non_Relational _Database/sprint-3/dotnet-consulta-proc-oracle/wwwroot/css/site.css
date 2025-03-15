@@ -1,0 +1,372 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Botão */
+
+.btn-custom {
+  background-color: #4CAF50; 
+  color: white; 
+  border: none;
+  border-radius: 5px; 
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+  padding: 10px;
+}
+
+.btn-custom:hover {
+  background-color: #45a049;
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2); 
+}
+
+
+.progress-text {
+  position: relative;
+  display: inline-block;
+  color: #3C4748; /* Cor do texto inicialmente */
+  transition: color 0.5s; /* Transição suave para mudar a cor da fonte */
+}
+
+.progress-text::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background-color: #4CAF50; /* Cor da barra */
+  z-index: -1;
+  animation: progress-animation 5s infinite;
+}
+
+@keyframes progress-animation {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}
+
+.progress-text::before {
+  animation: progress-animation 5s infinite;
+}
+
+/* Durante a animação, vamos alterar a cor do texto */
+.progress-text.animate-text {
+  color: white; /* Cor do texto quando a barra estiver enchendo */
+}
+
+/*Problema*/
+
+.energy-section-problem {
+  background-image: url(/assets/Problema/imagem2.png);
+  background-size: fill;
+  background-repeat: no-repeat;
+  min-width: 100vh;
+  min-height: 100vh;
+  background-position: right center; 
+  display: flex;
+  flex-direction: column;    
+  justify-content: center;   
+  padding-left: 40px;        
+  padding-right: 100px;     
+  color: black;              
+}
+
+
+/* Nossa solução */
+
+.energy-section {
+  background-image: url(/assets/Home/imagem2.jpg);
+  background-size: cover;
+  min-width: 100vh;
+  min-height: 100vh;
+  background-position: left center; 
+  display: flex;
+  flex-direction: column;    
+  justify-content: center;   
+  padding-left: 20px;        
+  padding-right: 100px;     
+  color: white;              
+}
+
+h1.title, h2.sub-title, h3.highlight-text, p {
+  margin: 0; 
+  padding: 5px 0; 
+}
+
+h1.title {
+  font-size: 3em;
+  margin-bottom: 10px; 
+}
+
+h2.sub-title {
+  font-size: 2em;
+  margin-bottom: 15px;
+}
+
+h3.highlight-text {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+p {
+  font-size: 1.2em;
+  line-height: 1.6;
+}
+
+/* Projeto */
+
+.project-section {
+  background-image: url(/assets/Home/imagem3.jpg);
+  background-size: cover;
+  min-width: 100vh;
+  min-height: 100vh;
+  background-position: left center; 
+  display: flex;
+  flex-direction: column;    
+  justify-content: center;   
+  padding-left: 20px;        
+  padding-right: 100px;     
+  color: white;              
+}
+
+/* Objetivo */
+
+/* Container principal */
+.objectives-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px;
+  background-color: #ffff;
+  min-height: 100vh;
+}
+
+/* Estilo do lado esquerdo */
+.content-left {
+  flex: 0 0 60%;
+}
+
+.content-left h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.content-left h2 {
+  font-size: 2em;
+  margin-top: 30px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.content-left .objective {
+  margin-top: 20px;
+  padding-left: 10px;
+  position: relative;
+  animation: slideInLeft 1s ease-out;
+}
+
+.content-left .objective h3 {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+  color: #009688;
+}
+
+.content-left .objective p {
+  font-size: 1.1em;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Estilo do lado direito */
+.content-right {
+  flex: 0 0 35%;
+  position: relative;
+}
+
+.energy-map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  animation: slideInRight 1.5s ease-out;
+}
+
+.map-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Animações */
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+      transform: translateX(-100%);
+  }
+  100% {
+      transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+      transform: translateX(100%);
+  }
+  100% {
+      transform: translateX(0);
+  }
+}
+
+/* Estilo do Footer */
+footer {
+  color: black;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  width: 100%;
+  bottom: 0;
+  margin-top: auto; 
+}
+
+/* Login */
+.energy-section-login {
+  background-image: url(/assets/Login/imagem1.jpg);
+  background-size: cover;
+  min-width: 100vh;
+  min-height: 80vh;
+  background-position: left center; 
+  display: flex;
+  flex-direction: column;    
+  justify-content: center;   
+  padding-left: 20px;        
+  padding-right: 100px;     
+  color: white;              
+}
+
+/* Video */
+.background-image-video {
+  background-image: url('../assets/Video/imagem.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Mapa */
+
+/* Popup */
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+  width: 300px;
+  max-width: 80%;
+}
+.popup.active {
+  display: block;
+}
+
+/* Mapa - ambientes */
+
+.quarto {
+  background-image: url(../assets/Mapa/imagem1.jpeg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+  
+}
+
+.quartoDois {
+  background-image: url(../assets/Mapa/imagem2.jpeg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+
+.sala {
+  background-image: url(../assets/Mapa/imagem3.jpeg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+
+.banheiro {
+  background-image: url(../assets/Mapa/imagem4.jpeg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+
+.cozinha {
+  background-image: url(../assets/Mapa/imagem5.jpeg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+
+.lavanderia {
+  background-image: url(../assets/Mapa/imagem8.jpeg);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+
+
+
+/* Mensagem */
+.energy-section-message {
+  background-image: url(/assets/Mensagem/purple-speech-balloon-design-element_53876-119935.jpg);
+  background-size: fill;
+  min-width: 100vh;
+  min-height: 100vh;
+  background-position: center; 
+  display: flex;
+  flex-direction: column;    
+  justify-content: center;   
+  padding-left: 20px;        
+  padding-right: 100px;     
+  color: white;              
+}

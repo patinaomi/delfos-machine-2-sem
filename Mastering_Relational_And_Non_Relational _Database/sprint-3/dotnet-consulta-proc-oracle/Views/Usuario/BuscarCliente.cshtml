@@ -1,0 +1,23 @@
+@{
+    ViewData["Title"] = "Buscar Cliente";
+}
+
+<h2>Buscar Cliente</h2>
+
+<form method="post" asp-action="BuscarCliente">
+    <label for="idCliente">ID do Cliente:</label>
+    <input type="text" id="idCliente" name="idCliente" required />
+    <button type="submit">Buscar</button>
+</form>
+
+@if (Model != null)
+{
+    <h3>Resultado:</h3>
+    <p><strong>ID:</strong> @Model.Id</p>
+    <p><strong>Nome:</strong> @Model.Nome</p>
+    <p><strong>Sobrenome:</strong> @Model.Sobrenome</p>
+    <p><strong>Email:</strong> @Model.Email</p>
+    <p><strong>Telefone:</strong> @Model.Telefone</p>
+    <p><strong>Data de Nascimento:</strong> @Model.DataNasc.ToShortDateString()</p>
+    <p><strong>Endereço:</strong> @Model.Endereco</p>
+}
