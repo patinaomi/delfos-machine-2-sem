@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "u3iks3Wxghw=",
+  "dgSpecHash": "DK/FkhwbLko=",
   "success": true,
-  "projectFilePath": "/Users/claudiobispo/Documents/dotnet-consulta-proc-oracle/LexusTech.csproj",
+  "projectFilePath": "/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/LexusTech.csproj",
   "expectedPackageFiles": [
     "/Users/claudiobispo/.nuget/packages/azure.core/1.38.0/azure.core.1.38.0.nupkg.sha512",
     "/Users/claudiobispo/.nuget/packages/azure.identity/1.11.4/azure.identity.1.11.4.nupkg.sha512",

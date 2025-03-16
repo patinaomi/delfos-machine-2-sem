@@ -202,6 +202,15 @@ CREATE TABLE Notificacao (
 
 */
 
+CREATE OR REPLACE PACKAGE pkg_clientes AS 
+    PROCEDURE inserir_cliente(p_nome IN VARCHAR2, p_sobrenome IN VARCHAR2, p_email IN VARCHAR2, p_telefone IN VARCHAR2, p_data_nascimento IN DATE, p_endereco IN VARCHAR2);
+    PROCEDURE atualizar_cliente(p_id IN NUMBER, p_nome IN VARCHAR2, p_sobrenome IN VARCHAR2, p_email IN VARCHAR2, p_telefone IN VARCHAR2, p_data_nascimento IN DATE, p_endereco IN VARCHAR2);
+    PROCEDURE excluir_cliente(p_id IN NUMBER);
+    PROCEDURE listar_clientes(p_cursor OUT SYS_REFCURSOR);
+    PROCEDURE buscar_cliente(p_id_cliente IN NUMBER, p_cursor OUT SYS_REFCURSOR);
+END pkg_clientes;
+
+
 CREATE OR REPLACE PACKAGE BODY pkg_clientes AS 
 
     -- 1. Procedure para inserir um cliente
@@ -238,8 +247,30 @@ CREATE OR REPLACE PACKAGE BODY pkg_clientes AS
             SELECT id_cliente, nome, sobrenome, email, telefone, data_nasc, endereco 
             FROM Cliente;
     END listar_clientes;
+    
+    -- 5.Listar o cliente pelo Id
+    PROCEDURE buscar_cliente(
+        p_id_cliente IN NUMBER,    
+        p_cursor OUT SYS_REFCURSOR
+    ) IS
+    BEGIN
+        OPEN p_cursor FOR 
+            SELECT id_cliente, nome, sobrenome, email, telefone, data_nasc, endereco 
+            FROM Cliente
+            WHERE id_cliente = p_id_cliente;
+    END buscar_cliente;
 
 END pkg_clientes;
+
+commit;
+
+-- Verificar se o pacote está válido e executando:
+SELECT object_name, status 
+FROM user_objects 
+WHERE object_type = 'PACKAGE' 
+AND object_name = 'PKG_CLIENTES';
+
+
 
 -- Executar a procedure inserir_cliente
 BEGIN
@@ -308,6 +339,44 @@ BEGIN
     CLOSE v_cursor;
 END;
 
+-- Buscar pelo Id
+DECLARE
+    v_cursor SYS_REFCURSOR;
+    v_id_cliente NUMBER;
+    v_nome VARCHAR2(100);
+    v_sobrenome VARCHAR2(255);
+    v_email VARCHAR2(100);
+    v_telefone VARCHAR2(20);
+    v_data_nasc DATE;
+    v_endereco VARCHAR2(255);
+BEGIN
+    -- Definir o ID do cliente que deseja buscar
+    v_id_cliente := 1;
+
+    -- Chamar a procedure dentro do pacote corretamente
+    pkg_clientes.buscar_cliente(v_id_cliente, v_cursor);
+
+    -- Buscar os dados do cursor
+    LOOP
+        FETCH v_cursor INTO v_id_cliente, v_nome, v_sobrenome, v_email, v_telefone, v_data_nasc, v_endereco;
+        EXIT WHEN v_cursor%NOTFOUND;
+
+        -- Exibir os dados
+        DBMS_OUTPUT.PUT_LINE('ID: ' || v_id_cliente);
+        DBMS_OUTPUT.PUT_LINE('Nome: ' || v_nome);
+        DBMS_OUTPUT.PUT_LINE('Sobrenome: ' || v_sobrenome);
+        DBMS_OUTPUT.PUT_LINE('Email: ' || v_email);
+        DBMS_OUTPUT.PUT_LINE('Telefone: ' || v_telefone);
+        DBMS_OUTPUT.PUT_LINE('Data Nascimento: ' || TO_CHAR(v_data_nasc, 'DD/MM/YYYY'));
+        DBMS_OUTPUT.PUT_LINE('Endereço: ' || v_endereco);
+    END LOOP;
+
+    -- Fechar o cursor
+    CLOSE v_cursor;
+END;
+
+
+
 -- Package para a tabela Clinica
 CREATE OR REPLACE PACKAGE pkg_clinica AS 
     PROCEDURE inserir_clinica(p_nome IN VARCHAR2, p_endereco IN VARCHAR2, p_telefone IN VARCHAR2, p_avaliacao IN DECIMAL, p_preco_medio IN DECIMAL);
@@ -349,6 +418,17 @@ CREATE OR REPLACE PACKAGE BODY pkg_clinica AS
             SELECT id_clinica, nome, endereco, telefone, avaliacao, preco_medio 
             FROM CLINICA;
     END listar_clinicas;
+    
+   CREATE OR REPLACE PROCEDURE buscar_clinica(
+        p_id_cliente IN NUMBER,    
+        p_cursor OUT SYS_REFCURSOR
+    ) IS
+    BEGIN
+        OPEN p_cursor FOR 
+            SELECT id_clinica, nome, endereco, telefone, avaliacao, preco_medio 
+            FROM CLINICA
+            WHERE id_clinica = p_id_cliente; -- Filtra pelo ID especificado
+    END buscar_cliente;
 
 END pkg_clinica;
 
@@ -443,7 +523,6 @@ CREATE OR REPLACE PACKAGE BODY pkg_especialidade AS
         COMMIT;
     END excluir_especialidade;
 
-    -- 4. Procedure para listar especialidades
     PROCEDURE listar_especialidades(p_cursor OUT SYS_REFCURSOR) IS
     BEGIN
         OPEN p_cursor FOR 

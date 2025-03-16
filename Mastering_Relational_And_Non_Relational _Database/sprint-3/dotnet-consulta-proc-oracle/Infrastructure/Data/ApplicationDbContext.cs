@@ -10,6 +10,8 @@
         }
 
         public required DbSet<Usuario> T_Usuario { get; set; } = null!;
+        public required DbSet<Usuario> T_Clinica { get; set; } = null!;
+        public required DbSet<Usuario> T_Medico { get; set; } = null!;
 
 
     }

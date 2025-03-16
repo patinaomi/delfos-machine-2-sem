@@ -50,17 +50,24 @@ public class UsuarioController : Controller
     }
 
     [HttpPost("BuscarCliente")]
-    public async Task<IActionResult> BuscarCliente(int idCliente)
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> BuscarCliente(int id)
     {
-        var usuario = await _usuarioService.BuscarCliente(idCliente);
-
-        if (usuario == null)
+        if (id <= 0)
         {
-            TempData["ErrorMessage"] = "Cliente não encontrado!";
-            return RedirectToAction("MensagemErro");
+            TempData["ErrorMessage"] = "ID inválido.";
+            return View();
         }
 
-        return View(usuario);
+        var usuarioEncontrado = await _usuarioService.BuscarCliente(id);
+
+        if (usuarioEncontrado == null)
+        {
+            TempData["ErrorMessage"] = "Usuário não encontrado.";
+            return View();
+        }
+
+        return View(usuarioEncontrado);
     }
 
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/claudiobispo/Documents/dotnet-consulta-proc-oracle/LexusTech.csproj": {}
+    "/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/LexusTech.csproj": {}
   },
   "projects": {
-    "/Users/claudiobispo/Documents/dotnet-consulta-proc-oracle/LexusTech.csproj": {
+    "/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/LexusTech.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/claudiobispo/Documents/dotnet-consulta-proc-oracle/LexusTech.csproj",
+        "projectUniqueName": "/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/LexusTech.csproj",
         "projectName": "LexusTech",
-        "projectPath": "/Users/claudiobispo/Documents/dotnet-consulta-proc-oracle/LexusTech.csproj",
+        "projectPath": "/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/LexusTech.csproj",
         "packagesPath": "/Users/claudiobispo/.nuget/packages/",
-        "outputPath": "/Users/claudiobispo/Documents/dotnet-consulta-proc-oracle/obj/",
+        "outputPath": "/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/claudiobispo/.nuget/NuGet/NuGet.Config"
