@@ -1,0 +1,38 @@
+@model IEnumerable<LexusTech.Models.Usuario>
+
+<section class="p-5">
+
+    <h2>Lista de Usuários</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Sobrenome</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th>Data de Nascimento</th>
+                <th>Endereço</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var usuario in Model)
+            {
+                <tr>
+                    <td>@usuario.Id</td>
+                    <td>@usuario.Nome</td>
+                    <td>@usuario.Sobrenome</td>
+                    <td>@usuario.Telefone</td>
+                    <td>@usuario.Email</td>
+                    <td>@usuario.DataNasc</td>
+                    <td>@usuario.Endereco</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="form-group pt-3">
+        <a asp-controller="Usuario" asp-action="Criar" class="btn btn-warning">Voltar</a>
+    </div>
+
+</section>

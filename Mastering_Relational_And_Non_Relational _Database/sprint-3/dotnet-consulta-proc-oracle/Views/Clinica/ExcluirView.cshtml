@@ -1,0 +1,42 @@
+@model LexusTech.Models.Usuario
+
+@{
+    ViewData["Title"] = "Atualizar dados do usuário";
+}
+
+<section class="d-flex justify-content-center align-items-center mt-5" style="height: 80vh">
+   
+    <div class="w-20 d-flex align-items-center justify-content-center" style="height: 100vh; padding-right: 10px;">
+        <div class="container-fluid border p-4" style="min-height: 80vh; width: 60vh;">
+            <h2>Excluir dados</h2>
+            <form asp-action="Excluir" method="post">
+                <div class="form-group">
+                    <label asp-for="Id" class="control-label">Id do banco</label>
+                    <input asp-for="Id" class="form-control"/>
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+    
+                <div class="form-group pt-3">
+                    <input type="submit" value="Salvar" class="btn btn-primary" />
+                    <a asp-controller="Usuario" asp-action="Consultar" class="btn btn-secondary">Consultar</a>
+                </div>
+            </form>
+
+            <!-- Exibir alerta de sucesso, se houver -->
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success mt-1 p-2 text-center">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="w-80" style="height: 80vh">
+        <img src="~/assets/Usuario/imagem.png" alt="Imagem de fundo para área de cadastro cliente" class="img-fluid" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
