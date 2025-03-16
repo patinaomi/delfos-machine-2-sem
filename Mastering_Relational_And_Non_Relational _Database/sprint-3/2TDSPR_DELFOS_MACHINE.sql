@@ -17,6 +17,8 @@ DROP TABLE Clinica CASCADE CONSTRAINTS;
 DROP TABLE Cliente CASCADE CONSTRAINTS;
 DROP TABLE Estado_Civil CASCADE CONSTRAINTS;
 DROP TABLE Tipo_Notificacao CASCADE CONSTRAINTS;
+DROP TABLE Auditoria CASCADE CONSTRAINTS;
+
 
 -- Criação das Tabelas
 
@@ -638,12 +640,12 @@ COMMIT;
 -- Teste de Inserção (CRUD: Inserir) -- Lembrando que se executar a exclusão das linhas clinica e especialidade, esta vai dar erro.
 BEGIN
     pkg_dentista.inserir_dentista(
-        p_nome => 'João', 
+        p_nome => 'Fred', 
         p_sobrenome => 'Silva', 
         p_telefone => '123456789', 
-        p_id_clinica => 2,  -- ID de exemplo para a clínica
-        p_id_especialidade => 2,  -- ID de exemplo para a especialidade
-        p_avaliacao => 4.5
+        p_id_clinica => 1, 
+        p_id_especialidade => 1,
+        p_avaliacao => 4
     );
 END;
 
@@ -652,13 +654,13 @@ SELECT * FROM Dentista;
 -- Teste de Atualização (CRUD: Atualizar)
 BEGIN
     pkg_dentista.atualizar_dentista(
-        p_id => 1,
+        p_id => 4,
         p_nome => 'Carlos', 
         p_sobrenome => 'Oliveira', 
         p_telefone => '987654321', 
         p_id_clinica => 2, 
-        p_id_especialidade => 2, 
-        p_avaliacao => 5.0
+        p_id_especialidade => 1, 
+        p_avaliacao => 5
     );
 END;
 
@@ -666,7 +668,7 @@ SELECT * FROM Dentista;
 
 -- Teste de Exclusão (CRUD: Excluir)
 BEGIN
-    pkg_dentista.excluir_dentista(p_id => 3);
+    pkg_dentista.excluir_dentista(p_id => 4);
 END;
 
 SELECT * FROM Dentista;
@@ -788,9 +790,9 @@ END pkg_consulta;
 -- Teste de Inserção (CRUD: Inserir)
 BEGIN
     pkg_consulta.inserir_consulta(
-        p_id_cliente => 2,  
-        p_id_clinica => 2,  
-        p_id_dentista => 4,  
+        p_id_cliente => 1,  
+        p_id_clinica => 1,  
+        p_id_dentista => 1,  
         p_tipo_servico => 'Limpeza', 
         p_data_consulta => SYSTIMESTAMP, 
         p_status_consulta => 'S', 
@@ -947,7 +949,7 @@ END pkg_sinistro;
 BEGIN
     -- Teste de Inserção
     pkg_sinistro.inserir_sinistro(
-        p_id_consulta => 3, 
+        p_id_consulta => 1, 
         p_nome => 'Claudio', 
         p_descricao => 'Retirar um dente', 
         p_status_sinistro => 'S', 
@@ -965,8 +967,8 @@ SELECT * FROM SINISTRO;
 BEGIN
     -- Teste de Atualização
     pkg_sinistro.atualizar_sinistro(
-        p_id => 3,  
-        p_id_consulta => 3,
+        p_id => 1,  
+        p_id_consulta => 1,
         p_nome => 'Fernando', 
         p_descricao => 'Trocar dente', 
         p_status_sinistro => 'N', 
@@ -1844,6 +1846,9 @@ BEGIN
     CLOSE c_clientes_consultas_feedbacks;
 END relatorio_clientes_consultas_feedbacks;
 
+-- AVALIAR RESULTADO DO PRIMERIO RELATÓRIO
+SET SERVEROUTPUT ON;
+EXEC relatorio_clientes_consultas_feedbacks;
 
 /* 
 
@@ -1895,6 +1900,10 @@ BEGIN
 
     CLOSE c_sinistros_consultas;
 END relatorio_sinistros_consultas;
+
+-- AVALIAR RESULTADO DO SEGUNDO RELATÓRIO
+SET SERVEROUTPUT ON;
+EXEC relatorio_sinistros_consultas;
 
 /*
     SET SERVEROUTPUT ON;
@@ -2044,10 +2053,10 @@ VALUES ('João', 'Silva', 'joao.claudio.silva@email.com', '123456789', TO_DATE('
 -- Testando o UPDATE
 UPDATE Cliente 
 SET nome = 'Carlos' 
-WHERE id_cliente = 5;
+WHERE id_cliente = 1;
 
 -- Testando o DELETE
-DELETE FROM Cliente WHERE id_cliente = 5;
+DELETE FROM Cliente WHERE id_cliente = 2;
 
 -- CONSULTAR A AUDITORIA
 SELECT * FROM Auditoria;
