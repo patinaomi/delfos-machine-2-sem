@@ -18,14 +18,14 @@ namespace LexusTech.Repositories
         public async Task<Medico> Criar(Medico medico)
         {
             using (var connection = (OracleConnection)_context.Database.GetDbConnection())
-            using (var command = new OracleCommand("RM553472.PKG_CLIENTES.INSERIR_DENTISTA", connection))
+            using (var command = new OracleCommand("RM553472.PKG_DENTISTA.INSERIR_DENTISTA", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("P_NOME", OracleDbType.Varchar2).Value = medico.Nome;
                 command.Parameters.Add("P_SOBRENOME", OracleDbType.Varchar2).Value = medico.Sobrenome;
                 command.Parameters.Add("P_TELEFONE", OracleDbType.Varchar2).Value = medico.Telefone;
                 command.Parameters.Add("P_ID_CLINICA", OracleDbType.Varchar2).Value = medico.IdClinica;
-                command.Parameters.Add("P_ID_ESPECIALIDADE", OracleDbType.Date).Value = medico.IdEspecialidade;
+                command.Parameters.Add("P_ID_ESPECIALIDADE", OracleDbType.Varchar2).Value = medico.IdEspecialidade;
                 command.Parameters.Add("P_AVALIACAO", OracleDbType.Varchar2).Value = medico.Avaliacao;
 
                 await connection.OpenAsync();
@@ -41,7 +41,7 @@ namespace LexusTech.Repositories
             Medico medico = null;
 
             using (var connection = (OracleConnection)_context.Database.GetDbConnection())
-            using (var command = new OracleCommand("RM553472.PKG_CLIENTES.CONSULTAR_DENTISTA_POR_ID", connection))
+            using (var command = new OracleCommand("RM553472.PKG_DENTISTA.CONSULTAR_DENTISTA_POR_ID", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("P_ID", OracleDbType.Int32).Value = id;
@@ -74,7 +74,7 @@ namespace LexusTech.Repositories
             var medicos = new List<Medico>();
 
             using (var connection = (OracleConnection)_context.Database.GetDbConnection())
-            using (var command = new OracleCommand("RM553472.PKG_CLIENTES.LISTAR_DENTISTAS", connection))
+            using (var command = new OracleCommand("RM553472.PKG_DENTISTA.LISTAR_DENTISTAS", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("P_CURSOR", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
@@ -102,12 +102,12 @@ namespace LexusTech.Repositories
             return medicos;
         }
 
-        public async Task<Medico> BuscarCliente(int id)
+        public async Task<Medico> BuscarMedico(int id)
         {
             Medico medico = null;
 
             using (var connection = (OracleConnection)_context.Database.GetDbConnection())
-            using (var command = new OracleCommand("RM553472.PKG_CLIENTES.BUSCAR_DENTISTAS", connection))
+            using (var command = new OracleCommand("RM553472.PKG_DENTISTA.BUSCAR_DENTISTA", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("P_ID", OracleDbType.Int32).Value = id;
@@ -141,7 +141,7 @@ namespace LexusTech.Repositories
         public async Task<Medico> Atualizar(Medico medico)
         {
             using (var connection = (OracleConnection)_context.Database.GetDbConnection())
-            using (var command = new OracleCommand("RM553472.PKG_CLIENTES.ATUALIZAR_CLIENTE", connection))
+            using (var command = new OracleCommand("RM553472.PKG_DENTISTA.ATUALIZAR_DENTISTA", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("P_ID", OracleDbType.Int32).Value = medico.Id;
@@ -164,7 +164,7 @@ namespace LexusTech.Repositories
         public async Task<Medico> Excluir(Medico medico)
         {
             using (var connection = (OracleConnection)_context.Database.GetDbConnection())
-            using (var command = new OracleCommand("RM553472.PKG_CLIENTES.EXCLUIR_DENTISTA", connection))
+            using (var command = new OracleCommand("RM553472.PKG_DENTISTA.EXCLUIR_DENTISTA", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("P_ID", OracleDbType.Int32).Value = medico.Id;

@@ -23,9 +23,9 @@ namespace LexusTech.Application.Services
             return medicos.ToList(); 
         }
 
-        public async Task<Medico> BuscarCliente(int id)
+        public async Task<Medico> BuscarMedico(int id)
         {
-            return await _medicoRepository.BuscarCliente(id);
+            return await _medicoRepository.BuscarMedico(id);
         }
 
 

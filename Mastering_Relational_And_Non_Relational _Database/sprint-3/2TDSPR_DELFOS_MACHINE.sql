@@ -175,6 +175,7 @@ CREATE TABLE Notificacao (
     CONSTRAINT fk_notificacao_tipo FOREIGN KEY (id_tipo_notificacao) REFERENCES Tipo_Notificacao(id_tipo_notificacao)
 );
 
+COMMIT;
 
 /*
 
@@ -262,15 +263,13 @@ CREATE OR REPLACE PACKAGE BODY pkg_clientes AS
 
 END pkg_clientes;
 
-commit;
+COMMIT;
 
 -- Verificar se o pacote está válido e executando:
 SELECT object_name, status 
 FROM user_objects 
 WHERE object_type = 'PACKAGE' 
 AND object_name = 'PKG_CLIENTES';
-
-
 
 -- Executar a procedure inserir_cliente
 BEGIN
@@ -383,6 +382,7 @@ CREATE OR REPLACE PACKAGE pkg_clinica AS
     PROCEDURE atualizar_clinica(p_id IN NUMBER, p_nome IN VARCHAR2, p_endereco IN VARCHAR2, p_telefone IN VARCHAR2, p_avaliacao IN DECIMAL, p_preco_medio IN DECIMAL);
     PROCEDURE excluir_clinica(p_id IN NUMBER);
     PROCEDURE listar_clinicas(p_cursor OUT SYS_REFCURSOR);
+    PROCEDURE buscar_clinica(p_id_clinica IN NUMBER, p_cursor OUT SYS_REFCURSOR);
 END pkg_clinica;
 
 -- Package Body para a tabela Clinica
@@ -419,18 +419,20 @@ CREATE OR REPLACE PACKAGE BODY pkg_clinica AS
             FROM CLINICA;
     END listar_clinicas;
     
-   CREATE OR REPLACE PROCEDURE buscar_clinica(
-        p_id_cliente IN NUMBER,    
+   PROCEDURE buscar_clinica(
+        p_id_clinica IN NUMBER,    
         p_cursor OUT SYS_REFCURSOR
     ) IS
     BEGIN
         OPEN p_cursor FOR 
             SELECT id_clinica, nome, endereco, telefone, avaliacao, preco_medio 
             FROM CLINICA
-            WHERE id_clinica = p_id_cliente; -- Filtra pelo ID especificado
-    END buscar_cliente;
+            WHERE id_clinica = p_id_clinica;
+    END buscar_clinica;
 
 END pkg_clinica;
+
+COMMIT;
 
 -- Teste de Inserção de Clínica (CRUD: Inserir)
 BEGIN
@@ -577,16 +579,17 @@ END;
 
 -- Criação do Pacote pkg_dentista
 CREATE OR REPLACE PACKAGE pkg_dentista AS 
-    PROCEDURE inserir_dentista(p_nome IN VARCHAR2, p_sobrenome IN VARCHAR2, p_telefone IN VARCHAR2, p_id_clinica IN NUMBER, p_id_especialidade IN NUMBER, p_avaliacao IN DECIMAL);
-    PROCEDURE atualizar_dentista(p_id IN NUMBER, p_nome IN VARCHAR2, p_sobrenome IN VARCHAR2, p_telefone IN VARCHAR2, p_id_clinica IN NUMBER, p_id_especialidade IN NUMBER, p_avaliacao IN DECIMAL);
+    PROCEDURE inserir_dentista(p_nome IN VARCHAR2, p_sobrenome IN VARCHAR2, p_telefone IN VARCHAR2, p_id_clinica IN NUMBER, p_id_especialidade IN NUMBER, p_avaliacao IN NUMBER);
+    PROCEDURE atualizar_dentista(p_id IN NUMBER, p_nome IN VARCHAR2, p_sobrenome IN VARCHAR2, p_telefone IN VARCHAR2, p_id_clinica IN NUMBER, p_id_especialidade IN NUMBER, p_avaliacao IN NUMBER);
     PROCEDURE excluir_dentista(p_id IN NUMBER);
     PROCEDURE listar_dentistas(p_cursor OUT SYS_REFCURSOR);
+    PROCEDURE buscar_dentista(p_id_dentista IN NUMBER, p_cursor OUT SYS_REFCURSOR);
 END pkg_dentista;
 
 -- Package Body para a tabela Dentista
 CREATE OR REPLACE PACKAGE BODY pkg_dentista AS 
 
-    PROCEDURE inserir_dentista(p_nome IN VARCHAR2, p_sobrenome IN VARCHAR2, p_telefone IN VARCHAR2, p_id_clinica IN NUMBER, p_id_especialidade IN NUMBER, p_avaliacao IN DECIMAL) IS
+    PROCEDURE inserir_dentista(p_nome IN VARCHAR2, p_sobrenome IN VARCHAR2, p_telefone IN VARCHAR2, p_id_clinica IN NUMBER, p_id_especialidade IN NUMBER, p_avaliacao IN NUMBER) IS
     BEGIN
         INSERT INTO Dentista (nome, sobrenome, telefone, id_clinica, id_especialidade, avaliacao)
         VALUES (p_nome, p_sobrenome, p_telefone, p_id_clinica, p_id_especialidade, p_avaliacao);
@@ -594,7 +597,7 @@ CREATE OR REPLACE PACKAGE BODY pkg_dentista AS
         COMMIT;
     END inserir_dentista;
 
-    PROCEDURE atualizar_dentista(p_id IN NUMBER, p_nome IN VARCHAR2, p_sobrenome IN VARCHAR2, p_telefone IN VARCHAR2, p_id_clinica IN NUMBER, p_id_especialidade IN NUMBER, p_avaliacao IN DECIMAL) IS
+    PROCEDURE atualizar_dentista(p_id IN NUMBER, p_nome IN VARCHAR2, p_sobrenome IN VARCHAR2, p_telefone IN VARCHAR2, p_id_clinica IN NUMBER, p_id_especialidade IN NUMBER, p_avaliacao IN NUMBER) IS
     BEGIN
         UPDATE Dentista
         SET nome = p_nome, sobrenome = p_sobrenome, telefone = p_telefone, id_clinica = p_id_clinica, id_especialidade = p_id_especialidade, avaliacao = p_avaliacao
@@ -616,8 +619,21 @@ CREATE OR REPLACE PACKAGE BODY pkg_dentista AS
             SELECT id_dentista, nome, sobrenome, telefone, id_clinica, id_especialidade, avaliacao 
             FROM Dentista;
     END listar_dentistas;
+    
+    PROCEDURE buscar_dentista(
+        p_id_dentista IN NUMBER,    
+        p_cursor OUT SYS_REFCURSOR
+    ) IS
+    BEGIN
+        OPEN p_cursor FOR 
+            SELECT id_dentista, nome, sobrenome, telefone, id_clinica, id_especialidade, avaliacao 
+            FROM Dentista
+            WHERE id_dentista = p_id_dentista;
+    END buscar_dentista;
 
 END pkg_dentista;
+
+COMMIT;
 
 -- Teste de Inserção (CRUD: Inserir) -- Lembrando que se executar a exclusão das linhas clinica e especialidade, esta vai dar erro.
 BEGIN

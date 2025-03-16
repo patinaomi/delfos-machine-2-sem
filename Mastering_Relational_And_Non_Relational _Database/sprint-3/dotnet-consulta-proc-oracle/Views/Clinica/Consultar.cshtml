@@ -1,4 +1,4 @@
-@model IEnumerable<LexusTech.Models.Usuario>
+@model IEnumerable<LexusTech.Models.Clinica>
 
 <section class="p-5">
 
@@ -8,31 +8,29 @@
             <tr>
                 <th>Id</th>
                 <th>Nome</th>
-                <th>Sobrenome</th>
+                <th>Endereco</th>
                 <th>Telefone</th>
-                <th>Email</th>
-                <th>Data de Nascimento</th>
-                <th>Endereço</th>
+                <th>Avaliação</th>
+                <th>Preço Médio</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var usuario in Model)
+            @foreach (var clinica in Model)
             {
                 <tr>
-                    <td>@usuario.Id</td>
-                    <td>@usuario.Nome</td>
-                    <td>@usuario.Sobrenome</td>
-                    <td>@usuario.Telefone</td>
-                    <td>@usuario.Email</td>
-                    <td>@usuario.DataNasc</td>
-                    <td>@usuario.Endereco</td>
+                    <td>@clinica.Id</td>
+                    <td>@clinica.Nome</td>
+                    <td>@clinica.Endereco</td>
+                    <td>@clinica.Telefone</td>
+                    <td>@clinica.Avaliacao</td>
+                    <td>@clinica.PrecoMedio</td>
                 </tr>
             }
         </tbody>
     </table>
 
     <div class="form-group pt-3">
-        <a asp-controller="Usuario" asp-action="Criar" class="btn btn-warning">Voltar</a>
+        <a asp-controller="Clinica" asp-action="Criar" class="btn btn-warning">Voltar</a>
     </div>
 
 </section>

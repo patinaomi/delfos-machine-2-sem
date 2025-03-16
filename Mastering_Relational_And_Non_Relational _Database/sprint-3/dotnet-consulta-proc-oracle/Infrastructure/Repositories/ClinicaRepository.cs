@@ -18,14 +18,14 @@ namespace LexusTech.Repositories
         public async Task<Clinica> Criar(Clinica clinica)
         {
             using (var connection = (OracleConnection)_context.Database.GetDbConnection())
-            using (var command = new OracleCommand("RM553472.PKG_CLIENTES.INSERIR_CLIENTE", connection))
+            using (var command = new OracleCommand("RM553472.PKG_CLINICA.INSERIR_CLINICA", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("P_NOME", OracleDbType.Varchar2).Value = clinica.Nome;
                 command.Parameters.Add("P_ENDERECO", OracleDbType.Varchar2).Value = clinica.Endereco;
                 command.Parameters.Add("P_TELEFONE", OracleDbType.Varchar2).Value = clinica.Telefone;
                 command.Parameters.Add("P_AVALIACAO", OracleDbType.Varchar2).Value = clinica.Avaliacao;
-                command.Parameters.Add("P_PRECO_MEDIO", OracleDbType.Date).Value = clinica.PrecoMedio;
+                command.Parameters.Add("P_PRECO_MEDIO", OracleDbType.Varchar2).Value = clinica.PrecoMedio;
 
                 await connection.OpenAsync();
                 await command.ExecuteNonQueryAsync();
@@ -40,7 +40,7 @@ namespace LexusTech.Repositories
             Clinica clinica = null;
 
             using (var connection = (OracleConnection)_context.Database.GetDbConnection())
-            using (var command = new OracleCommand("RM553472.PKG_CLIENTES.CONSULTAR_CLIENTE_POR_ID", connection))
+            using (var command = new OracleCommand("RM553472.PKG_CLINICA.CONSULTAR_CLINICA_POR_ID", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("P_ID", OracleDbType.Int32).Value = id;
@@ -72,7 +72,7 @@ namespace LexusTech.Repositories
             var clinicas = new List<Clinica>();
 
             using (var connection = (OracleConnection)_context.Database.GetDbConnection())
-            using (var command = new OracleCommand("RM553472.PKG_CLIENTES.LISTAR_CLIENTES", connection))
+            using (var command = new OracleCommand("RM553472.PKG_CLINICA.LISTAR_CLINICAS", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("P_CURSOR", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
@@ -99,12 +99,12 @@ namespace LexusTech.Repositories
             return clinicas;
         }
 
-        public async Task<Clinica> BuscarCliente(int id)
+        public async Task<Clinica> BuscarClinica(int id)
         {
             Clinica clinica = null;
 
             using (var connection = (OracleConnection)_context.Database.GetDbConnection())
-            using (var command = new OracleCommand("RM553472.PKG_CLIENTES.BUSCAR_CLIENTE", connection))
+            using (var command = new OracleCommand("RM553472.PKG_CLINICA.BUSCAR_CLINICA", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("P_ID", OracleDbType.Int32).Value = id;
@@ -137,7 +137,7 @@ namespace LexusTech.Repositories
         public async Task<Clinica> Atualizar(Clinica clinica)
         {
             using (var connection = (OracleConnection)_context.Database.GetDbConnection())
-            using (var command = new OracleCommand("RM553472.PKG_CLIENTES.ATUALIZAR_CLIENTE", connection))
+            using (var command = new OracleCommand("RM553472.PKG_CLINICA.ATUALIZAR_CLINICA", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("P_ID", OracleDbType.Int32).Value = clinica.Id;
@@ -145,7 +145,7 @@ namespace LexusTech.Repositories
                 command.Parameters.Add("P_ENDERECO", OracleDbType.Varchar2).Value = clinica.Endereco;
                 command.Parameters.Add("P_TELEFONE", OracleDbType.Varchar2).Value = clinica.Telefone;
                 command.Parameters.Add("P_AVALIACAO", OracleDbType.Varchar2).Value = clinica.Avaliacao;
-                command.Parameters.Add("P_PRECO_MEDIO", OracleDbType.Date).Value = clinica.PrecoMedio;
+                command.Parameters.Add("P_PRECO_MEDIO", OracleDbType.Varchar2).Value = clinica.PrecoMedio;
 
                 await connection.OpenAsync();
                 await command.ExecuteNonQueryAsync();
@@ -159,7 +159,7 @@ namespace LexusTech.Repositories
         public async Task<Clinica> Excluir(Clinica clinica)
         {
             using (var connection = (OracleConnection)_context.Database.GetDbConnection())
-            using (var command = new OracleCommand("RM553472.PKG_CLIENTES.EXCLUIR_CLIENTE", connection))
+            using (var command = new OracleCommand("RM553472.PKG_CLINICA.EXCLUIR_CLINICA", connection))
             {
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("P_ID", OracleDbType.Int32).Value = clinica.Id;

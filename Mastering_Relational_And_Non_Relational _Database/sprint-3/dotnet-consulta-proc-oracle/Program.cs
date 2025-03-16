@@ -18,6 +18,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseOracle
 builder.Services.AddTransient<IUsuarioService, UsuarioService>();
 builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
 
+//Clinica -- Cadastro
+builder.Services.AddTransient<IClinicaService, ClinicaService>();
+builder.Services.AddTransient<IClinicaRepository, ClinicaRepository>();
+
+
+//Medico -- Cadastro
+builder.Services.AddTransient<IMedicoService, MedicoService>();
+builder.Services.AddTransient<IMedicoRepository, MedicoRepository>();
+
 // Configurar autenticação com cookies
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

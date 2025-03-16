@@ -1,14 +1,14 @@
 @{
-    ViewData["Title"] = "Buscar Cliente";
+    ViewData["Title"] = "Buscar Clinica";
 }
 
 <div class="container">
-    <h2 class="text-center">Buscar Cliente</h2>
+    <h2 class="text-center">Buscar Clinica</h2>
 
     <!-- Formulário de Busca -->
-    <form method="post" asp-action="BuscarCliente" class="search-form">
+    <form method="post" asp-action="BuscarClinica" class="search-form">
         <div class="form-group">
-            <label for="Id" class="form-label">ID do Cliente:</label>
+            <label for="Id" class="form-label">ID da Clinica:</label>
             <input type="text" id="Id" name="Id" class="form-control" required />
         </div>
         <div class="form-group text-center">
@@ -26,11 +26,10 @@
             <div class="card-body">
                 <p><strong>ID:</strong> @Model.Id</p>
                 <p><strong>Nome:</strong> @Model.Nome</p>
-                <p><strong>Sobrenome:</strong> @Model.Sobrenome</p>
-                <p><strong>Email:</strong> @Model.Email</p>
+                <p><strong>Endereco:</strong> @Model.Endereco</p>
                 <p><strong>Telefone:</strong> @Model.Telefone</p>
-                <p><strong>Data de Nascimento:</strong> @Model.DataNasc.ToShortDateString()</p>
-                <p><strong>Endereço:</strong> @Model.Endereco</p>
+                <p><strong>Avaliação:</strong> @Model.Avaliacao</p>
+                <p><strong>Preço Médio:</strong> @Model.PrecoMedio</p>
             </div>
         </div>
     }

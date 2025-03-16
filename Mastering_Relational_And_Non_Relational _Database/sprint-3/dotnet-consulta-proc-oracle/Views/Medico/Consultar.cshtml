@@ -1,0 +1,38 @@
+@model IEnumerable<LexusTech.Models.Medico>
+
+<section class="p-5">
+
+    <h2>Lista de Médicos</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Sobrenome</th>
+                <th>Telefone</th>
+                <th>IdClinica</th>
+                <th>IdEspecialidade</th>
+                <th>Avaliacao</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var medico in Model)
+            {
+                <tr>
+                    <td>@medico.Id</td>
+                    <td>@medico.Nome</td>
+                    <td>@medico.Sobrenome</td>
+                    <td>@medico.Telefone</td>
+                    <td>@medico.IdClinica</td>
+                    <td>@medico.IdEspecialidade</td>
+                    <td>@medico.Avaliacao</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="form-group pt-3">
+        <a asp-controller="Medico" asp-action="Criar" class="btn btn-warning">Voltar</a>
+    </div>
+
+</section>

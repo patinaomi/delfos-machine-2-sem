@@ -22,8 +22,8 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2xpbmljYS9BdHVhbGl6YXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/Views/Clinica/BuscarCliente.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2xpbmljYS9CdXNjYXJDbGllbnRlLmNzaHRtbA==
+[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/Views/Clinica/BuscarClinica.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2xpbmljYS9CdXNjYXJDbGluaWNhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/Views/Clinica/Consultar.cshtml]
@@ -38,36 +38,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2xpbmljYS9FeGNsdWlyVmlldy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/Views/Clinica/Mensagem.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2xpbmljYS9NZW5zYWdlbS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/Views/Dentista/Atualizar.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVudGlzdGEvQXR1YWxpemFyLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/Views/Dentista/BuscarCliente.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVudGlzdGEvQnVzY2FyQ2xpZW50ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/Views/Dentista/Consultar.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVudGlzdGEvQ29uc3VsdGFyLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/Views/Dentista/Criar.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVudGlzdGEvQ3JpYXIuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/Views/Dentista/ExcluirView.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVudGlzdGEvRXhjbHVpclZpZXcuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/Views/Dentista/Mensagem.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVudGlzdGEvTWVuc2FnZW0uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/Views/Medico/Atualizar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTWVkaWNvL0F0dWFsaXphci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/Views/Medico/BuscarMedico.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTWVkaWNvL0J1c2Nhck1lZGljby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/Views/Medico/Consultar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTWVkaWNvL0NvbnN1bHRhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/Views/Medico/Criar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTWVkaWNvL0NyaWFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/Views/Medico/ExcluirView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTWVkaWNvL0V4Y2x1aXJWaWV3LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/Views/Shared/Error.cshtml]
@@ -96,10 +88,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/Views/Usuario/ExcluirView.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXN1YXJpby9FeGNsdWlyVmlldy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/Views/Usuario/Mensagem.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvVXN1YXJpby9NZW5zYWdlbS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/claudiobispo/Documents/GitHub/delfos-machine-2-sem/Mastering_Relational_And_Non_Relational _Database/sprint-3/dotnet-consulta-proc-oracle/Views/_ViewImports.cshtml]
